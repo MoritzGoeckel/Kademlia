@@ -1,6 +1,11 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.BitSet;
+import java.util.LinkedList;
+
 import static org.hamcrest.CoreMatchers.*;
 
 public class FirstTests {
@@ -34,5 +39,59 @@ public class FirstTests {
                 is(true));
     }
 
+    @Test
+    public void bucketTest() throws MalformedURLException {
+        Bucket b = new Bucket();
+        HashKey splittableId = HashKey.fromRandom();
+
+        RemoteNode node = new RemoteNode(HashKey.fromRandom(), 10, new URL("http://localhost"));
+        b.addNodeMaybe(node, splittableId);
+
+        //Applies only for first elements
+
+        Assert.assertThat("should be in root container now",
+                b.getResponsibleBucket(node.getNodeId()),
+                is(b));
+
+        Assert.assertThat("root prefix is an empty one",
+                b.getPrefix(),
+                is(new BitSet()));
+
+        Assert.assertThat("random address should point to bucket with node, as there is only one bucket",
+                b.getNodesFromResponsibleBucket(HashKey.fromRandom()).contains(node),
+                is(true));
+
+        Assert.assertThat("is contains should return true now",
+                b.containsNode(node),
+                is(true));
+
+        Assert.assertThat("should be in node set now",
+                b.getAllNodes().contains(node),
+                is(true));
+
+        Assert.assertThat("node address should point to bucket with node",
+                b.getNodesFromResponsibleBucket(node.getNodeId()).contains(node),
+                is(true));
+
+        //Applies for all elements
+
+        for(int i = 0; i < 100; i++){
+            node = new RemoteNode(HashKey.fromRandom(), 10, new URL("http://localhost"));
+            boolean added = b.addNodeMaybe(node, splittableId);
+
+            Assert.assertThat("is contains should return true now",
+                    b.containsNode(node),
+                    is(added));
+
+            Assert.assertThat("should be in node set now",
+                    b.getAllNodes().contains(node),
+                    is(added));
+
+            Assert.assertThat("node address should point to bucket with node",
+                    b.getNodesFromResponsibleBucket(node.getNodeId()).contains(node),
+                    is(added));
+        }
+
+    }
 
 }

@@ -4,11 +4,20 @@ public class Bucket {
     private static final int SIZE_LIMIT = 5;
     private Map<Boolean, Bucket> childs = new HashMap<>();
     private BitSet prefix;
+    private int level;
 
     private List<RemoteNode> nodes = new ArrayList<>();
 
-    public Bucket(BitSet prefix){
+    public Bucket(BitSet prefix, int level){
         this.prefix = prefix;
+        this.level = level;
+
+        assert (level >= prefix.length());
+    }
+
+    public Bucket(){
+        this.prefix = new BitSet();
+        this.level = 0;
     }
 
     public BitSet getPrefix() {
@@ -35,11 +44,12 @@ public class Bucket {
             //Is it over capacity?
             if (bucket.nodes.size() > SIZE_LIMIT) {
                 //Can it split?
-                if (splittablePrefixes.matchesPrefix(bucket.prefix) && bucket.prefix.length() < HashKey.LENGTH)
+                if (splittablePrefixes.matchesPrefix(bucket.prefix) && bucket.level < HashKey.LENGTH)
                     bucket.split(splittablePrefixes);
                 else {
                     //Remove the just added node again, as this bucket is not splittable but has too many nodes
                     bucket.nodes.remove(node);
+                    return false;
                 }
             }
 
@@ -58,17 +68,15 @@ public class Bucket {
         assert (nodes.size() > SIZE_LIMIT); //TODO: Can it also split before?
 
         BitSet zero = (BitSet) prefix.clone();
-        zero.clear(this.prefix.length()); //TODO: Off by one?
-        assert (zero.length() > prefix.length());
+        zero.clear(this.level); //TODO: Off by one?
         assert (zero.length() <= HashKey.LENGTH);
 
         BitSet one = (BitSet) prefix.clone();
-        one.set(this.prefix.length()); //TODO: Off by one?
-        assert (one.length() > prefix.length());
+        one.set(this.level); //TODO: Off by one?
         assert (one.length() <= HashKey.LENGTH);
 
-        childs.put(false, new Bucket(zero));
-        childs.put(true, new Bucket(one));
+        childs.put(false, new Bucket(zero, this.level + 1));
+        childs.put(true, new Bucket(one, this.level + 1));
 
         //Add all nodes
         nodes.forEach(e -> addNodeMaybe(e, splittablePrefixes));
@@ -83,6 +91,10 @@ public class Bucket {
         //ASSERTION END
 
         nodes.clear();
+    }
+
+    public List<RemoteNode> getNodesFromResponsibleBucket(HashKey key){
+        return getResponsibleBucket(key).getAllNodes();
     }
 
     public List<RemoteNode> getAllNodes() {

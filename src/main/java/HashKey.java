@@ -1,7 +1,6 @@
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 
-import java.nio.ByteBuffer;
 import java.util.BitSet;
 import java.util.Random;
 
@@ -19,22 +18,30 @@ public class HashKey {
         return fromString(String.valueOf(random.nextInt()));
     }
 
+    private static long bitsetToLong(BitSet bits) {
+        long value = 0L;
+        for (int i = 0; i < bits.length(); ++i) {
+            value += bits.get(i) ? (1L << i) : 0L;
+        }
+        return value;
+    }
+
     private BitSet bits;
 
     private HashKey(byte[] bytes){
         this.bits = BitSet.valueOf(bytes);
 
         assert (bytes.length == LENGTH / 8); //Should be 160 bits
-        assert (bits.length() == LENGTH);
+        assert (bits.length() <= LENGTH);
     }
 
-    public int getDistance(HashKey other){
+    public long getDistance(HashKey other){
         assert (other.bits.length() == this.bits.length());
 
         BitSet distanceBits = (BitSet) this.bits.clone();
         distanceBits.xor(other.bits);
 
-        return ByteBuffer.wrap(distanceBits.toByteArray()).getInt();
+        return bitsetToLong(distanceBits);
     }
 
     public boolean matchesPrefix(BitSet prefix){
