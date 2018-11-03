@@ -45,7 +45,7 @@ public class FirstTests {
     public void bucketTest() throws MalformedURLException, InterruptedException {
         //Creating unique random RemoteNodes
         HashSet<RemoteNode> nodes = new HashSet<>();
-        while (nodes.size() < 120)
+        while (nodes.size() < 1100)
             nodes.add(new RemoteNode(HashKey.fromRandom(), 10, new URL("http://localhost")));
         Iterator<RemoteNode> nodeSupplier = nodes.iterator();
 
@@ -83,11 +83,16 @@ public class FirstTests {
 
         //Applies for all elements
 
-        for(int i = 0; i < 100; i++){
+        RemoteNode possibleDoublicate = null;
+
+        for(int i = 0; i < 1000; i++){
             node = nodeSupplier.next();
 
             int expectedSize = b.getAllNodes().size();
             boolean added = b.addNodeMaybe(node, splittableId);
+
+            if(added)
+                possibleDoublicate = node;
 
             Assert.assertThat("is contains should return true now",
                     b.containsNode(node),
@@ -103,7 +108,7 @@ public class FirstTests {
 
             HashSet<RemoteNode> nodesInBuckets = new HashSet<>();
             b.getAllNodes().forEach(n -> {
-                Assert.assertThat("There should be no doublicates", nodesInBuckets.add(n), is(true));
+                Assert.assertThat("There should be no duplicates", nodesInBuckets.add(n), is(true));
             });
 
             if(added)
@@ -112,10 +117,46 @@ public class FirstTests {
             Assert.assertThat("Length should be consistent",
                     b.getAllNodes().size(),
                     is(expectedSize));
-
-            System.out.println(b.getAllNodes().size());
         }
 
+        //Checking for duplicates
+
+        //Readding the same node
+        node = possibleDoublicate;
+        int expectedSize = b.getAllNodes().size();
+        boolean added = b.addNodeMaybe(node, splittableId);
+
+        Assert.assertThat("Doublicate should not have been added", added, is(false));
+
+        Assert.assertThat("is contains should return true anyways (was already)",
+                b.containsNode(node),
+                is(true));
+
+        Assert.assertThat("should be in node set anyways (was already)",
+                b.getAllNodes().contains(node),
+                is(true));
+
+        Assert.assertThat("node address should point to bucket with node anyways (was already)",
+                b.getNodesFromResponsibleBucket(node.getNodeId()).contains(node),
+                is(true));
+
+        HashSet<RemoteNode> nodesInBuckets = new HashSet<>();
+        b.getAllNodes().forEach(n -> {
+            Assert.assertThat("There should be no duplicates", nodesInBuckets.add(n), is(true));
+        });
+
+        Assert.assertThat("Length should be consistent",
+                b.getAllNodes().size(),
+                is(expectedSize));
+
+        Assert.assertThat("Many of them should not be saved",b.getAllNodes().size() < 1000, is(true));
+    }
+
+    @Test
+    public void keyValuePairTests(){
+        KeyValuePair p = new KeyValuePair("A", "B");
+        Assert.assertThat("Checking key", p.getKey(), is("A"));
+        Assert.assertThat("Checking key", p.getValue(), is("B"));
     }
 
 }
