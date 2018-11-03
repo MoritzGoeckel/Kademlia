@@ -159,4 +159,19 @@ public class FirstTests {
         Assert.assertThat("Checking key", p.getValue(), is("B"));
     }
 
+    @Test
+    public void remoteNodesOrKeyValuePairTests() throws MalformedURLException {
+        RemoteNodesOrKeyValuePair a = new RemoteNodesOrKeyValuePair(new KeyValuePair("A", "B"));
+        Assert.assertThat("Checking pair", a.getPair().getValue(), is("B"));
+        Assert.assertThat("Checking nodes", a.getRemoteNodes(), nullValue());
+
+
+        RemoteNodesOrKeyValuePair b = new RemoteNodesOrKeyValuePair(new RemoteNode[]{
+                new RemoteNode(HashKey.fromRandom(), 10, new URL("http://localhost")),
+                new RemoteNode(HashKey.fromRandom(), 10, new URL("http://localhost"))
+        });
+        Assert.assertThat("Checking pair", b.getPair(), nullValue());
+        Assert.assertThat("Checking nodes", b.getRemoteNodes().length, is(2));
+    }
+
 }
