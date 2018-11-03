@@ -1,9 +1,14 @@
+import java.util.BitSet;
+
 public class Node implements INode{
     private HashKey nodeID;
+    private Bucket buckets = new Bucket(new BitSet());
 
     public Node(RemoteNode knownNode){
         this();
-        //Todo: Put knownNode into buckets
+        recordNode(knownNode);
+        //Todo: Locate some more nodes
+        //Todo: Ping nodes regularly
     }
 
     public Node(){
@@ -11,21 +16,25 @@ public class Node implements INode{
     }
 
     private void recordNode(RemoteNode other){
-        //TODO: Put into buckets?
+        buckets.addNodeMaybe(other, this.nodeID);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj == this;
     }
 
     @Override
     public boolean ping(RemoteNode sender) {
         recordNode(sender);
-
-        throw new RuntimeException("Remote calls not implemented yet");
+        return true;
     }
 
     @Override
     public void store(KeyValuePair pair, RemoteNode sender) {
         recordNode(sender);
 
-        throw new RuntimeException("Remote calls not implemented yet");
+        throw new RuntimeException("Not implemented yet");
     }
 
     @Override
@@ -33,7 +42,7 @@ public class Node implements INode{
         recordNode(sender);
         //TODO: Cache nodes
 
-        throw new RuntimeException("Remote calls not implemented yet");
+        throw new RuntimeException("Not implemented yet");
     }
 
     @Override
@@ -41,6 +50,6 @@ public class Node implements INode{
         recordNode(sender);
         //TODO: Cache values
 
-        throw new RuntimeException("Remote calls not implemented yet");
+        throw new RuntimeException("Not implemented yet");
     }
 }

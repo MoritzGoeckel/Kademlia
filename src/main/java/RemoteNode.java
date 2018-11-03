@@ -27,21 +27,25 @@ public class RemoteNode implements INode{
 
     @Override
     public boolean ping(RemoteNode sender) {
+        //TODO: Implement remote calls
         throw new RuntimeException("Remote calls not implemented yet");
     }
 
     @Override
     public void store(KeyValuePair pair, RemoteNode sender) {
+        //TODO: Implement remote calls
         throw new RuntimeException("Remote calls not implemented yet");
     }
 
     @Override
     public RemoteNode[] findNode(HashKey nodeID, int k, RemoteNode sender) {
+        //TODO: Implement remote calls
         throw new RuntimeException("Remote calls not implemented yet");
     }
 
     @Override
     public RemoteNodesOrKeyValuePair findValue(HashKey valueID, int k, RemoteNode sender) {
+        //TODO: Implement remote calls
         throw new RuntimeException("Remote calls not implemented yet");
     }
 }
