@@ -26,6 +26,12 @@ public class RemoteNode implements INode{
     }
 
     @Override
+    public boolean equals(Object obj) {
+        return obj instanceof RemoteNode
+                && getNodeId().equals(((RemoteNode)obj).getNodeId());
+    }
+
+    @Override
     public boolean ping(RemoteNode sender) {
         //TODO: Implement remote calls
         throw new RuntimeException("Remote calls not implemented yet");

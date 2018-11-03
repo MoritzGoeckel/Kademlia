@@ -4,6 +4,8 @@ import org.junit.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.BitSet;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -40,11 +42,17 @@ public class FirstTests {
     }
 
     @Test
-    public void bucketTest() throws MalformedURLException {
+    public void bucketTest() throws MalformedURLException, InterruptedException {
+        //Creating unique random RemoteNodes
+        HashSet<RemoteNode> nodes = new HashSet<>();
+        while (nodes.size() < 120)
+            nodes.add(new RemoteNode(HashKey.fromRandom(), 10, new URL("http://localhost")));
+        Iterator<RemoteNode> nodeSupplier = nodes.iterator();
+
         Bucket b = new Bucket();
         HashKey splittableId = HashKey.fromRandom();
 
-        RemoteNode node = new RemoteNode(HashKey.fromRandom(), 10, new URL("http://localhost"));
+        RemoteNode node = nodeSupplier.next();
         b.addNodeMaybe(node, splittableId);
 
         //Applies only for first elements
@@ -76,7 +84,9 @@ public class FirstTests {
         //Applies for all elements
 
         for(int i = 0; i < 100; i++){
-            node = new RemoteNode(HashKey.fromRandom(), 10, new URL("http://localhost"));
+            node = nodeSupplier.next();
+
+            int expectedSize = b.getAllNodes().size();
             boolean added = b.addNodeMaybe(node, splittableId);
 
             Assert.assertThat("is contains should return true now",
@@ -90,6 +100,20 @@ public class FirstTests {
             Assert.assertThat("node address should point to bucket with node",
                     b.getNodesFromResponsibleBucket(node.getNodeId()).contains(node),
                     is(added));
+
+            HashSet<RemoteNode> nodesInBuckets = new HashSet<>();
+            b.getAllNodes().forEach(n -> {
+                Assert.assertThat("There should be no doublicates", nodesInBuckets.add(n), is(true));
+            });
+
+            if(added)
+                expectedSize++;
+
+            Assert.assertThat("Length should be consistent",
+                    b.getAllNodes().size(),
+                    is(expectedSize));
+
+            System.out.println(b.getAllNodes().size());
         }
 
     }
