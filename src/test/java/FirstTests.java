@@ -149,7 +149,10 @@ public class FirstTests {
                 b.getAllNodes().size(),
                 is(expectedSize));
 
+        Assert.assertThat("Have some buckets", b.getBucketCount() > 10, is(true));
         Assert.assertThat("Many of them should not be saved",b.getAllNodes().size() < 1000, is(true));
+
+        //Todo: Express in an assertion that only one child of any bucket can have childs
     }
 
     @Test

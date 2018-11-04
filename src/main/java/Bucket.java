@@ -27,7 +27,7 @@ public class Bucket {
     public Bucket getResponsibleBucket(HashKey key){
         assert (key.matchesPrefix(this.prefix));
 
-        Boolean nextBit = key.getBit(level + 1); //Rev: Test. Off by one?
+        boolean nextBit = key.getBit(level + 1); //Rev: Test. Off by one?
 
         if(childs.containsKey(nextBit))
             return childs.get(nextBit).getResponsibleBucket(key);
@@ -37,6 +37,7 @@ public class Bucket {
 
     public boolean addNodeMaybe(RemoteNode node, HashKey splittablePrefixes){
         Bucket bucket = getResponsibleBucket(node.getNodeId());
+        assert(!bucket.inSplittingProcess);
 
         if (!bucket.nodes.contains(node)) {
             bucket.nodes.add(node);
@@ -55,17 +56,21 @@ public class Bucket {
 
             return true;
         }
-        else
+        else {
             return false;
+        }
     }
 
     public boolean containsNode(RemoteNode node){
         return getResponsibleBucket(node.getNodeId()).nodes.contains(node);
     }
 
+    private boolean inSplittingProcess = false; //Just for assertion purposes. Remove?
     private void split(HashKey splittablePrefixes){
         assert (childs.size() == 0);
-        assert (nodes.size() > SIZE_LIMIT); //TODO: Can it also split before?
+        assert (nodes.size() > SIZE_LIMIT); //TODO: Rev. spec! Can it also split before?
+
+        inSplittingProcess = true;
 
         BitSet zero = (BitSet) prefix.clone();
         zero.clear(this.level + 1); //Rev: Off by one?
@@ -80,10 +85,13 @@ public class Bucket {
 
         //Add all nodes
         nodes.forEach(e -> {
-            assert(addNodeMaybe(e, splittablePrefixes));
+            addNodeMaybe(e, splittablePrefixes);
+            //This can not be asserted!
+            //In rare cases all nodes fall into the split that is not splittable
+            //Then they are still over the limit and the last one cant be added
         });
 
-        //ASSERTION TODO: REMOVE
+        //ASSERTION START TODO: Remove?
         Bucket theOneThatDidTheSplit = this;
         nodes.forEach(node -> {
             Bucket responsibleBucket = getResponsibleBucket(node.getNodeId());
@@ -93,6 +101,8 @@ public class Bucket {
         //ASSERTION END
 
         nodes.clear();
+
+        inSplittingProcess = false;
     }
 
     public List<RemoteNode> getNodesFromResponsibleBucket(HashKey key){
@@ -108,5 +118,14 @@ public class Bucket {
     private void addNodesToList(LinkedList<RemoteNode> list){
         list.addAll(nodes);
         childs.forEach((key, value) -> value.addNodesToList(list));
+    }
+
+    public int getBucketCount(){
+        int sum = 1;
+
+        for(Map.Entry<Boolean, Bucket> e : childs.entrySet())
+            sum += e.getValue().getBucketCount();
+
+        return  sum;
     }
 }

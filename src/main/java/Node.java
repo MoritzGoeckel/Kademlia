@@ -1,5 +1,3 @@
-import java.util.BitSet;
-
 public class Node implements INode{
     private HashKey nodeID;
     private Bucket buckets = new Bucket();
