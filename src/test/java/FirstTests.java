@@ -3,14 +3,13 @@ import org.junit.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.BitSet;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 
 import static org.hamcrest.CoreMatchers.*;
 
 public class FirstTests {
+
+    private Random r = new Random();
 
     @Test
     public void hashKeyTest(){
@@ -41,13 +40,22 @@ public class FirstTests {
                 is(true));
     }
 
-    @Test
-    public void bucketTest() throws MalformedURLException, InterruptedException {
+    public Iterator<RemoteNode> getRandomUniqueNodes(int num){
         //Creating unique random RemoteNodes
         HashSet<RemoteNode> nodes = new HashSet<>();
-        while (nodes.size() < 1100)
-            nodes.add(new RemoteNode(HashKey.fromRandom(), 10, new URL("http://localhost")));
-        Iterator<RemoteNode> nodeSupplier = nodes.iterator();
+        while (nodes.size() < num) {
+            try {
+                nodes.add(new RemoteNode(HashKey.fromRandom(), 10, new URL("http://localhost")));
+            } catch (MalformedURLException e) {
+                throw new RuntimeException("Maleformed url: " + e.toString());
+            }
+        }
+        return nodes.iterator();
+    }
+
+    @Test
+    public void bucketTest() throws MalformedURLException, InterruptedException {
+        Iterator<RemoteNode> nodeSupplier = getRandomUniqueNodes(1200);
 
         Bucket b = new Bucket();
         HashKey splittableId = HashKey.fromRandom();
@@ -126,7 +134,7 @@ public class FirstTests {
         int expectedSize = b.getAllNodes().size();
         boolean added = b.addNodeMaybe(node, splittableId);
 
-        Assert.assertThat("Doublicate should not have been added", added, is(false));
+        Assert.assertThat("Duplicates should not have been added", added, is(false));
 
         Assert.assertThat("is contains should return true anyways (was already)",
                 b.containsNode(node),
@@ -151,8 +159,67 @@ public class FirstTests {
 
         Assert.assertThat("Have some buckets", b.getBucketCount() > 10, is(true));
         Assert.assertThat("Many of them should not be saved",b.getAllNodes().size() < 1000, is(true));
+        Assert.assertThat("Some of them should be saved",b.getAllNodes().size() > 40, is(true));
 
         //Todo: Express in an assertion that only one child of any bucket can have childs
+    }
+
+    @Test
+    public void bucketRemoveNodeTest(){
+        Iterator<RemoteNode> nodeSupplier = getRandomUniqueNodes(1200);
+
+        Bucket b = new Bucket();
+        HashKey splittableId = HashKey.fromRandom();
+
+        for(int i = 0; i < 1000; i++){
+            RemoteNode node = nodeSupplier.next();
+
+            int expectedSize = b.getAllNodes().size();
+            boolean added = b.addNodeMaybe(node, splittableId);
+
+            Assert.assertThat("is contains should return true now",
+                    b.containsNode(node),
+                    is(added));
+
+            Assert.assertThat("should be in node set now",
+                    b.getAllNodes().contains(node),
+                    is(added));
+
+            Assert.assertThat("node address should point to bucket with node",
+                    b.getNodesFromResponsibleBucket(node.getNodeId()).contains(node),
+                    is(added));
+
+            HashSet<RemoteNode> nodesInBuckets = new HashSet<>();
+            b.getAllNodes().forEach(n -> {
+                Assert.assertThat("There should be no duplicates", nodesInBuckets.add(n), is(true));
+            });
+
+            if(added)
+                expectedSize++;
+
+            Assert.assertThat("Length should be consistent",
+                    b.getAllNodes().size(),
+                    is(expectedSize));
+
+            if(i % 8 == 0){
+                List<RemoteNode> allNodes = b.getAllNodes();
+                RemoteNode nodeToRemove = allNodes.get(r.nextInt(allNodes.size()));
+                b.removeNode(nodeToRemove);
+                expectedSize--;
+
+                Assert.assertThat("Length should be consistent",
+                        b.getAllNodes().size(),
+                        is(expectedSize));
+
+                Assert.assertThat("is contains should return false now",
+                        b.containsNode(nodeToRemove),
+                        is(false));
+
+                Assert.assertThat("node address should point to bucket without the node",
+                        b.getNodesFromResponsibleBucket(nodeToRemove.getNodeId()).contains(nodeToRemove),
+                        is(false));
+            }
+        }
     }
 
     @Test

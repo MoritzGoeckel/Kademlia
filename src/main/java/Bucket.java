@@ -46,9 +46,10 @@ public class Bucket {
             if (bucket.nodes.size() > SIZE_LIMIT) {
                 //Can it split?
                 if (splittablePrefixes.matchesPrefix(bucket.prefix) && bucket.level < HashKey.LENGTH)
-                    bucket.split(splittablePrefixes);
+                    return bucket.split(splittablePrefixes);
                 else {
-                    //Remove the just added node again, as this bucket is not splittable but has too many nodes
+                    //Remove the just added node again, as this bucket
+                    //is not splittable and has too many nodes
                     bucket.nodes.remove(node);
                     return false;
                 }
@@ -66,7 +67,7 @@ public class Bucket {
     }
 
     private boolean inSplittingProcess = false; //Just for assertion purposes. Remove?
-    private void split(HashKey splittablePrefixes){
+    private boolean split(HashKey splittablePrefixes){
         assert (childs.size() == 0);
         assert (nodes.size() > SIZE_LIMIT); //TODO: Rev. spec! Can it also split before?
 
@@ -84,18 +85,20 @@ public class Bucket {
         childs.put(true, new Bucket(one, this.level + 1));
 
         //Add all nodes
-        nodes.forEach(e -> {
-            addNodeMaybe(e, splittablePrefixes);
+        boolean addedAll = true;
+        for(RemoteNode n : nodes){
+            addedAll = addNodeMaybe(n, splittablePrefixes) && addedAll;
             //This can not be asserted!
             //In rare cases all nodes fall into the split that is not splittable
             //Then they are still over the limit and the last one cant be added
-        });
+        }
 
         //ASSERTION START TODO: Remove?
+        final boolean addedAllf = addedAll; //Needs to be effectively final
         Bucket theOneThatDidTheSplit = this;
         nodes.forEach(node -> {
             Bucket responsibleBucket = getResponsibleBucket(node.getNodeId());
-            assert(responsibleBucket.nodes.contains(node));
+            assert(responsibleBucket.nodes.contains(node) || !addedAllf);
             assert(responsibleBucket != theOneThatDidTheSplit);
         });
         //ASSERTION END
@@ -103,6 +106,7 @@ public class Bucket {
         nodes.clear();
 
         inSplittingProcess = false;
+        return addedAll; //Returns whether or not all nodes have been kept
     }
 
     public List<RemoteNode> getNodesFromResponsibleBucket(HashKey key){
@@ -118,6 +122,10 @@ public class Bucket {
     private void addNodesToList(LinkedList<RemoteNode> list){
         list.addAll(nodes);
         childs.forEach((key, value) -> value.addNodesToList(list));
+    }
+
+    public void removeNode(RemoteNode node){
+        getResponsibleBucket(node.getNodeId()).nodes.remove(node);
     }
 
     public int getBucketCount(){
