@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="473b4b70-521e-4977-b557-ffe38822da4d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/Bucket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bucket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/FirstTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FirstTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Node.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -50,7 +50,7 @@
         <counts>
           <entry key="dummy" value="12" />
           <entry key="iml" value="4" />
-          <entry key="java" value="9690" />
+          <entry key="java" value="10164" />
           <entry key="txt" value="109" />
           <entry key="xml" value="8" />
         </counts>
@@ -58,7 +58,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="IDEA_MODULE" value="4" />
-          <entry key="JAVA" value="9690" />
+          <entry key="JAVA" value="10164" />
           <entry key="PLAIN_TEXT" value="121" />
           <entry key="XML" value="8" />
         </counts>
@@ -83,7 +83,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/FirstTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
+            <state relative-caret-position="-1362">
               <caret line="104" selection-start-line="104" selection-end-line="104" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -92,23 +92,28 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Node.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="26" column="27" lean-forward="true" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
+            <state relative-caret-position="105">
+              <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1205#1206#0" expanded="true" />
+                <element signature="e#1261#1262#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Bucket.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="463">
-              <caret line="57" column="24" lean-forward="true" selection-start-line="57" selection-start-column="24" selection-end-line="57" selection-end-column="24" />
+            <state relative-caret-position="195">
+              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
               <folding>
-                <element signature="e#1894#1895#0" expanded="true" />
-                <element signature="e#1976#1977#0" expanded="true" />
+                <element signature="e#571#572#0" expanded="true" />
+                <element signature="e#600#601#0" expanded="true" />
                 <element signature="e#4171#4172#0" expanded="true" />
                 <element signature="e#4244#4245#0" expanded="true" />
               </folding>
@@ -130,7 +135,11 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/RemoteNode.java">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -201,9 +210,9 @@
         <option value="$PROJECT_DIR$/src/main/java/HashKey.java" />
         <option value="$PROJECT_DIR$/src/main/java/RemoteNodesOrKeyValuePair.java" />
         <option value="$PROJECT_DIR$/src/main/java/RemoteNode.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Node.java" />
         <option value="$PROJECT_DIR$/src/test/java/FirstTests.java" />
         <option value="$PROJECT_DIR$/src/main/java/Bucket.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Node.java" />
       </list>
     </option>
   </component>
@@ -367,7 +376,7 @@
       <updated>1541175299020</updated>
       <workItem from="1541175305964" duration="8243000" />
       <workItem from="1541222954244" duration="18310000" />
-      <workItem from="1541321901991" duration="4209000" />
+      <workItem from="1541321901991" duration="5183000" />
     </task>
     <task id="LOCAL-00001" summary="Added hashing, tests for hashing, basic interface and classes">
       <created>1541193559039</created>
@@ -380,39 +389,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="All_in_Kademlia - 2018.11.04 at 10h 45m 13s.xml">
-      <configuration name="All in Kademlia" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 05m 13s.xml">
-      <configuration name="All in Kademlia" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 05m 31s.xml">
-      <configuration name="All in Kademlia" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 09m 35s.xml">
-      <configuration name="All in Kademlia" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 09m 39s.xml">
-      <configuration name="All in Kademlia" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 16m 42s.xml">
-      <configuration name="All in Kademlia" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 16m 46s.xml">
-      <configuration name="All in Kademlia" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 16m 50s.xml">
-      <configuration name="All in Kademlia" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 16m 55s.xml">
       <configuration name="All in Kademlia" configurationId="JUnit" />
     </history-entry>
     <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 17m 10s.xml">
       <configuration name="All in Kademlia" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 18m 19s.xml">
+      <configuration name="All in Kademlia" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 18m 22s.xml">
+      <configuration name="All in Kademlia" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 18m 25s.xml">
+      <configuration name="All in Kademlia" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 18m 28s.xml">
+      <configuration name="All in Kademlia" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 18m 30s.xml">
+      <configuration name="All in Kademlia" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 18m 33s.xml">
+      <configuration name="All in Kademlia" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 18m 36s.xml">
+      <configuration name="All in Kademlia" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Kademlia - 2018.11.04 at 11h 22m 00s.xml">
+      <configuration name="All in Kademlia" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30762000" />
+    <option name="totallyTimeSpent" value="31736000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -511,9 +520,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RemoteNode.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/INode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -545,16 +551,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Node.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="26" column="27" lean-forward="true" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/FirstTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
+        <state relative-caret-position="-1362">
           <caret line="104" selection-start-line="104" selection-end-line="104" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -564,13 +563,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Bucket.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="57" column="24" lean-forward="true" selection-start-line="57" selection-start-column="24" selection-end-line="57" selection-end-column="24" />
+        <state relative-caret-position="195">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
           <folding>
-            <element signature="e#1894#1895#0" expanded="true" />
-            <element signature="e#1976#1977#0" expanded="true" />
+            <element signature="e#571#572#0" expanded="true" />
+            <element signature="e#600#601#0" expanded="true" />
             <element signature="e#4171#4172#0" expanded="true" />
             <element signature="e#4244#4245#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RemoteNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Node.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1205#1206#0" expanded="true" />
+            <element signature="e#1261#1262#0" expanded="true" />
           </folding>
         </state>
       </provider>

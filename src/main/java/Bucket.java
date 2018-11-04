@@ -20,11 +20,11 @@ public class Bucket {
         this.level = -1;
     }
 
-    public BitSet getPrefix() {
+    public synchronized BitSet getPrefix() {
         return prefix;
     }
 
-    public Bucket getResponsibleBucket(HashKey key){
+    public synchronized Bucket getResponsibleBucket(HashKey key){
         assert (key.matchesPrefix(this.prefix));
 
         boolean nextBit = key.getBit(level + 1); //Rev: Test. Off by one?
@@ -35,7 +35,7 @@ public class Bucket {
             return this;
     }
 
-    public boolean addNodeMaybe(RemoteNode node, HashKey splittablePrefixes){
+    public synchronized boolean addNodeMaybe(RemoteNode node, HashKey splittablePrefixes){
         Bucket bucket = getResponsibleBucket(node.getNodeId());
         assert(!bucket.inSplittingProcess);
 
@@ -62,12 +62,12 @@ public class Bucket {
         }
     }
 
-    public boolean containsNode(RemoteNode node){
+    public synchronized boolean containsNode(RemoteNode node){
         return getResponsibleBucket(node.getNodeId()).nodes.contains(node);
     }
 
     private boolean inSplittingProcess = false; //Just for assertion purposes. Remove?
-    private boolean split(HashKey splittablePrefixes){
+    private synchronized boolean split(HashKey splittablePrefixes){
         assert (childs.size() == 0);
         assert (nodes.size() > SIZE_LIMIT); //TODO: Rev. spec! Can it also split before?
 
@@ -109,26 +109,26 @@ public class Bucket {
         return addedAll; //Returns whether or not all nodes have been kept
     }
 
-    public List<RemoteNode> getNodesFromResponsibleBucket(HashKey key){
+    public synchronized List<RemoteNode> getNodesFromResponsibleBucket(HashKey key){
         return getResponsibleBucket(key).getAllNodes();
     }
 
-    public List<RemoteNode> getAllNodes() {
+    public synchronized List<RemoteNode> getAllNodes() {
         LinkedList<RemoteNode> out = new LinkedList<>();
         addNodesToList(out);
         return out;
     }
 
-    private void addNodesToList(LinkedList<RemoteNode> list){
+    private synchronized void addNodesToList(LinkedList<RemoteNode> list){
         list.addAll(nodes);
         childs.forEach((key, value) -> value.addNodesToList(list));
     }
 
-    public void removeNode(RemoteNode node){
+    public synchronized void removeNode(RemoteNode node){
         getResponsibleBucket(node.getNodeId()).nodes.remove(node);
     }
 
-    public int getBucketCount(){
+    public synchronized int getBucketCount(){
         int sum = 1;
 
         for(Map.Entry<Boolean, Bucket> e : childs.entrySet())

@@ -1,25 +1,49 @@
+import java.net.URL;
+import java.util.List;
+
 public class Node implements INode{
     private HashKey nodeID;
     private Bucket buckets = new Bucket();
+    private Thread pingThread;
 
-    public Node(RemoteNode knownNode){
-        this();
+    private RemoteNode me;
+
+    public Node(RemoteNode knownNode, int port, URL address){
+        this(port, address);
+
         recordNode(knownNode);
         //Todo: Locate some more nodes
-        //Todo: Ping nodes regularly
     }
 
-    public Node(){
-        nodeID = HashKey.fromRandom();
+    public Node(int port, URL address){
+        this.me = new RemoteNode(this.nodeID, port, address);
+        this.nodeID = HashKey.fromRandom();
+
+        startPingThread();
+    }
+
+    private void startPingThread(){
+        pingThread = new Thread(() -> {
+            while (true) {
+                List<RemoteNode> nodes = buckets.getAllNodes();
+                nodes.forEach(n -> {
+                    if (!n.ping(me))
+                        buckets.removeNode(n);
+
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        });
+        pingThread.setDaemon(true);
+        pingThread.start();
     }
 
     private void recordNode(RemoteNode other){
         buckets.addNodeMaybe(other, this.nodeID);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return obj == this;
     }
 
     @Override
