@@ -1,13 +1,13 @@
 public class KeyValuePair {
-    private final String key;
+    private final HashKey key;
     private final String value;
 
-    public KeyValuePair(String key, String value){
+    public KeyValuePair(HashKey key, String value){
         this.key = key;
         this.value = value;
     }
 
-    public String getKey() {
+    public HashKey getKey() {
         return key;
     }
 

@@ -6,8 +6,8 @@ public interface INode {
     void store(KeyValuePair pair, RemoteNode sender);
 
     /** Returns the k closest known nodes to the nodeId */
-    RemoteNode[] findNode(HashKey nodeID, int k, RemoteNode sender);
+    RemoteNode[] findNodes(HashKey targetID, int k, RemoteNode sender);
 
     /** If node has the value it returns it. If not it returns the k closest known nodes to the id */
-    RemoteNodesOrKeyValuePair findValue(HashKey valueID, int k, RemoteNode sender);
+    RemoteNodesOrKeyValuePair findValue(HashKey targetValueID, int k, RemoteNode sender);
 }

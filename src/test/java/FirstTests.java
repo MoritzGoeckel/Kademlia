@@ -224,14 +224,14 @@ public class FirstTests {
 
     @Test
     public void keyValuePairTests(){
-        KeyValuePair p = new KeyValuePair("A", "B");
-        Assert.assertThat("Checking key", p.getKey(), is("A"));
-        Assert.assertThat("Checking key", p.getValue(), is("B"));
+        KeyValuePair p = new KeyValuePair(HashKey.fromString("A"), "B");
+        Assert.assertThat("Checking key", p.getKey(), is(HashKey.fromString("A")));
+        Assert.assertThat("Checking value", p.getValue(), is("B"));
     }
 
     @Test
     public void remoteNodesOrKeyValuePairTests() throws MalformedURLException {
-        RemoteNodesOrKeyValuePair a = new RemoteNodesOrKeyValuePair(new KeyValuePair("A", "B"));
+        RemoteNodesOrKeyValuePair a = new RemoteNodesOrKeyValuePair(new KeyValuePair(HashKey.fromString("A"), "B"));
         Assert.assertThat("Checking pair", a.getPair().getValue(), is("B"));
         Assert.assertThat("Checking nodes", a.getRemoteNodes(), nullValue());
 

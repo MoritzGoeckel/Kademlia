@@ -42,13 +42,13 @@ public class RemoteNode implements INode{
     }
 
     @Override
-    public RemoteNode[] findNode(HashKey nodeID, int k, RemoteNode sender) {
+    public RemoteNode[] findNodes(HashKey targetID, int k, RemoteNode sender) {
         //TODO: Implement remote calls
         throw new RuntimeException("Remote calls not implemented yet");
     }
 
     @Override
-    public RemoteNodesOrKeyValuePair findValue(HashKey valueID, int k, RemoteNode sender) {
+    public RemoteNodesOrKeyValuePair findValue(HashKey targetValueID, int k, RemoteNode sender) {
         //TODO: Implement remote calls
         throw new RuntimeException("Remote calls not implemented yet");
     }
