@@ -65,7 +65,7 @@
         <counts>
           <entry key="dummy" value="26" />
           <entry key="iml" value="4" />
-          <entry key="java" value="16986" />
+          <entry key="java" value="16988" />
           <entry key="txt" value="109" />
           <entry key="xml" value="8" />
         </counts>
@@ -73,7 +73,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="IDEA_MODULE" value="4" />
-          <entry key="JAVA" value="16986" />
+          <entry key="JAVA" value="16988" />
           <entry key="PLAIN_TEXT" value="135" />
           <entry key="XML" value="8" />
         </counts>
@@ -114,8 +114,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Node.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="216" column="28" selection-start-line="216" selection-start-column="28" selection-end-line="216" selection-end-column="28" />
+            <state relative-caret-position="254">
+              <caret line="154" lean-forward="true" selection-start-line="154" selection-end-line="154" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1478#1479#0" expanded="true" />
@@ -440,7 +440,7 @@
       <workItem from="1541222954244" duration="18310000" />
       <workItem from="1541321901991" duration="11586000" />
       <workItem from="1541351010692" duration="2354000" />
-      <workItem from="1541575298760" duration="21707000" />
+      <workItem from="1541575298760" duration="21753000" />
     </task>
     <task id="LOCAL-00001" summary="Added hashing, tests for hashing, basic interface and classes">
       <created>1541193559039</created>
@@ -453,12 +453,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="FirstTests_oneNodeTest - 2018.11.07 at 16h 40m 39s.xml">
-      <configuration name="FirstTests.oneNodeTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="FirstTests_oneNodeTest - 2018.11.07 at 16h 41m 52s.xml">
-      <configuration name="FirstTests.oneNodeTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="FirstTests - 2018.11.07 at 16h 41m 59s.xml">
       <configuration name="FirstTests" configurationId="JUnit" />
     </history-entry>
@@ -483,9 +477,15 @@
     <history-entry file="FirstTests - 2018.11.07 at 16h 46m 18s.xml">
       <configuration name="FirstTests" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="FirstTests - 2018.11.07 at 16h 47m 41s.xml">
+      <configuration name="FirstTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="FirstTests - 2018.11.07 at 16h 47m 59s.xml">
+      <configuration name="FirstTests" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62200000" />
+    <option name="totallyTimeSpent" value="62246000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -546,12 +546,6 @@
           <line>92</line>
           <properties />
           <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Node.java</url>
-          <line>201</line>
-          <properties />
-          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -807,8 +801,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Node.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="216" column="28" selection-start-line="216" selection-start-column="28" selection-end-line="216" selection-end-column="28" />
+        <state relative-caret-position="254">
+          <caret line="154" lean-forward="true" selection-start-line="154" selection-end-line="154" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1478#1479#0" expanded="true" />

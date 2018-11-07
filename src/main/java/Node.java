@@ -153,8 +153,6 @@ public class Node implements INode, IUserNode {
         int MAX_ITERATIONS = Integer.MAX_VALUE;
         for (int iteration = 0; iteration < MAX_ITERATIONS && !queuedNodes.isEmpty(); iteration++){
 
-            System.out.println(iteration + " Q: " + queuedNodes.size());
-
             if(queuedNodes.size() > 1) //Assertion
                 assert (queuedNodes.first().getNodeId().getDistance(target).compareTo(queuedNodes.last().getNodeId().getDistance(target)) < 0);
 
