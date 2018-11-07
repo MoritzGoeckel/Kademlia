@@ -1,9 +1,9 @@
 import java.net.URL;
 
-public class RemoteNodeLocal extends RemoteNode implements INode {
+public class LocalNode extends RemoteNode implements INode {
     private final Node node;
 
-    public RemoteNodeLocal(Node node, int port, URL address) {
+    public LocalNode(Node node, int port, URL address) {
         super(node.getID(), port, address);
         this.node = node;
     }

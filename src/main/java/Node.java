@@ -5,9 +5,9 @@ import java.util.stream.Collectors;
 
 public class Node implements INode, IUserNode {
     private HashKey nodeID;
-    private Bucket buckets = new Bucket();
+    private Bucket buckets;
 
-    protected RemoteNodeLocal me;
+    private LocalNode me;
 
     private HashMap<HashKey, String> values;
     //Todo: Values need to expire
@@ -18,17 +18,27 @@ public class Node implements INode, IUserNode {
 
     private Thread pingThread;
 
-    public Node(RemoteNode knownNode, int port, URL address){
-        this(port, address);
+    private static NodeStatistics statistics = new NodeStatistics();
+    public static NodeStatistics getStatistics(){
+        return statistics;
+    }
+
+    public static void resetStatistics(){
+        statistics = new NodeStatistics();
+    }
+
+    public Node(RemoteNode knownNode, int port, URL address, int storageLimit){
+        this(port, address, storageLimit);
 
         recordNode(knownNode);
         performNodeLookup(this.nodeID, 50);
     }
 
-    public Node(int port, URL address){
+    public Node(int port, URL address, int storageLimit){
         this.nodeID = HashKey.fromRandom();
-        this.me = new RemoteNodeLocal(this, port, address);
+        this.me = new LocalNode(this, port, address);
         this.values = new HashMap<>();
+        this.buckets = new Bucket();
 
         //startPingThread(); //Todo: Remove?
     }
@@ -72,19 +82,27 @@ public class Node implements INode, IUserNode {
 
 
     private void recordNode(RemoteNode other){
-        if(other != me && other != null)
+        if(other != me)
             buckets.addNodeMaybe(other, this.nodeID);
     }
 
     @Override
     public boolean ping(RemoteNode sender) {
-        recordNode(sender);
+        if(sender != me)
+            statistics.recordEvent("ping");
+
+        if(!shutdown)
+            recordNode(sender);
+
         return !shutdown;
     }
 
     @Override
     public void store(KeyValuePair pair, RemoteNode sender) {
         checkShutdown();
+
+        if(sender != me)
+            statistics.recordEvent("store");
 
         recordNode(sender);
 
@@ -96,6 +114,9 @@ public class Node implements INode, IUserNode {
     @Override
     public RemoteNode[] findNodes(HashKey targetID, int k, RemoteNode sender) {
         checkShutdown();
+
+        if(sender != me)
+            statistics.recordEvent("findNodes");
 
         recordNode(sender);
         //TODO: Cache values / Nodes
@@ -119,13 +140,16 @@ public class Node implements INode, IUserNode {
     public RemoteNodesOrKeyValuePair findValue(HashKey targetValueID, int k, RemoteNode sender) {
         checkShutdown();
 
+        if(sender != me)
+            statistics.recordEvent("findValue");
+
         recordNode(sender);
         //TODO: Cache values / Nodes
 
         if(values.containsKey(targetValueID))
             return new RemoteNodesOrKeyValuePair(new KeyValuePair(targetValueID, values.get(targetValueID)));
         else
-            return new RemoteNodesOrKeyValuePair(findNodes(targetValueID, k, sender));
+            return new RemoteNodesOrKeyValuePair(findNodes(targetValueID, k, me));
     }
 
     @Override
@@ -182,7 +206,7 @@ public class Node implements INode, IUserNode {
         TreeSet<RemoteNode> queuedNodes = new TreeSet<>(getDistanceComparator(target));
         TreeSet<RemoteNode> closestNodes = new TreeSet<>(getDistanceComparator(target));
 
-        queuedNodes.addAll(Arrays.asList(this.findNodes(target, 999999, null)));
+        queuedNodes.addAll(Arrays.asList(this.findNodes(target, 999999, me)));
         closestNodes.addAll(queuedNodes);
 
         boolean gettingCloser = true;

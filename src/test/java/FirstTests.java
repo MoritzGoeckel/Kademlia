@@ -258,7 +258,7 @@ public class FirstTests {
     @Test
     public void oneNodeTest(){
         final int K = 1;
-        IUserNode firstNode = new Node(PORT, ADDRESS);
+        IUserNode firstNode = new Node(PORT, ADDRESS, 5);
 
         firstNode.setValue("Hello", "world", K);
 
@@ -270,8 +270,8 @@ public class FirstTests {
     @Test
     public void twoNodesTest(){
         for(int i = 0; i < 300; i++) {
-            Node firstNode = new Node(PORT, ADDRESS);
-            Node secondNode = new Node(new RemoteNodeLocal(firstNode, PORT, ADDRESS), PORT, ADDRESS);
+            Node firstNode = new Node(PORT, ADDRESS, 5);
+            Node secondNode = new Node(new LocalNode(firstNode, PORT, ADDRESS), PORT, ADDRESS, 5);
 
             firstNode.performPing();
             secondNode.performPing();
@@ -289,16 +289,14 @@ public class FirstTests {
     }
 
     @Test
-    public void manyNodesTest(){ //TODO: Fails from time to time
+    public void manyNodesTest(){
         LinkedList<Node> nodes = new LinkedList<>();
 
-        Node firstNode = new Node(PORT, ADDRESS);
+        Node firstNode = new Node(PORT, ADDRESS, 10);
         nodes.add(firstNode);
 
-        //nodes.get(R.nextInt(nodes.size())) //Todo: Should use this one for choosing start node
-
         for(int i = 0; i < 100; i++)
-            nodes.add(new Node(new RemoteNodeLocal(firstNode, PORT, ADDRESS), PORT, ADDRESS));
+            nodes.add(new Node(new LocalNode(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS), PORT, ADDRESS, 10));
 
         Supplier<Node> randomNode = () -> nodes.get(R.nextInt(nodes.size() - 1));
         nodes.forEach(Node::performPing);
@@ -309,11 +307,40 @@ public class FirstTests {
 
             from.setValue("Hello" + i, "world", 1);
             Assert.assertThat("Should be able to retrieve the set value ("+i+")",
-                    to.getValue("Hello" + i, 20),
+                    to.getValue("Hello" + i, 30),
                     is("world"));
         }
     }
 
-    //Todo: Create statistics
+    @Test
+    public void getNSetStatistics(){
+        LinkedList<Node> nodes = new LinkedList<>();
+
+        Node firstNode = new Node(PORT, ADDRESS, 50);
+        nodes.add(firstNode);
+
+        for(int i = 0; i < 10_000; i++)
+            nodes.add(new Node(new LocalNode(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS), PORT, ADDRESS, 100));
+
+        Supplier<Node> randomNode = () -> nodes.get(R.nextInt(nodes.size() - 1));
+        nodes.forEach(Node::performPing);
+
+        Node.resetStatistics();
+
+        for(int i = 0; i < 10_000; i++)
+            randomNode.get().setValue("Hello" + i, "world", 1);
+
+        System.out.println("Storing procedure (10_000): " + Node.getStatistics());
+        Node.resetStatistics();
+
+        int fails = 0;
+        for(int i = 0; i < 10_000; i++)
+            if(randomNode.get().getValue("Hello" + i, 50) == null)
+                fails++;
+
+        System.out.println("Lookup procedure (10_000): " + Node.getStatistics());
+        System.out.println("Failed lookups: " + fails);
+    }
+
     //Todo: Create churn tests
 }
