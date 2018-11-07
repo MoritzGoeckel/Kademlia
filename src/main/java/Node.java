@@ -2,11 +2,11 @@ import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Node implements INode, IUserNode{
+public class Node implements INode, IUserNode {
     private HashKey nodeID;
     private Bucket buckets = new Bucket();
 
-    private RemoteNode me;
+    protected RemoteNode me;
 
     private HashMap<HashKey, String> values;
     //Todo: Values need to expire
@@ -48,6 +48,11 @@ public class Node implements INode, IUserNode{
         });
         pingThread.setDaemon(true);
         pingThread.start();
+    }
+
+    @Override
+    public HashKey getID(){
+        return nodeID;
     }
 
     private static Comparator<RemoteNode> getDistanceComparator(HashKey target){
@@ -186,11 +191,5 @@ public class Node implements INode, IUserNode{
 
     public boolean isShutdown() {
         return shutdown;
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        shutdown = true;
-        super.finalize();
     }
 }

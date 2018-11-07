@@ -1,6 +1,6 @@
 import java.net.URL;
 
-public class RemoteNode implements INode{
+public class RemoteNode implements INode {
     private final HashKey nodeId;
     private final int port;
     private final URL ipAddress;
