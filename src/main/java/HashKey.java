@@ -1,6 +1,7 @@
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 
+import java.math.BigInteger;
 import java.util.BitSet;
 import java.util.Random;
 
@@ -18,12 +19,11 @@ public class HashKey {
         return fromString(String.valueOf(random.nextInt()));
     }
 
-    private static long bitsetToLong(BitSet bits) {
-        long value = 0L;
-        for (int i = 0; i < bits.length(); ++i) {
-            value += bits.get(i) ? (1L << i) : 0L;
-        }
-        return value;
+    private static BigInteger bitsetToNum(BitSet bits) {
+        if(bits.length() == 0)
+            return new BigInteger("0");
+
+        return new BigInteger(bits.toByteArray());
     }
 
     private BitSet bits;
@@ -35,14 +35,14 @@ public class HashKey {
         assert (bits.length() <= LENGTH);
     }
 
-    public long getDistance(HashKey other){
+    public BigInteger getDistance(HashKey other){
         //assert (other.bits.length() == this.bits.length()); //This does not hold with Bitset.
         // Todo: Maybe change underlaying data structure
 
         BitSet distanceBits = (BitSet) this.bits.clone();
         distanceBits.xor(other.bits);
 
-        return bitsetToLong(distanceBits);
+        return bitsetToNum(distanceBits);
     }
 
     public boolean matchesPrefix(BitSet prefix){
@@ -63,7 +63,7 @@ public class HashKey {
 
     @Override
     public String toString() {
-        return bitsetToLong(this.bits) + "B";
+        return bitsetToNum(this.bits) + "B";
     }
 
     @Override

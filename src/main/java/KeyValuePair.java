@@ -14,4 +14,14 @@ public class KeyValuePair {
     public String getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return key + " -> " + value;
+    }
+
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
 }

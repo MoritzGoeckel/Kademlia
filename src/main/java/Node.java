@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,7 +27,7 @@ public class Node implements INode, IUserNode {
 
     public Node(int port, URL address){
         this.nodeID = HashKey.fromRandom();
-        this.me = new RemoteNodeLocal(port, address, this);
+        this.me = new RemoteNodeLocal(this, port, address);
         this.values = new HashMap<>();
 
         //startPingThread(); //Todo: Remove?
@@ -39,6 +40,12 @@ public class Node implements INode, IUserNode {
         pingThread = new Thread(() -> {
             while (!shutdown) {
                 this.performPing();
+
+                try {
+                    Thread.sleep(TIME_BETWEEN_PINGS);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
         pingThread.setDaemon(true);
@@ -52,12 +59,6 @@ public class Node implements INode, IUserNode {
         nodes.forEach(n -> {
             if (!n.ping(me))
                 buckets.removeNode(n);
-
-            try {
-                Thread.sleep(TIME_BETWEEN_PINGS / nodes.size());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         });
     }
 
@@ -67,7 +68,7 @@ public class Node implements INode, IUserNode {
 
     private static Comparator<RemoteNode> getDistanceComparator(HashKey target){
         //Todo: Check correctness (smallest distance is head)
-        return (a,b) -> (int)(a.getNodeId().getDistance(target) - b.getNodeId().getDistance(target));
+        return (a,b) -> (int)(a.getNodeId().getDistance(target).compareTo(b.getNodeId().getDistance(target)));
     }
 
 
@@ -184,7 +185,7 @@ public class Node implements INode, IUserNode {
 
         boolean gettingCloser = true;
         while (gettingCloser && !queuedNodes.isEmpty()){
-            long distanceBeforeIteration = closestNodes.first().getNodeId().getDistance(target);
+            BigInteger distanceBeforeIteration = closestNodes.first().getNodeId().getDistance(target);
 
             RemoteNode currentNode = queuedNodes.pollFirst();
             visitedNodes.add(currentNode);
@@ -196,8 +197,11 @@ public class Node implements INode, IUserNode {
                 recordNode(n);
             }
 
-            gettingCloser = closestNodes.first().getNodeId().getDistance(target) < distanceBeforeIteration;
+            gettingCloser = closestNodes.first().getNodeId().getDistance(target).compareTo(distanceBeforeIteration) < 0;
         }
+
+        if(closestNodes.size() > 1)
+            assert (closestNodes.first().getNodeId().getDistance(target).compareTo(closestNodes.last().getNodeId().getDistance(target)) < 0);
 
         return closestNodes.stream()
                 .limit(k) //Return only the k closest elements

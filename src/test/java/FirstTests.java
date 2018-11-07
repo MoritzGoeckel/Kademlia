@@ -1,9 +1,11 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
+import java.util.function.Supplier;
 
 import static org.hamcrest.CoreMatchers.*;
 
@@ -39,15 +41,15 @@ public class FirstTests {
         HashKey c = HashKey.fromString("abcd");
 
         Assert.assertThat("distance is the same both ways",
-                a.getDistance(b) == b.getDistance(a),
+                a.getDistance(b).equals(b.getDistance(a)),
                 is(true));
 
         Assert.assertThat("distance is bigger than 0",
-                a.getDistance(b) > 0,
+                a.getDistance(b).compareTo(new BigInteger("0")) > 0,
                 is(true));
 
         Assert.assertThat("triangle inequality",
-                a.getDistance(b) + b.getDistance(c) >= a.getDistance(c),
+                a.getDistance(b).add(b.getDistance(c)).compareTo(a.getDistance(c)) >= 0,
                 is(true));
 
         Assert.assertThat("HashKey equals should work", HashKey.fromString("Hello").equals(HashKey.fromString("Hello")), is(true));
@@ -266,12 +268,44 @@ public class FirstTests {
     }
 
     @Test
+    public void twoNodesTest(){
+        for(int i = 0; i < 300; i++) {
+            Node firstNode = new Node(PORT, ADDRESS);
+            Node secondNode = new Node(new RemoteNodeLocal(firstNode, PORT, ADDRESS), PORT, ADDRESS);
+
+            firstNode.performPing();
+            secondNode.performPing();
+
+            secondNode.setValue("Hello", "world", 1);
+
+            Assert.assertThat("Should be able to retrieve the set value",
+                    firstNode.getValue("Hello", 1, 5),
+                    is("world"));
+
+            Assert.assertThat("Should be able to retrieve the set value",
+                    secondNode.getValue("Hello", 1, 5),
+                    is("world"));
+        }
+    }
+
+    @Test
     public void manyNodesTest(){
         LinkedList<Node> nodes = new LinkedList<>();
 
         Node firstNode = new Node(PORT, ADDRESS);
         nodes.add(firstNode);
 
-        //n1.
+        for(int i = 0; i < 100; i++)
+            nodes.add(new Node(new RemoteNodeLocal(firstNode, PORT, ADDRESS), PORT, ADDRESS));
+
+        nodes.forEach(Node::performPing);
+
+        Supplier<Node> randomNode = () -> nodes.get(R.nextInt(nodes.size() - 1));
+
+        randomNode.get().setValue("Hello", "world", 1);
+
+        Assert.assertThat("Should be able to retrieve the set value",
+                randomNode.get().getValue("Hello", 1, 5),
+                is("world"));
     }
 }

@@ -3,12 +3,12 @@ import java.net.URL;
 public class RemoteNode implements INode {
     private final HashKey nodeId;
     private final int port;
-    private final URL ipAddress;
+    private final URL address;
 
-    public RemoteNode(HashKey nodeId, int port, URL ipAddress){
+    public RemoteNode(HashKey nodeId, int port, URL address){
         this.nodeId = nodeId;
         this.port = port;
-        this.ipAddress = ipAddress;
+        this.address = address;
     }
 
     public HashKey getNodeId() {
@@ -19,8 +19,8 @@ public class RemoteNode implements INode {
         return port;
     }
 
-    public URL getIpAddress() {
-        return ipAddress;
+    public URL getAddress() {
+        return address;
     }
 
     @Override

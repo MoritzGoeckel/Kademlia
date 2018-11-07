@@ -2,15 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="473b4b70-521e-4977-b557-ffe38822da4d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HashKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HashKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/IUserNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/IUserNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/KeyValuePair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/KeyValuePair.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/NodeLocal.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RemoteNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RemoteNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RemoteNodeLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RemoteNodeLocal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/FirstTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FirstTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/HashKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HashKey.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/NodeLocal.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/FirstTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FirstTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Node.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -57,23 +55,23 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="9" />
+          <entry key="class" value="17" />
           <entry key="iml" value="1" />
-          <entry key="java" value="20" />
+          <entry key="java" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="9" />
+          <entry key="CLASS" value="17" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="20" />
+          <entry key="JAVA" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="26" />
           <entry key="iml" value="4" />
-          <entry key="java" value="15184" />
+          <entry key="java" value="16078" />
           <entry key="txt" value="109" />
           <entry key="xml" value="8" />
         </counts>
@@ -81,7 +79,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="IDEA_MODULE" value="4" />
-          <entry key="JAVA" value="15184" />
+          <entry key="JAVA" value="16078" />
           <entry key="PLAIN_TEXT" value="135" />
           <entry key="XML" value="8" />
         </counts>
@@ -94,11 +92,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/FirstTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="264" column="29" lean-forward="true" selection-start-line="264" selection-start-column="29" selection-end-line="264" selection-end-column="29" />
+            <state relative-caret-position="447">
+              <caret line="306" column="69" lean-forward="true" selection-start-line="306" selection-start-column="69" selection-end-line="306" selection-end-column="69" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -106,27 +104,32 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Node.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="117" column="36" selection-start-line="117" selection-start-column="36" selection-end-line="117" selection-end-column="36" />
+            <state relative-caret-position="164">
+              <caret line="201" lean-forward="true" selection-start-line="201" selection-end-line="201" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1478#1479#0" expanded="true" />
                 <element signature="e#1506#1507#0" expanded="true" />
-                <element signature="e#5995#5996#0" expanded="true" />
-                <element signature="e#6026#6027#0" expanded="true" />
+                <element signature="e#7108#7109#0" expanded="true" />
+                <element signature="e#7139#7140#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/IUserNode.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RemoteNodesOrKeyValuePair.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="49" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="49" />
+            <state relative-caret-position="180">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
+              <folding>
+                <element signature="e#341#342#0" expanded="true" />
+                <element signature="e#375#376#0" expanded="true" />
+                <element signature="e#439#440#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -134,12 +137,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/HashKey.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="69" column="27" lean-forward="true" selection-start-line="69" selection-start-column="27" selection-end-line="69" selection-end-column="27" />
+            <state relative-caret-position="234">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1743#1744#0" expanded="true" />
                 <element signature="e#1782#1783#0" expanded="true" />
+                <element signature="e#1838#1839#0" expanded="true" />
                 <element signature="e#1881#1882#0" expanded="true" />
               </folding>
             </state>
@@ -147,34 +151,15 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/RemoteNode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="31" column="13" lean-forward="true" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/RemoteNodeLocal.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="52" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="52" />
+            <state relative-caret-position="270">
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
               <folding>
                 <element signature="e#261#262#0" expanded="true" />
                 <element signature="e#287#288#0" expanded="true" />
                 <element signature="e#434#435#0" expanded="true" />
-                <element signature="e#462#463#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/INode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="89" selection-start-line="11" selection-start-column="89" selection-end-line="11" selection-end-column="89" />
             </state>
           </provider>
         </entry>
@@ -182,10 +167,16 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/KeyValuePair.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="29" lean-forward="true" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+            <state relative-caret-position="210">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
               <folding>
+                <element signature="e#231#232#0" expanded="true" />
                 <element signature="e#257#258#0" expanded="true" />
+                <element signature="e#317#318#0" expanded="true" />
+                <element signature="e#363#364#0" expanded="true" />
+                <element signature="e#398#399#0" expanded="true" />
+                <element signature="e#449#450#0" expanded="true" />
+                <element signature="e#481#482#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -207,6 +198,7 @@
       <find>treeset</find>
       <find>me</find>
       <find>localhost</find>
+      <find>first:</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -221,19 +213,19 @@
         <option value="$PROJECT_DIR$/src/main/java/NodeAddress.java" />
         <option value="$PROJECT_DIR$/src/main/java/RemoteNodeOrKeyValuePair.java" />
         <option value="$PROJECT_DIR$/src/main/java/RemoteNodesOrKeyValuePair.java" />
-        <option value="$PROJECT_DIR$/src/main/java/RemoteNode.java" />
         <option value="$PROJECT_DIR$/src/main/java/Bucket.java" />
-        <option value="$PROJECT_DIR$/src/main/java/KeyValuePair.java" />
         <option value="$PROJECT_DIR$/src/main/java/RemoteNodeMock.java" />
         <option value="$PROJECT_DIR$/src/main/java/Nodes/NodeMock.java" />
         <option value="$PROJECT_DIR$/src/main/java/NodeMock.java" />
         <option value="$PROJECT_DIR$/src/main/java/NodeLocal.java" />
         <option value="$PROJECT_DIR$/src/main/java/INode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/IUserNode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/KeyValuePair.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RemoteNode.java" />
         <option value="$PROJECT_DIR$/src/main/java/RemoteNodeLocal.java" />
         <option value="$PROJECT_DIR$/src/main/java/HashKey.java" />
-        <option value="$PROJECT_DIR$/src/main/java/IUserNode.java" />
-        <option value="$PROJECT_DIR$/src/test/java/FirstTests.java" />
         <option value="$PROJECT_DIR$/src/main/java/Node.java" />
+        <option value="$PROJECT_DIR$/src/test/java/FirstTests.java" />
       </list>
     </option>
   </component>
@@ -335,20 +327,6 @@
     </option>
   </component>
   <component name="RunManager" selected="JUnit.FirstTests">
-    <configuration name="All in Kademlia" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Kademlia" />
-      <shortenClasspath name="NONE" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="ALTERNATIVE_JRE_PATH" value="10" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="FirstTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Kademlia" />
       <option name="PACKAGE_NAME" value="" />
@@ -358,21 +336,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FirstTests.bucketTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Kademlia" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="FirstTests" />
-      <option name="METHOD_NAME" value="bucketTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="FirstTests.hashKeyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Kademlia" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="FirstTests" />
       <option name="METHOD_NAME" value="hashKeyTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FirstTests.manyNodesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Kademlia" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="FirstTests" />
+      <option name="METHOD_NAME" value="manyNodesTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -388,20 +366,30 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="FirstTests.twoNodesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Kademlia" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="FirstTests" />
+      <option name="METHOD_NAME" value="twoNodesTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
-      <item itemvalue="JUnit.All in Kademlia" />
-      <item itemvalue="JUnit.FirstTests.hashKeyTest" />
-      <item itemvalue="JUnit.FirstTests.bucketTest" />
       <item itemvalue="JUnit.FirstTests.oneNodeTest" />
       <item itemvalue="JUnit.FirstTests" />
+      <item itemvalue="JUnit.FirstTests.twoNodesTest" />
+      <item itemvalue="JUnit.FirstTests.manyNodesTest" />
+      <item itemvalue="JUnit.FirstTests.hashKeyTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.FirstTests" />
-        <item itemvalue="JUnit.FirstTests.oneNodeTest" />
-        <item itemvalue="JUnit.All in Kademlia" />
-        <item itemvalue="JUnit.FirstTests.bucketTest" />
         <item itemvalue="JUnit.FirstTests.hashKeyTest" />
+        <item itemvalue="JUnit.FirstTests.twoNodesTest" />
+        <item itemvalue="JUnit.FirstTests.manyNodesTest" />
+        <item itemvalue="JUnit.FirstTests.oneNodeTest" />
       </list>
     </recent_temporary>
   </component>
@@ -416,7 +404,7 @@
       <workItem from="1541222954244" duration="18310000" />
       <workItem from="1541321901991" duration="11586000" />
       <workItem from="1541351010692" duration="2354000" />
-      <workItem from="1541575298760" duration="10936000" />
+      <workItem from="1541575298760" duration="15808000" />
     </task>
     <task id="LOCAL-00001" summary="Added hashing, tests for hashing, basic interface and classes">
       <created>1541193559039</created>
@@ -429,39 +417,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="FirstTests_oneNodeTest - 2018.11.07 at 13h 31m 40s.xml">
-      <configuration name="FirstTests.oneNodeTest" configurationId="JUnit" />
+    <history-entry file="FirstTests_twoNodesTest - 2018.11.07 at 14h 59m 57s.xml">
+      <configuration name="FirstTests.twoNodesTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTests_oneNodeTest - 2018.11.07 at 13h 31m 45s.xml">
-      <configuration name="FirstTests.oneNodeTest" configurationId="JUnit" />
+    <history-entry file="FirstTests_twoNodesTest - 2018.11.07 at 15h 00m 14s.xml">
+      <configuration name="FirstTests.twoNodesTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTests_oneNodeTest - 2018.11.07 at 13h 33m 35s.xml">
-      <configuration name="FirstTests.oneNodeTest" configurationId="JUnit" />
+    <history-entry file="FirstTests_twoNodesTest - 2018.11.07 at 15h 00m 17s.xml">
+      <configuration name="FirstTests.twoNodesTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTests_oneNodeTest - 2018.11.07 at 13h 34m 12s.xml">
-      <configuration name="FirstTests.oneNodeTest" configurationId="JUnit" />
+    <history-entry file="FirstTests_twoNodesTest - 2018.11.07 at 15h 01m 04s.xml">
+      <configuration name="FirstTests.twoNodesTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTests_oneNodeTest - 2018.11.07 at 13h 34m 50s.xml">
-      <configuration name="FirstTests.oneNodeTest" configurationId="JUnit" />
+    <history-entry file="FirstTests_twoNodesTest - 2018.11.07 at 15h 01m 33s.xml">
+      <configuration name="FirstTests.twoNodesTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTests_oneNodeTest - 2018.11.07 at 13h 36m 10s.xml">
-      <configuration name="FirstTests.oneNodeTest" configurationId="JUnit" />
+    <history-entry file="FirstTests_twoNodesTest - 2018.11.07 at 15h 01m 45s.xml">
+      <configuration name="FirstTests.twoNodesTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTests_oneNodeTest - 2018.11.07 at 13h 36m 42s.xml">
-      <configuration name="FirstTests.oneNodeTest" configurationId="JUnit" />
+    <history-entry file="FirstTests - 2018.11.07 at 15h 01m 57s.xml">
+      <configuration name="FirstTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTests_oneNodeTest - 2018.11.07 at 13h 38m 14s.xml">
-      <configuration name="FirstTests.oneNodeTest" configurationId="JUnit" />
+    <history-entry file="FirstTests_hashKeyTest - 2018.11.07 at 15h 02m 32s.xml">
+      <configuration name="FirstTests.hashKeyTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTests_oneNodeTest - 2018.11.07 at 13h 38m 21s.xml">
-      <configuration name="FirstTests.oneNodeTest" configurationId="JUnit" />
+    <history-entry file="FirstTests - 2018.11.07 at 15h 02m 42s.xml">
+      <configuration name="FirstTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FirstTests_oneNodeTest - 2018.11.07 at 13h 42m 34s.xml">
-      <configuration name="FirstTests.oneNodeTest" configurationId="JUnit" />
+    <history-entry file="FirstTests - 2018.11.07 at 15h 03m 46s.xml">
+      <configuration name="FirstTests" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51429000" />
+    <option name="totallyTimeSpent" value="56301000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -476,15 +464,15 @@
     <frame x="49" y="25" width="1871" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49839228" visible="true" weight="0.19232877" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49839228" visible="true" weight="0.19232877" />
       <window_info id="Structure" order="1" sideWeight="0.5016077" side_tool="true" weight="0.24986301" />
       <window_info id="Designer" order="2" />
       <window_info id="Learn" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32972974" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.28216216" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.24108107" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.28216216" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.25621623" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32972974" />
@@ -519,9 +507,15 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Node.java</url>
-          <line>119</line>
+          <line>167</line>
           <properties />
-          <option name="timeStamp" value="5" />
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Node.java</url>
+          <line>140</line>
+          <properties />
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -576,38 +570,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RemoteNodesOrKeyValuePair.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
-          <folding>
-            <element signature="e#412#413#0" expanded="true" />
-            <element signature="e#439#440#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jrt:///usr/lib/jvm/java-1.11.0-openjdk-amd64!/java.base/java/util/ArrayList.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
           <caret line="561" column="16" selection-start-line="561" selection-start-column="16" selection-end-line="561" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Bucket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/KeyValuePair.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="29" lean-forward="true" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
-          <folding>
-            <element signature="e#257#258#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -618,19 +584,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RemoteNodeLocal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="52" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="52" />
-          <folding>
-            <element signature="e#261#262#0" expanded="true" />
-            <element signature="e#287#288#0" expanded="true" />
-            <element signature="e#434#435#0" expanded="true" />
-            <element signature="e#462#463#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/NodeLocal.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -638,13 +591,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RemoteNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="31" column="13" lean-forward="true" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -662,19 +608,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/HashKey.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="69" column="27" lean-forward="true" selection-start-line="69" selection-start-column="27" selection-end-line="69" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1743#1744#0" expanded="true" />
-            <element signature="e#1782#1783#0" expanded="true" />
-            <element signature="e#1881#1882#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/IUserNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -682,26 +615,164 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/FirstTests.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Bucket.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="264" column="29" lean-forward="true" selection-start-line="264" selection-start-column="29" selection-end-line="264" selection-end-column="29" />
+        <state relative-caret-position="216">
+          <caret line="60" selection-start-line="60" selection-end-line="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jrt:///usr/lib/jvm/java-1.11.0-openjdk-amd64!/java.base/jdk/internal/reflect/NativeMethodAccessorImpl.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RemoteNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="38" column="16" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
+          <folding>
+            <element signature="e#354#355#0" expanded="true" />
+            <element signature="e#383#384#0" expanded="true" />
+            <element signature="e#471#472#0" expanded="true" />
+            <element signature="e#503#504#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RemoteNodesOrKeyValuePair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="e#341#342#0" expanded="true" />
+            <element signature="e#375#376#0" expanded="true" />
+            <element signature="e#439#440#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/KeyValuePair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="e#231#232#0" expanded="true" />
+            <element signature="e#257#258#0" expanded="true" />
+            <element signature="e#317#318#0" expanded="true" />
+            <element signature="e#363#364#0" expanded="true" />
+            <element signature="e#398#399#0" expanded="true" />
+            <element signature="e#449#450#0" expanded="true" />
+            <element signature="e#481#482#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/org/hamcrest/core/IsEqual.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="471">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
+          <folding>
+            <element signature="e#412#413#0" expanded="true" />
+            <element signature="e#457#458#0" expanded="true" />
+            <element signature="e#1950#1951#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/org/hamcrest/BaseMatcher.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/org/hamcrest/core/Is.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="e#414#415#0" expanded="true" />
+            <element signature="e#864#865#0" expanded="true" />
+            <element signature="e#902#903#0" expanded="true" />
+            <element signature="e#963#964#0" expanded="true" />
+            <element signature="e#1012#1013#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/org/hamcrest/CoreMatchers.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="103" selection-start-line="103" selection-end-line="103" />
+          <folding>
+            <element signature="e#4123#4124#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runners/model/FrameworkMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RemoteNodeLocal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+          <folding>
+            <element signature="e#261#262#0" expanded="true" />
+            <element signature="e#287#288#0" expanded="true" />
+            <element signature="e#434#435#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jrt:///usr/lib/jvm/java-1.11.0-openjdk-amd64!/java.base/java/math/BigInteger.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="2332" column="30" selection-start-line="2332" selection-start-column="24" selection-end-line="2332" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/HashKey.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1743#1744#0" expanded="true" />
+            <element signature="e#1782#1783#0" expanded="true" />
+            <element signature="e#1838#1839#0" expanded="true" />
+            <element signature="e#1881#1882#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Node.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="117" column="36" selection-start-line="117" selection-start-column="36" selection-end-line="117" selection-end-column="36" />
+        <state relative-caret-position="164">
+          <caret line="201" lean-forward="true" selection-start-line="201" selection-end-line="201" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1478#1479#0" expanded="true" />
             <element signature="e#1506#1507#0" expanded="true" />
-            <element signature="e#5995#5996#0" expanded="true" />
-            <element signature="e#6026#6027#0" expanded="true" />
+            <element signature="e#7108#7109#0" expanded="true" />
+            <element signature="e#7139#7140#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/FirstTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="306" column="69" lean-forward="true" selection-start-line="306" selection-start-column="69" selection-end-line="306" selection-end-column="69" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
