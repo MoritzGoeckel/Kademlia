@@ -29,7 +29,7 @@ public class Node implements INode, IUserNode {
         this.me = new RemoteNodeLocal(port, address, this);
         this.values = new HashMap<>();
 
-        //startPingThread();
+        //startPingThread(); //Todo: Remove?
     }
 
     public void startPingThread(){
@@ -124,22 +124,26 @@ public class Node implements INode, IUserNode {
     }
 
     @Override
-    public void setValue(KeyValuePair pair, int k) {
+    public void setValue(String key, String value, int k) {
         checkShutdown();
+
+        KeyValuePair pair = new KeyValuePair(HashKey.fromString(key), value);
 
         for(RemoteNode n : performNodeLookup(pair.getKey(), k))
             n.store(pair, me);
     }
 
     @Override
-    public KeyValuePair getValue(HashKey target, int k, int maxIterations) {
+    public String getValue(String key, int k, int maxIterations) {
         checkShutdown();
+
+        HashKey target = HashKey.fromString(key);
 
         //Does this node have the value?
         //Todo: Should regard me as regular node too. Would be more elegant
         RemoteNodesOrKeyValuePair myResponse = this.findValue(target, k, null);
         if(myResponse.getPair() != null)
-            return myResponse.getPair();
+            return myResponse.getPair().getValue();
 
         //This one does not have it, so lets do the lookup dance
         Set<RemoteNode> visitedNodes = new HashSet<>();
@@ -160,7 +164,7 @@ public class Node implements INode, IUserNode {
                 }
             }
             else{
-                return response.getPair();
+                return response.getPair().getValue();
             }
         }
 

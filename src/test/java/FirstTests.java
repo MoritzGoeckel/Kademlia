@@ -9,7 +9,18 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class FirstTests {
 
-    private Random r = new Random();
+    private static Random R = new Random();
+
+    private static int PORT = -1;
+    private static URL ADDRESS;
+    static {
+        try {
+            ADDRESS = new URL("http://localhost");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.toString());
+        }
+    }
 
     @Test
     public void hashKeyTest(){
@@ -38,18 +49,16 @@ public class FirstTests {
         Assert.assertThat("triangle inequality",
                 a.getDistance(b) + b.getDistance(c) >= a.getDistance(c),
                 is(true));
+
+        Assert.assertThat("HashKey equals should work", HashKey.fromString("Hello").equals(HashKey.fromString("Hello")), is(true));
     }
 
     public Iterator<RemoteNode> getRandomUniqueNodes(int num){
         //Creating unique random RemoteNodes
         HashSet<RemoteNode> nodes = new HashSet<>();
-        while (nodes.size() < num) {
-            try {
-                nodes.add(new RemoteNode(HashKey.fromRandom(), 10, new URL("http://localhost")));
-            } catch (MalformedURLException e) {
-                throw new RuntimeException("Maleformed url: " + e.toString());
-            }
-        }
+        while (nodes.size() < num)
+            nodes.add(new RemoteNode(HashKey.fromRandom(), PORT, ADDRESS));
+
         return nodes.iterator();
     }
 
@@ -203,7 +212,7 @@ public class FirstTests {
 
             if(i % 8 == 0){
                 List<RemoteNode> allNodes = b.getAllNodes();
-                RemoteNode nodeToRemove = allNodes.get(r.nextInt(allNodes.size()));
+                RemoteNode nodeToRemove = allNodes.get(R.nextInt(allNodes.size()));
                 b.removeNode(nodeToRemove);
                 expectedSize--;
 
@@ -237,8 +246,8 @@ public class FirstTests {
 
 
         RemoteNodesOrKeyValuePair b = new RemoteNodesOrKeyValuePair(new RemoteNode[]{
-                new RemoteNode(HashKey.fromRandom(), 10, new URL("http://localhost")),
-                new RemoteNode(HashKey.fromRandom(), 10, new URL("http://localhost"))
+                new RemoteNode(HashKey.fromRandom(), PORT, ADDRESS),
+                new RemoteNode(HashKey.fromRandom(), PORT, ADDRESS)
         });
         Assert.assertThat("Checking pair", b.getPair(), nullValue());
         Assert.assertThat("Checking nodes", b.getRemoteNodes().length, is(2));
@@ -247,12 +256,12 @@ public class FirstTests {
     @Test
     public void oneNodeTest(){
         final int K = 1;
-        IUserNode firstNode = new NodeLocal();
+        IUserNode firstNode = new Node(PORT, ADDRESS);
 
-        firstNode.setValue(new KeyValuePair(HashKey.fromString("Hello"), "world"), K);
+        firstNode.setValue("Hello", "world", K);
 
         Assert.assertThat("Should be able to retrieve the set value",
-                firstNode.getValue(HashKey.fromString("Hello"), K, 5),
+                firstNode.getValue("Hello", K, 5),
                 is("world"));
     }
 
@@ -260,7 +269,7 @@ public class FirstTests {
     public void manyNodesTest(){
         LinkedList<Node> nodes = new LinkedList<>();
 
-        Node firstNode = new NodeLocal();
+        Node firstNode = new Node(PORT, ADDRESS);
         nodes.add(firstNode);
 
         //n1.

@@ -36,7 +36,8 @@ public class HashKey {
     }
 
     public long getDistance(HashKey other){
-        assert (other.bits.length() == this.bits.length());
+        //assert (other.bits.length() == this.bits.length()); //This does not hold with Bitset.
+        // Todo: Maybe change underlaying data structure
 
         BitSet distanceBits = (BitSet) this.bits.clone();
         distanceBits.xor(other.bits);
@@ -58,5 +59,15 @@ public class HashKey {
     public boolean equals(Object other) {
         return other instanceof HashKey
                 && this.bits.equals(((HashKey)other).bits);
+    }
+
+    @Override
+    public String toString() {
+        return bitsetToLong(this.bits) + "B";
+    }
+
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
     }
 }
