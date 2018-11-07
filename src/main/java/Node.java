@@ -6,7 +6,7 @@ public class Node implements INode, IUserNode {
     private HashKey nodeID;
     private Bucket buckets = new Bucket();
 
-    protected RemoteNode me;
+    protected RemoteNodeLocal me;
 
     private HashMap<HashKey, String> values;
     //Todo: Values need to expire
@@ -14,6 +14,8 @@ public class Node implements INode, IUserNode {
     private boolean shutdown = false;
 
     private static int TIME_BETWEEN_PINGS = 6 * 60 * 1000; //Five minutes
+
+    private Thread pingThread;
 
     public Node(RemoteNode knownNode, int port, URL address){
         this(port, address);
@@ -24,33 +26,41 @@ public class Node implements INode, IUserNode {
 
     public Node(int port, URL address){
         this.nodeID = HashKey.fromRandom();
-        this.me = new RemoteNode(this.nodeID, port, address);
+        this.me = new RemoteNodeLocal(port, address, this);
         this.values = new HashMap<>();
 
-        startPingThread();
+        //startPingThread();
     }
 
-    private void startPingThread(){
-        Thread pingThread = new Thread(() -> {
-            while (!shutdown) {
-                List<RemoteNode> nodes = buckets.getAllNodes();
-                nodes.forEach(n -> {
-                    if (!n.ping(me))
-                        buckets.removeNode(n);
+    public void startPingThread(){
+        if(pingThread != null)
+            throw new RuntimeException("Ping thread already running");
 
-                    try {
-                        Thread.sleep(TIME_BETWEEN_PINGS / nodes.size());
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                });
+        pingThread = new Thread(() -> {
+            while (!shutdown) {
+                this.performPing();
             }
         });
         pingThread.setDaemon(true);
         pingThread.start();
     }
 
-    @Override
+    public void performPing(){
+        checkShutdown();
+
+        List<RemoteNode> nodes = buckets.getAllNodes();
+        nodes.forEach(n -> {
+            if (!n.ping(me))
+                buckets.removeNode(n);
+
+            try {
+                Thread.sleep(TIME_BETWEEN_PINGS / nodes.size());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
     public HashKey getID(){
         return nodeID;
     }
@@ -74,8 +84,7 @@ public class Node implements INode, IUserNode {
 
     @Override
     public void store(KeyValuePair pair, RemoteNode sender) {
-        if(shutdown)
-            return;
+        checkShutdown();
 
         recordNode(sender);
 
@@ -86,8 +95,7 @@ public class Node implements INode, IUserNode {
 
     @Override
     public RemoteNode[] findNodes(HashKey targetID, int k, RemoteNode sender) {
-        if(shutdown)
-            return null;
+        checkShutdown();
 
         recordNode(sender);
         //TODO: Cache values / Nodes
@@ -104,8 +112,7 @@ public class Node implements INode, IUserNode {
 
     @Override
     public RemoteNodesOrKeyValuePair findValue(HashKey targetValueID, int k, RemoteNode sender) {
-        if(shutdown)
-            return null;
+        checkShutdown();
 
         recordNode(sender);
         //TODO: Cache values / Nodes
@@ -118,8 +125,7 @@ public class Node implements INode, IUserNode {
 
     @Override
     public void setValue(KeyValuePair pair, int k) {
-        if(shutdown)
-            return;
+        checkShutdown();
 
         for(RemoteNode n : performNodeLookup(pair.getKey(), k))
             n.store(pair, me);
@@ -127,13 +133,19 @@ public class Node implements INode, IUserNode {
 
     @Override
     public KeyValuePair getValue(HashKey target, int k, int maxIterations) {
-        if(shutdown)
-            return null;
+        checkShutdown();
 
+        //Does this node have the value?
+        //Todo: Should regard me as regular node too. Would be more elegant
+        RemoteNodesOrKeyValuePair myResponse = this.findValue(target, k, null);
+        if(myResponse.getPair() != null)
+            return myResponse.getPair();
+
+        //This one does not have it, so lets do the lookup dance
         Set<RemoteNode> visitedNodes = new HashSet<>();
         TreeSet<RemoteNode> queuedNodes = new TreeSet<>(getDistanceComparator(target));
 
-        queuedNodes.addAll(Arrays.asList(this.findNodes(target, k, null)));
+        queuedNodes.addAll(Arrays.asList(myResponse.getRemoteNodes()));
 
         for (int iteration = 0; iteration < maxIterations && !queuedNodes.isEmpty(); iteration++){
             RemoteNode currentNode = queuedNodes.pollFirst();
@@ -156,12 +168,15 @@ public class Node implements INode, IUserNode {
     }
 
     private SortedSet<RemoteNode> performNodeLookup(HashKey target, int k){
+        checkShutdown();
+
         Set<RemoteNode> visitedNodes = new HashSet<>();
         TreeSet<RemoteNode> queuedNodes = new TreeSet<>(getDistanceComparator(target));
         TreeSet<RemoteNode> closestNodes = new TreeSet<>(getDistanceComparator(target));
 
         queuedNodes.addAll(Arrays.asList(this.findNodes(target, k, null)));
         closestNodes.addAll(queuedNodes);
+        closestNodes.add(me);
 
         boolean gettingCloser = true;
         while (gettingCloser && !queuedNodes.isEmpty()){
@@ -182,10 +197,16 @@ public class Node implements INode, IUserNode {
 
         return closestNodes.stream()
                 .limit(k) //Return only the k closest elements
-                .collect(Collectors.toCollection(TreeSet::new));
+                .collect(Collectors.toCollection(() -> new TreeSet<>(getDistanceComparator(target))));
+    }
+
+    private void checkShutdown(){
+        if(shutdown)
+            throw new RuntimeException("Already shut down");
     }
 
     public void shutdown(){
+        checkShutdown();
         shutdown = true;
     }
 

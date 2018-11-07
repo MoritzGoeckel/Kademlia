@@ -6,6 +6,4 @@ public interface IUserNode {
 
     /** Returns the k closest known nodes to the nodeId */
     KeyValuePair getValue(HashKey id, int k, int maxIterations);
-
-    HashKey getID();
 }

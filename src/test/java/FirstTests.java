@@ -244,4 +244,25 @@ public class FirstTests {
         Assert.assertThat("Checking nodes", b.getRemoteNodes().length, is(2));
     }
 
+    @Test
+    public void oneNodeTest(){
+        final int K = 1;
+        IUserNode firstNode = new NodeLocal();
+
+        firstNode.setValue(new KeyValuePair(HashKey.fromString("Hello"), "world"), K);
+
+        Assert.assertThat("Should be able to retrieve the set value",
+                firstNode.getValue(HashKey.fromString("Hello"), K, 5),
+                is("world"));
+    }
+
+    @Test
+    public void manyNodesTest(){
+        LinkedList<Node> nodes = new LinkedList<>();
+
+        Node firstNode = new NodeLocal();
+        nodes.add(firstNode);
+
+        //n1.
+    }
 }
