@@ -5,5 +5,5 @@ public interface IUserNode {
     void setValue(String key, String value, int k);
 
     /** Returns the k closest known nodes to the nodeId */
-    String getValue(String key, int k, int maxIterations);
+    String getValue(String key, int k);
 }

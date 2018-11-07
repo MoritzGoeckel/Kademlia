@@ -263,7 +263,7 @@ public class FirstTests {
         firstNode.setValue("Hello", "world", K);
 
         Assert.assertThat("Should be able to retrieve the set value",
-                firstNode.getValue("Hello", K, 5),
+                firstNode.getValue("Hello", K),
                 is("world"));
     }
 
@@ -279,11 +279,11 @@ public class FirstTests {
             secondNode.setValue("Hello", "world", 1);
 
             Assert.assertThat("Should be able to retrieve the set value",
-                    firstNode.getValue("Hello", 1, 5),
+                    firstNode.getValue("Hello", 1),
                     is("world"));
 
             Assert.assertThat("Should be able to retrieve the set value",
-                    secondNode.getValue("Hello", 1, 5),
+                    secondNode.getValue("Hello", 1),
                     is("world"));
         }
     }
@@ -296,16 +296,19 @@ public class FirstTests {
         nodes.add(firstNode);
 
         for(int i = 0; i < 100; i++)
-            nodes.add(new Node(new RemoteNodeLocal(firstNode, PORT, ADDRESS), PORT, ADDRESS));
-
-        nodes.forEach(Node::performPing);
+            nodes.add(new Node(new RemoteNodeLocal(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS), PORT, ADDRESS));
 
         Supplier<Node> randomNode = () -> nodes.get(R.nextInt(nodes.size() - 1));
+        nodes.forEach(Node::performPing);
 
-        randomNode.get().setValue("Hello", "world", 1);
-
-        Assert.assertThat("Should be able to retrieve the set value",
-                randomNode.get().getValue("Hello", 1, 5),
-                is("world"));
+        for(int i = 0; i < 100; i++) {
+            randomNode.get().setValue("Hello" + i, "world", 1);
+            Assert.assertThat("Should be able to retrieve the set value ("+i+")",
+                    randomNode.get().getValue("Hello" + i, 5),
+                    is("world"));
+        }
     }
+
+    //Todo: Create statistics
+    //Todo: Create churn tests
 }

@@ -135,7 +135,7 @@ public class Node implements INode, IUserNode {
     }
 
     @Override
-    public String getValue(String key, int k, int maxIterations) {
+    public String getValue(String key, int k) {
         checkShutdown();
 
         HashKey target = HashKey.fromString(key);
@@ -152,7 +152,12 @@ public class Node implements INode, IUserNode {
 
         queuedNodes.addAll(Arrays.asList(myResponse.getRemoteNodes()));
 
-        for (int iteration = 0; iteration < maxIterations && !queuedNodes.isEmpty(); iteration++){
+        int MAX_ITERATIONS = Integer.MAX_VALUE;
+        for (int iteration = 0; iteration < MAX_ITERATIONS && !queuedNodes.isEmpty(); iteration++){
+
+            if(queuedNodes.size() > 1)
+                assert (queuedNodes.first().getNodeId().getDistance(target).compareTo(queuedNodes.last().getNodeId().getDistance(target)) < 0);
+
             RemoteNode currentNode = queuedNodes.pollFirst();
             visitedNodes.add(currentNode);
 
