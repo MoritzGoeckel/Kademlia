@@ -67,7 +67,6 @@ public class Node implements INode, IUserNode {
     }
 
     private static Comparator<RemoteNode> getDistanceComparator(HashKey target){
-        //Todo: Check correctness (smallest distance is head)
         return (a,b) -> (int)(a.getNodeId().getDistance(target).compareTo(b.getNodeId().getDistance(target)));
     }
 
@@ -105,10 +104,15 @@ public class Node implements INode, IUserNode {
         //it would be hard however to expand the search for k instances
         //and as the number of all nodes in the buckets is small
         //this would not make much a difference
-        return buckets.getAllNodes().stream()
+        RemoteNode[] output = buckets.getAllNodes().stream()
             .sorted(getDistanceComparator(targetID))
             .limit(k)
             .toArray(RemoteNode[]::new);
+
+        if(output.length > 1) //Assertion
+            assert (output[0].getNodeId().getDistance(targetID).compareTo(output[output.length - 1].getNodeId().getDistance(targetID)) < 0);
+
+        return output;
     }
 
     @Override
@@ -140,22 +144,18 @@ public class Node implements INode, IUserNode {
 
         HashKey target = HashKey.fromString(key);
 
-        //Does this node have the value?
-        //Todo: Should regard me as regular node too. Would be more elegant
-        RemoteNodesOrKeyValuePair myResponse = this.findValue(target, k, null);
-        if(myResponse.getPair() != null)
-            return myResponse.getPair().getValue();
-
         //This one does not have it, so lets do the lookup dance
         Set<RemoteNode> visitedNodes = new HashSet<>();
         TreeSet<RemoteNode> queuedNodes = new TreeSet<>(getDistanceComparator(target));
 
-        queuedNodes.addAll(Arrays.asList(myResponse.getRemoteNodes()));
+        queuedNodes.add(me);
 
         int MAX_ITERATIONS = Integer.MAX_VALUE;
         for (int iteration = 0; iteration < MAX_ITERATIONS && !queuedNodes.isEmpty(); iteration++){
 
-            if(queuedNodes.size() > 1)
+            System.out.println(iteration + " Q: " + queuedNodes.size());
+
+            if(queuedNodes.size() > 1) //Assertion
                 assert (queuedNodes.first().getNodeId().getDistance(target).compareTo(queuedNodes.last().getNodeId().getDistance(target)) < 0);
 
             RemoteNode currentNode = queuedNodes.pollFirst();
@@ -184,12 +184,16 @@ public class Node implements INode, IUserNode {
         TreeSet<RemoteNode> queuedNodes = new TreeSet<>(getDistanceComparator(target));
         TreeSet<RemoteNode> closestNodes = new TreeSet<>(getDistanceComparator(target));
 
-        queuedNodes.addAll(Arrays.asList(this.findNodes(target, k, null)));
+        queuedNodes.addAll(Arrays.asList(this.findNodes(target, 999, null)));
         closestNodes.addAll(queuedNodes);
-        closestNodes.add(me);
 
         boolean gettingCloser = true;
         while (gettingCloser && !queuedNodes.isEmpty()){
+
+            //Assertion
+            if(queuedNodes.size() > 1)
+                assert (queuedNodes.first().getNodeId().getDistance(target).compareTo(queuedNodes.last().getNodeId().getDistance(target)) < 0);
+
             BigInteger distanceBeforeIteration = closestNodes.first().getNodeId().getDistance(target);
 
             RemoteNode currentNode = queuedNodes.pollFirst();
@@ -205,6 +209,7 @@ public class Node implements INode, IUserNode {
             gettingCloser = closestNodes.first().getNodeId().getDistance(target).compareTo(distanceBeforeIteration) < 0;
         }
 
+        //Assertion
         if(closestNodes.size() > 1)
             assert (closestNodes.first().getNodeId().getDistance(target).compareTo(closestNodes.last().getNodeId().getDistance(target)) < 0);
 
