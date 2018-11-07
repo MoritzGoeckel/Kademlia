@@ -11,11 +11,15 @@ public class Node implements INode, IUserNode{
     private HashMap<HashKey, String> values;
     //Todo: Values need to expire
 
+    private boolean shutdown = false;
+
+    private static int TIME_BETWEEN_PINGS = 6 * 60 * 1000; //Five minutes
+
     public Node(RemoteNode knownNode, int port, URL address){
         this(port, address);
 
         recordNode(knownNode);
-        performNodeLookup(this.nodeID, 30);
+        performNodeLookup(this.nodeID, 50);
     }
 
     public Node(int port, URL address){
@@ -28,14 +32,14 @@ public class Node implements INode, IUserNode{
 
     private void startPingThread(){
         Thread pingThread = new Thread(() -> {
-            while (true) {
+            while (!shutdown) {
                 List<RemoteNode> nodes = buckets.getAllNodes();
                 nodes.forEach(n -> {
                     if (!n.ping(me))
                         buckets.removeNode(n);
 
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(TIME_BETWEEN_PINGS / nodes.size());
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -60,11 +64,14 @@ public class Node implements INode, IUserNode{
     @Override
     public boolean ping(RemoteNode sender) {
         recordNode(sender);
-        return true;
+        return !shutdown;
     }
 
     @Override
     public void store(KeyValuePair pair, RemoteNode sender) {
+        if(shutdown)
+            return;
+
         recordNode(sender);
 
         //Node does not know if he is the closest,
@@ -74,6 +81,9 @@ public class Node implements INode, IUserNode{
 
     @Override
     public RemoteNode[] findNodes(HashKey targetID, int k, RemoteNode sender) {
+        if(shutdown)
+            return null;
+
         recordNode(sender);
         //TODO: Cache values / Nodes
 
@@ -89,6 +99,9 @@ public class Node implements INode, IUserNode{
 
     @Override
     public RemoteNodesOrKeyValuePair findValue(HashKey targetValueID, int k, RemoteNode sender) {
+        if(shutdown)
+            return null;
+
         recordNode(sender);
         //TODO: Cache values / Nodes
 
@@ -100,12 +113,18 @@ public class Node implements INode, IUserNode{
 
     @Override
     public void setValue(KeyValuePair pair, int k) {
+        if(shutdown)
+            return;
+
         for(RemoteNode n : performNodeLookup(pair.getKey(), k))
             n.store(pair, me);
     }
 
     @Override
     public KeyValuePair getValue(HashKey target, int k, int maxIterations) {
+        if(shutdown)
+            return null;
+
         Set<RemoteNode> visitedNodes = new HashSet<>();
         TreeSet<RemoteNode> queuedNodes = new TreeSet<>(getDistanceComparator(target));
 
@@ -159,5 +178,19 @@ public class Node implements INode, IUserNode{
         return closestNodes.stream()
                 .limit(k) //Return only the k closest elements
                 .collect(Collectors.toCollection(TreeSet::new));
+    }
+
+    public void shutdown(){
+        shutdown = true;
+    }
+
+    public boolean isShutdown() {
+        return shutdown;
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        shutdown = true;
+        super.finalize();
     }
 }
