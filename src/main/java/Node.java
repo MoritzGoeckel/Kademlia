@@ -184,7 +184,7 @@ public class Node implements INode, IUserNode {
         TreeSet<RemoteNode> queuedNodes = new TreeSet<>(getDistanceComparator(target));
         TreeSet<RemoteNode> closestNodes = new TreeSet<>(getDistanceComparator(target));
 
-        queuedNodes.addAll(Arrays.asList(this.findNodes(target, 999, null)));
+        queuedNodes.addAll(Arrays.asList(this.findNodes(target, 999999, null)));
         closestNodes.addAll(queuedNodes);
 
         boolean gettingCloser = true;
@@ -213,6 +213,8 @@ public class Node implements INode, IUserNode {
         if(closestNodes.size() > 1)
             assert (closestNodes.first().getNodeId().getDistance(target).compareTo(closestNodes.last().getNodeId().getDistance(target)) < 0);
 
+        //Lets throw oneself also into the mix :)
+        closestNodes.add(me);
         return closestNodes.stream()
                 .limit(k) //Return only the k closest elements
                 .collect(Collectors.toCollection(() -> new TreeSet<>(getDistanceComparator(target))));
