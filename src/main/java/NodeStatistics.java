@@ -12,11 +12,6 @@ public class NodeStatistics {
         stats.put(name, stats.get(name) + 1);
     }
 
-    @Override
-    public String toString() {
-        return stats.toString();
-    }
-
     public void print(int divider){
         System.out.println("---------Stats---------");
         for(Map.Entry<String, Integer> e : stats.entrySet())

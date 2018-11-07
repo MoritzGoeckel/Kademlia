@@ -238,6 +238,9 @@ public class FirstTests {
         KeyValuePair p = new KeyValuePair(HashKey.fromString("A"), "B");
         Assert.assertThat("Checking key", p.getKey(), is(HashKey.fromString("A")));
         Assert.assertThat("Checking value", p.getValue(), is("B"));
+        Assert.assertThat("Checking string", p.toString(), is(HashKey.fromString("A") + " -> B"));
+        Assert.assertThat("Checking hashCode", p.hashCode() != new KeyValuePair(HashKey.fromString("A"), "C").hashCode(), is(true));
+
     }
 
     @Test
