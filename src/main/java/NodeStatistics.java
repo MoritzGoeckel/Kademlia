@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Map;
 
 public class NodeStatistics {
 
@@ -14,5 +15,12 @@ public class NodeStatistics {
     @Override
     public String toString() {
         return stats.toString();
+    }
+
+    public void print(int divider){
+        System.out.println("---------Stats---------");
+        for(Map.Entry<String, Integer> e : stats.entrySet())
+            System.out.println(e.getKey() + "\t" + (e.getValue() / (double)divider));
+        System.out.println("-----------------------");
     }
 }

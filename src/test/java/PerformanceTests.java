@@ -25,29 +25,33 @@ public class PerformanceTests {
     public void getNSetStatistics(){
         LinkedList<Node> nodes = new LinkedList<>();
 
-        Node firstNode = new Node(PORT, ADDRESS, 100);
+        Node firstNode = new Node(PORT, ADDRESS, 5);
         nodes.add(firstNode);
 
-        for(int i = 0; i < 10_000; i++)
-            nodes.add(new Node(new LocalNode(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS), PORT, ADDRESS, 100));
+        for(int i = 0; i < 1000; i++)
+            nodes.add(new Node(new LocalNode(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS), PORT, ADDRESS, 5));
 
         Supplier<Node> randomNode = () -> nodes.get(R.nextInt(nodes.size() - 1));
         nodes.forEach(Node::performPing);
 
         Node.resetStatistics();
 
-        for(int i = 0; i < 10_000; i++)
-            randomNode.get().setValue("Hello" + i, "world", 1);
+        for(int i = 0; i < 200; i++)
+            randomNode.get().setValue("Hello" + i, "world", 10);
 
-        System.out.println("Storing procedure (10_000): " + Node.getStatistics());
+        System.out.println("Store");
+        Node.getStatistics().print(100);
         Node.resetStatistics();
 
         int fails = 0;
-        for(int i = 0; i < 10_000; i++)
+        for(int i = 0; i < 200; i++)
             if(randomNode.get().getValue("Hello" + i, 50) == null)
                 fails++;
 
-        System.out.println("Lookup procedure (10_000): " + Node.getStatistics());
+        System.out.println("Lookup");
+        Node.getStatistics().print(100);
         System.out.println("Failed lookups: " + fails);
     }
+
+    //Todo: Churn statistics
 }

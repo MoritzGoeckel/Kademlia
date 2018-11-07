@@ -130,8 +130,7 @@ public class Node implements INode, IUserNode {
             .limit(k)
             .toArray(RemoteNode[]::new);
 
-        if(output.length > 1) //Assertion
-            assert (output[0].getNodeId().getDistance(targetID).compareTo(output[output.length - 1].getNodeId().getDistance(targetID)) < 0);
+        assert output.length <= 1 || (output[0].getNodeId().getDistance(targetID).compareTo(output[output.length - 1].getNodeId().getDistance(targetID)) < 0);
 
         return output;
     }
@@ -177,8 +176,7 @@ public class Node implements INode, IUserNode {
         int MAX_ITERATIONS = Integer.MAX_VALUE;
         for (int iteration = 0; iteration < MAX_ITERATIONS && !queuedNodes.isEmpty(); iteration++){
 
-            if(queuedNodes.size() > 1) //Assertion
-                assert (queuedNodes.first().getNodeId().getDistance(target).compareTo(queuedNodes.last().getNodeId().getDistance(target)) < 0);
+            assert queuedNodes.size() <= 1 || (queuedNodes.first().getNodeId().getDistance(target).compareTo(queuedNodes.last().getNodeId().getDistance(target)) < 0);
 
             RemoteNode currentNode = queuedNodes.pollFirst();
             visitedNodes.add(currentNode);
@@ -213,8 +211,7 @@ public class Node implements INode, IUserNode {
         while (gettingCloser && !queuedNodes.isEmpty()){
 
             //Assertion
-            if(queuedNodes.size() > 1)
-                assert (queuedNodes.first().getNodeId().getDistance(target).compareTo(queuedNodes.last().getNodeId().getDistance(target)) < 0);
+            assert queuedNodes.size() <= 1 || (queuedNodes.first().getNodeId().getDistance(target).compareTo(queuedNodes.last().getNodeId().getDistance(target)) < 0);
 
             BigInteger distanceBeforeIteration = closestNodes.first().getNodeId().getDistance(target);
 
@@ -232,8 +229,7 @@ public class Node implements INode, IUserNode {
         }
 
         //Assertion
-        if(closestNodes.size() > 1)
-            assert (closestNodes.first().getNodeId().getDistance(target).compareTo(closestNodes.last().getNodeId().getDistance(target)) < 0);
+        assert closestNodes.size() <= 1 || (closestNodes.first().getNodeId().getDistance(target).compareTo(closestNodes.last().getNodeId().getDistance(target)) < 0);
 
         //Lets throw oneself also into the mix :)
         closestNodes.add(me);
