@@ -1,10 +1,10 @@
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Node implements INode, IUserNode{
     private HashKey nodeID;
     private Bucket buckets = new Bucket();
-    private Thread pingThread;
 
     private RemoteNode me;
 
@@ -15,19 +15,19 @@ public class Node implements INode, IUserNode{
         this(port, address);
 
         recordNode(knownNode);
-        //Todo: Locate some more nodes
+        performNodeLookup(this.nodeID, 30);
     }
 
     public Node(int port, URL address){
-        this.me = new RemoteNode(this.nodeID, port, address);
         this.nodeID = HashKey.fromRandom();
+        this.me = new RemoteNode(this.nodeID, port, address);
         this.values = new HashMap<>();
 
         startPingThread();
     }
 
     private void startPingThread(){
-        pingThread = new Thread(() -> {
+        Thread pingThread = new Thread(() -> {
             while (true) {
                 List<RemoteNode> nodes = buckets.getAllNodes();
                 nodes.forEach(n -> {
@@ -45,6 +45,12 @@ public class Node implements INode, IUserNode{
         pingThread.setDaemon(true);
         pingThread.start();
     }
+
+    private static Comparator<RemoteNode> getDistanceComparator(HashKey target){
+        //Todo: Check correctness (smallest distance is head)
+        return (a,b) -> (int)(a.getNodeId().getDistance(target) - b.getNodeId().getDistance(target));
+    }
+
 
     private void recordNode(RemoteNode other){
         if(other != me && other != null)
@@ -76,10 +82,7 @@ public class Node implements INode, IUserNode{
         //and as the number of all nodes in the buckets is small
         //this would not make much a difference
         return buckets.getAllNodes().stream()
-            .sorted(
-                //TODO: Correct order?
-                (a,b) -> (int)(a.getNodeId().getDistance(targetID) - b.getNodeId().getDistance(targetID))
-            )
+            .sorted(getDistanceComparator(targetID))
             .limit(k)
             .toArray(RemoteNode[]::new);
     }
@@ -96,29 +99,65 @@ public class Node implements INode, IUserNode{
     }
 
     @Override
-    public void setValue(KeyValuePair pair) {
-        SortedSet<RemoteNode> closestNodes = new TreeSet<>(
-                //Supplying a comparator
-                //TODO: Correct order?
-                (a,b) -> (int)(a.getNodeId().getDistance(pair.getKey()) - b.getNodeId().getDistance(pair.getKey()))
-        );
-
-        closestNodes.add(me);
-
-        boolean gettingCloser = true;
-        while (gettingCloser){
-            //closestNodes.addAll(Arrays.asList(closestNodes.first().findNodes(pair.getKey(), 10, me)));
-
-            //TODO: Ask everyone only once. When is it close enough?
-        }
-
-        throw new RuntimeException("Not implemented yet");
+    public void setValue(KeyValuePair pair, int k) {
+        for(RemoteNode n : performNodeLookup(pair.getKey(), k))
+            n.store(pair, me);
     }
 
     @Override
-    public KeyValuePair getValue(HashKey id) {
-        //TODO
-        //Quite similar to setValue
-        throw new RuntimeException("Not implemented yet");
+    public KeyValuePair getValue(HashKey target, int k, int maxIterations) {
+        Set<RemoteNode> visitedNodes = new HashSet<>();
+        TreeSet<RemoteNode> queuedNodes = new TreeSet<>(getDistanceComparator(target));
+
+        queuedNodes.addAll(Arrays.asList(this.findNodes(target, k, null)));
+
+        for (int iteration = 0; iteration < maxIterations && !queuedNodes.isEmpty(); iteration++){
+            RemoteNode currentNode = queuedNodes.pollFirst();
+            visitedNodes.add(currentNode);
+
+            RemoteNodesOrKeyValuePair response = currentNode.findValue(target, k, me);
+            if(response.getRemoteNodes() != null) {
+                for (RemoteNode n : response.getRemoteNodes()) {
+                    if (!visitedNodes.contains(n))
+                        queuedNodes.add(n);
+                    recordNode(n);
+                }
+            }
+            else{
+                return response.getPair();
+            }
+        }
+
+        return null;
+    }
+
+    private SortedSet<RemoteNode> performNodeLookup(HashKey target, int k){
+        Set<RemoteNode> visitedNodes = new HashSet<>();
+        TreeSet<RemoteNode> queuedNodes = new TreeSet<>(getDistanceComparator(target));
+        TreeSet<RemoteNode> closestNodes = new TreeSet<>(getDistanceComparator(target));
+
+        queuedNodes.addAll(Arrays.asList(this.findNodes(target, k, null)));
+        closestNodes.addAll(queuedNodes);
+
+        boolean gettingCloser = true;
+        while (gettingCloser && !queuedNodes.isEmpty()){
+            long distanceBeforeIteration = closestNodes.first().getNodeId().getDistance(target);
+
+            RemoteNode currentNode = queuedNodes.pollFirst();
+            visitedNodes.add(currentNode);
+
+            for(RemoteNode n : currentNode.findNodes(target, k, me)) {
+                if (!visitedNodes.contains(n))
+                    queuedNodes.add(n);
+                closestNodes.add(n);
+                recordNode(n);
+            }
+
+            gettingCloser = closestNodes.first().getNodeId().getDistance(target) < distanceBeforeIteration;
+        }
+
+        return closestNodes.stream()
+                .limit(k) //Return only the k closest elements
+                .collect(Collectors.toCollection(TreeSet::new));
     }
 }
