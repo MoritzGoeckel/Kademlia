@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Bucket {
-    private static final int SIZE_LIMIT = 10; //Todo: Thats a setting
+    private static final int SIZE_LIMIT = 5; //Todo: Thats a setting
     private Map<Boolean, Bucket> childs = new HashMap<>();
     private BitSet prefix; //Rev: This could also just be one bit
     private int level;
