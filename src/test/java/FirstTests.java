@@ -68,7 +68,7 @@ public class FirstTests {
     public void bucketTest() throws MalformedURLException, InterruptedException {
         Iterator<RemoteNode> nodeSupplier = getRandomUniqueNodes(1200);
 
-        Bucket b = new Bucket();
+        Bucket b = new Bucket(5);
         HashKey splittableId = HashKey.fromRandom();
 
         RemoteNode node = nodeSupplier.next();
@@ -179,7 +179,7 @@ public class FirstTests {
     public void bucketRemoveNodeTest(){
         Iterator<RemoteNode> nodeSupplier = getRandomUniqueNodes(1200);
 
-        Bucket b = new Bucket();
+        Bucket b = new Bucket(5);
         HashKey splittableId = HashKey.fromRandom();
 
         for(int i = 0; i < 1000; i++){
@@ -310,36 +310,6 @@ public class FirstTests {
                     to.getValue("Hello" + i, 30),
                     is("world"));
         }
-    }
-
-    @Test
-    public void getNSetStatistics(){
-        LinkedList<Node> nodes = new LinkedList<>();
-
-        Node firstNode = new Node(PORT, ADDRESS, 50);
-        nodes.add(firstNode);
-
-        for(int i = 0; i < 10_000; i++)
-            nodes.add(new Node(new LocalNode(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS), PORT, ADDRESS, 100));
-
-        Supplier<Node> randomNode = () -> nodes.get(R.nextInt(nodes.size() - 1));
-        nodes.forEach(Node::performPing);
-
-        Node.resetStatistics();
-
-        for(int i = 0; i < 10_000; i++)
-            randomNode.get().setValue("Hello" + i, "world", 1);
-
-        System.out.println("Storing procedure (10_000): " + Node.getStatistics());
-        Node.resetStatistics();
-
-        int fails = 0;
-        for(int i = 0; i < 10_000; i++)
-            if(randomNode.get().getValue("Hello" + i, 50) == null)
-                fails++;
-
-        System.out.println("Lookup procedure (10_000): " + Node.getStatistics());
-        System.out.println("Failed lookups: " + fails);
     }
 
     //Todo: Create churn tests

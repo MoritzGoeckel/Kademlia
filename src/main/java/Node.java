@@ -38,7 +38,7 @@ public class Node implements INode, IUserNode {
         this.nodeID = HashKey.fromRandom();
         this.me = new LocalNode(this, port, address);
         this.values = new HashMap<>();
-        this.buckets = new Bucket();
+        this.buckets = new Bucket(storageLimit);
 
         //startPingThread(); //Todo: Remove?
     }

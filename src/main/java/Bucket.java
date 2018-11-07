@@ -1,21 +1,23 @@
 import java.util.*;
 
 public class Bucket {
-    private static final int SIZE_LIMIT = 5; //Todo: Thats a setting
+    private int storageLimitPerLayer;
     private Map<Boolean, Bucket> childs = new HashMap<>();
     private BitSet prefix; //Rev: This could also just be one bit
     private int level;
 
     private List<RemoteNode> nodes = new ArrayList<>();
 
-    public Bucket(BitSet prefix, int level){
+    public Bucket(BitSet prefix, int level, int storageLimitPerLayer){
         this.prefix = prefix;
         this.level = level;
+        this.storageLimitPerLayer = storageLimitPerLayer;
 
         assert (level + 1 >= prefix.length());
     }
 
-    public Bucket(){
+    public Bucket(int storageLimitPerLayer){
+        this.storageLimitPerLayer = storageLimitPerLayer;
         this.prefix = new BitSet();
         this.level = -1;
     }
@@ -43,7 +45,7 @@ public class Bucket {
             bucket.nodes.add(node);
 
             //Is it over capacity?
-            if (bucket.nodes.size() > SIZE_LIMIT) {
+            if (bucket.nodes.size() > storageLimitPerLayer) {
                 //Can it split?
                 if (splittablePrefixes.matchesPrefix(bucket.prefix) && bucket.level < HashKey.LENGTH)
                     return bucket.split(splittablePrefixes);
@@ -69,7 +71,7 @@ public class Bucket {
     private boolean inSplittingProcess = false; //Just for assertion purposes. Remove?
     private synchronized boolean split(HashKey splittablePrefixes){
         assert (childs.size() == 0);
-        assert (nodes.size() > SIZE_LIMIT); //TODO: Rev. spec! Can it also split before?
+        assert (nodes.size() > storageLimitPerLayer); //TODO: Rev. spec! Can it also split before?
 
         inSplittingProcess = true;
 
@@ -81,8 +83,8 @@ public class Bucket {
         one.set(this.level + 1); //Rev: Off by one?
         assert (one.length() <= HashKey.LENGTH);
 
-        childs.put(false, new Bucket(zero, this.level + 1));
-        childs.put(true, new Bucket(one, this.level + 1));
+        childs.put(false, new Bucket(zero, this.level + 1, storageLimitPerLayer));
+        childs.put(true, new Bucket(one, this.level + 1, storageLimitPerLayer));
 
         //Add all nodes
         boolean addedAll = true;
