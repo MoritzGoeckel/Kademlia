@@ -10,6 +10,4 @@ public interface INode {
 
     /** If node has the value it returns it. If not it returns the k closest known nodes to the id */
     RemoteNodesOrKeyValuePair findValue(HashKey targetValueID, int k, RemoteNode sender);
-
-
 }
