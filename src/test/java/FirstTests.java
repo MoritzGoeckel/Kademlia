@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -315,5 +316,83 @@ public class FirstTests {
         }
     }
 
-    //Todo: Create churn tests
+    @Test
+    public void churnPutGetTest(){
+        LinkedList<Node> nodes = new LinkedList<>();
+
+        Node firstNode = new Node(PORT, ADDRESS, 10);
+        nodes.add(firstNode);
+
+        Consumer<Integer> addNodes = num -> {
+            for(int i = 0; i < num; i++)
+                nodes.add(new Node(new LocalNode(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS), PORT, ADDRESS, 10));
+        };
+
+        Consumer<Integer> removeNodes = num -> {
+            for(int i = 0; i < num; i++)
+                nodes.remove(R.nextInt(nodes.size() - 1));
+        };
+
+        Supplier<Node> randomNode = () -> nodes.get(R.nextInt(nodes.size() - 1));
+
+        addNodes.accept(50);
+        nodes.forEach(Node::performPing);
+
+        for(int i = 0; i < 100; i++) {
+            Node from = randomNode.get();
+            Node to = randomNode.get();
+
+            from.setValue("Hello" + i, "world", 10);
+
+            removeNodes.accept(5);
+
+            Assert.assertThat("Should be able to retrieve the set value ("+i+")",
+                    to.getValue("Hello" + i, 30),
+                    is("world"));
+
+            addNodes.accept(5);
+            nodes.forEach(Node::performPing);
+        }
+    }
+
+    @Test
+    public void churnTest(){
+        LinkedList<Node> nodes = new LinkedList<>();
+
+        Node firstNode = new Node(PORT, ADDRESS, 10);
+        nodes.add(firstNode);
+
+        Consumer<Integer> addNodes = num -> {
+            for(int i = 0; i < num; i++)
+                nodes.add(new Node(new LocalNode(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS), PORT, ADDRESS, 10));
+        };
+
+        Consumer<Integer> removeNodes = num -> {
+            for(int i = 0; i < num; i++)
+                nodes.remove(R.nextInt(nodes.size() - 1));
+        };
+
+        Supplier<Node> randomNode = () -> nodes.get(R.nextInt(nodes.size() - 1));
+
+        addNodes.accept(50);
+        nodes.forEach(Node::performPing);
+
+        for(int i = 0; i < 100; i++) {
+            int num = R.nextInt(25);
+            removeNodes.accept(num);
+            addNodes.accept(num);
+
+            nodes.forEach(Node::performPing);
+        }
+
+        for(int i = 0; i < 100; i++) {
+            Node from = randomNode.get();
+            Node to = randomNode.get();
+
+            from.setValue("Hello" + i, "world", 5);
+            Assert.assertThat("Should be able to retrieve the set value ("+i+")",
+                    to.getValue("Hello" + i, 30),
+                    is("world"));
+        }
+    }
 }

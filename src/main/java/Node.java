@@ -218,6 +218,7 @@ public class Node implements INode, IUserNode {
             RemoteNode currentNode = queuedNodes.pollFirst();
             visitedNodes.add(currentNode);
 
+            //Todo: Perform this in parallel
             for(RemoteNode n : currentNode.findNodes(target, k, me)) {
                 if (!visitedNodes.contains(n))
                     queuedNodes.add(n);

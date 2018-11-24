@@ -21,7 +21,7 @@ public class PerformanceTests {
         }
     }
 
-    @Test
+    //@Test
     public void getNSetStatistics(){
         LinkedList<Node> nodes = new LinkedList<>();
 
@@ -52,6 +52,4 @@ public class PerformanceTests {
         Node.getStatistics().print(100);
         System.out.println("Failed lookups: " + fails);
     }
-
-    //Todo: Churn statistics
 }
