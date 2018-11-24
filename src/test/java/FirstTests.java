@@ -356,7 +356,7 @@ public class FirstTests {
     }
 
     @Test
-    public void churnTest(){
+    public void initialChurnTest(){
         LinkedList<Node> nodes = new LinkedList<>();
 
         Node firstNode = new Node(PORT, ADDRESS, 10);
