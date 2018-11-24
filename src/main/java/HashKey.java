@@ -1,11 +1,12 @@
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.BitSet;
 import java.util.Random;
 
-public class HashKey {
+public class HashKey implements Serializable {
 
     public static final int LENGTH = 160;
 
@@ -37,7 +38,7 @@ public class HashKey {
 
     public BigInteger getDistance(HashKey other){
         //assert (other.bits.length() == this.bits.length()); //This does not hold with Bitset.
-        // Todo: Maybe change underlaying data structure
+        // Todo: Maybe change underlying data structure
 
         BitSet distanceBits = (BitSet) this.bits.clone();
         distanceBits.xor(other.bits);

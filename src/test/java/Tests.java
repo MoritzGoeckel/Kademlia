@@ -3,27 +3,18 @@ import org.junit.Test;
 
 import java.math.BigInteger;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static org.hamcrest.CoreMatchers.*;
 
-public class FirstTests {
+public class Tests {
 
     private static Random R = new Random();
 
     private static int PORT = -1;
-    private static URL ADDRESS;
-    static {
-        try {
-            ADDRESS = new URL("http://localhost");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e.toString());
-        }
-    }
+    private static String ADDRESS = "http://localhost";
 
     @Test
     public void hashKeyTest(){
@@ -56,23 +47,23 @@ public class FirstTests {
         Assert.assertThat("HashKey equals should work", HashKey.fromString("Hello").equals(HashKey.fromString("Hello")), is(true));
     }
 
-    public Iterator<RemoteNode> getRandomUniqueNodes(int num){
+    private Iterator<INode> getRandomUniqueNodes(int num) {
         //Creating unique random RemoteNodes
-        HashSet<RemoteNode> nodes = new HashSet<>();
+        HashSet<INode> nodes = new HashSet<>();
         while (nodes.size() < num)
-            nodes.add(new RemoteNode(HashKey.fromRandom(), PORT, ADDRESS));
+            nodes.add(new Node(0, "http://localhost", 10, false));
 
         return nodes.iterator();
     }
 
     @Test
-    public void bucketTest() throws MalformedURLException, InterruptedException {
-        Iterator<RemoteNode> nodeSupplier = getRandomUniqueNodes(1200);
+    public void bucketTest() {
+        Iterator<INode> nodeSupplier = getRandomUniqueNodes(1200);
 
         Bucket b = new Bucket(5);
         HashKey splittableId = HashKey.fromRandom();
 
-        RemoteNode node = nodeSupplier.next();
+        INode node = nodeSupplier.next();
         b.addNodeMaybe(node, splittableId);
 
         //Applies only for first elements
@@ -103,7 +94,7 @@ public class FirstTests {
 
         //Applies for all elements
 
-        RemoteNode possibleDoublicate = null;
+        INode possibleDoublicate = null;
 
         for(int i = 0; i < 1000; i++){
             node = nodeSupplier.next();
@@ -126,10 +117,8 @@ public class FirstTests {
                     b.getNodesFromResponsibleBucket(node.getNodeId()).contains(node),
                     is(added));
 
-            HashSet<RemoteNode> nodesInBuckets = new HashSet<>();
-            b.getAllNodes().forEach(n -> {
-                Assert.assertThat("There should be no duplicates", nodesInBuckets.add(n), is(true));
-            });
+            HashSet<INode> nodesInBuckets = new HashSet<>();
+            b.getAllNodes().forEach(n -> Assert.assertThat("There should be no duplicates", nodesInBuckets.add(n), is(true)));
 
             if(added)
                 expectedSize++;
@@ -160,7 +149,7 @@ public class FirstTests {
                 b.getNodesFromResponsibleBucket(node.getNodeId()).contains(node),
                 is(true));
 
-        HashSet<RemoteNode> nodesInBuckets = new HashSet<>();
+        HashSet<INode> nodesInBuckets = new HashSet<>();
         b.getAllNodes().forEach(n -> {
             Assert.assertThat("There should be no duplicates", nodesInBuckets.add(n), is(true));
         });
@@ -177,14 +166,14 @@ public class FirstTests {
     }
 
     @Test
-    public void bucketRemoveNodeTest(){
-        Iterator<RemoteNode> nodeSupplier = getRandomUniqueNodes(1200);
+    public void bucketRemoveNodeTest() throws MalformedURLException {
+        Iterator<INode> nodeSupplier = getRandomUniqueNodes(1200);
 
         Bucket b = new Bucket(5);
         HashKey splittableId = HashKey.fromRandom();
 
         for(int i = 0; i < 1000; i++){
-            RemoteNode node = nodeSupplier.next();
+            INode node = nodeSupplier.next();
 
             int expectedSize = b.getAllNodes().size();
             boolean added = b.addNodeMaybe(node, splittableId);
@@ -201,10 +190,8 @@ public class FirstTests {
                     b.getNodesFromResponsibleBucket(node.getNodeId()).contains(node),
                     is(added));
 
-            HashSet<RemoteNode> nodesInBuckets = new HashSet<>();
-            b.getAllNodes().forEach(n -> {
-                Assert.assertThat("There should be no duplicates", nodesInBuckets.add(n), is(true));
-            });
+            HashSet<INode> nodesInBuckets = new HashSet<>();
+            b.getAllNodes().forEach(n -> Assert.assertThat("There should be no duplicates", nodesInBuckets.add(n), is(true)));
 
             if(added)
                 expectedSize++;
@@ -214,8 +201,8 @@ public class FirstTests {
                     is(expectedSize));
 
             if(i % 8 == 0){
-                List<RemoteNode> allNodes = b.getAllNodes();
-                RemoteNode nodeToRemove = allNodes.get(R.nextInt(allNodes.size()));
+                List<INode> allNodes = b.getAllNodes();
+                INode nodeToRemove = allNodes.get(R.nextInt(allNodes.size()));
                 b.removeNode(nodeToRemove);
                 expectedSize--;
 
@@ -245,15 +232,15 @@ public class FirstTests {
     }
 
     @Test
-    public void remoteNodesOrKeyValuePairTests() throws MalformedURLException {
+    public void remoteNodesOrKeyValuePairTests() {
         RemoteNodesOrKeyValuePair a = new RemoteNodesOrKeyValuePair(new KeyValuePair(HashKey.fromString("A"), "B"));
         Assert.assertThat("Checking pair", a.getPair().getValue(), is("B"));
         Assert.assertThat("Checking nodes", a.getRemoteNodes(), nullValue());
 
 
-        RemoteNodesOrKeyValuePair b = new RemoteNodesOrKeyValuePair(new RemoteNode[]{
-                new RemoteNode(HashKey.fromRandom(), PORT, ADDRESS),
-                new RemoteNode(HashKey.fromRandom(), PORT, ADDRESS)
+        RemoteNodesOrKeyValuePair b = new RemoteNodesOrKeyValuePair(new INode[]{
+                new Node(0, "http://localhost", 10, false),
+                new Node(0, "http://localhost", 10, false)
         });
         Assert.assertThat("Checking pair", b.getPair(), nullValue());
         Assert.assertThat("Checking nodes", b.getRemoteNodes().length, is(2));
@@ -262,7 +249,7 @@ public class FirstTests {
     @Test
     public void oneNodeTest(){
         final int K = 1;
-        IUserNode firstNode = new Node(PORT, ADDRESS, 5);
+        IUserNode firstNode = new Node(PORT, ADDRESS, 5, false);
 
         firstNode.setValue("Hello", "world", K);
 
@@ -274,8 +261,8 @@ public class FirstTests {
     @Test
     public void twoNodesTest(){
         for(int i = 0; i < 300; i++) {
-            Node firstNode = new Node(PORT, ADDRESS, 5);
-            Node secondNode = new Node(new LocalNode(firstNode, PORT, ADDRESS), PORT, ADDRESS, 5);
+            Node firstNode = new Node(PORT, ADDRESS, 5, false);
+            Node secondNode = new Node(firstNode, PORT, ADDRESS, 5, false);
 
             firstNode.performPing();
             secondNode.performPing();
@@ -296,11 +283,11 @@ public class FirstTests {
     public void manyNodesTest(){
         LinkedList<Node> nodes = new LinkedList<>();
 
-        Node firstNode = new Node(PORT, ADDRESS, 10);
+        Node firstNode = new Node(PORT, ADDRESS, 10, false);
         nodes.add(firstNode);
 
         for(int i = 0; i < 100; i++)
-            nodes.add(new Node(new LocalNode(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS), PORT, ADDRESS, 10));
+            nodes.add(new Node(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS, 10, false));
 
         Supplier<Node> randomNode = () -> nodes.get(R.nextInt(nodes.size() - 1));
         nodes.forEach(Node::performPing);
@@ -320,12 +307,12 @@ public class FirstTests {
     public void churnPutGetTest(){
         LinkedList<Node> nodes = new LinkedList<>();
 
-        Node firstNode = new Node(PORT, ADDRESS, 10);
+        Node firstNode = new Node(PORT, ADDRESS, 10, false);
         nodes.add(firstNode);
 
         Consumer<Integer> addNodes = num -> {
             for(int i = 0; i < num; i++)
-                nodes.add(new Node(new LocalNode(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS), PORT, ADDRESS, 10));
+                nodes.add(new Node(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS, 10, false));
         };
 
         Consumer<Integer> removeNodes = num -> {
@@ -359,12 +346,12 @@ public class FirstTests {
     public void initialChurnTest(){
         LinkedList<Node> nodes = new LinkedList<>();
 
-        Node firstNode = new Node(PORT, ADDRESS, 10);
+        Node firstNode = new Node(PORT, ADDRESS, 10, false);
         nodes.add(firstNode);
 
         Consumer<Integer> addNodes = num -> {
             for(int i = 0; i < num; i++)
-                nodes.add(new Node(new LocalNode(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS), PORT, ADDRESS, 10));
+                nodes.add(new Node(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS, 10, false));
         };
 
         Consumer<Integer> removeNodes = num -> {

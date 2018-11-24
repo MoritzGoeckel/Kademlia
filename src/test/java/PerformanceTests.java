@@ -1,7 +1,5 @@
 import org.junit.Test;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.function.Supplier;
@@ -11,25 +9,17 @@ public class PerformanceTests {
     private static Random R = new Random();
 
     private static int PORT = -1;
-    private static URL ADDRESS;
-    static {
-        try {
-            ADDRESS = new URL("http://localhost");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e.toString());
-        }
-    }
+    private static String ADDRESS = "http://localhost";
 
     //@Test
     public void getNSetStatistics(){
         LinkedList<Node> nodes = new LinkedList<>();
 
-        Node firstNode = new Node(PORT, ADDRESS, 5);
+        Node firstNode = new Node(PORT, ADDRESS, 5, false);
         nodes.add(firstNode);
 
         for(int i = 0; i < 1000; i++)
-            nodes.add(new Node(new LocalNode(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS), PORT, ADDRESS, 5));
+            nodes.add(new Node(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS, 5, false));
 
         Supplier<Node> randomNode = () -> nodes.get(R.nextInt(nodes.size() - 1));
         nodes.forEach(Node::performPing);

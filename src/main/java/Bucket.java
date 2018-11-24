@@ -1,3 +1,4 @@
+import java.rmi.RemoteException;
 import java.util.*;
 
 public class Bucket {
@@ -6,7 +7,7 @@ public class Bucket {
     private BitSet prefix; //Rev: This could also just be one bit
     private int level;
 
-    private List<RemoteNode> nodes = new ArrayList<>();
+    private List<INode> nodes = new ArrayList<>();
 
     public Bucket(BitSet prefix, int level, int storageLimitPerLayer){
         this.prefix = prefix;
@@ -37,7 +38,7 @@ public class Bucket {
             return this;
     }
 
-    public synchronized boolean addNodeMaybe(RemoteNode node, HashKey splittablePrefixes){
+    public synchronized boolean addNodeMaybe(INode node, HashKey splittablePrefixes) {
         Bucket bucket = getResponsibleBucket(node.getNodeId());
         assert(!bucket.inSplittingProcess);
 
@@ -64,12 +65,12 @@ public class Bucket {
         }
     }
 
-    public synchronized boolean containsNode(RemoteNode node){
+    public synchronized boolean containsNode(INode node) {
         return getResponsibleBucket(node.getNodeId()).nodes.contains(node);
     }
 
     private boolean inSplittingProcess = false; //Just for assertion purposes. Remove?
-    private synchronized boolean split(HashKey splittablePrefixes){
+    private synchronized boolean split(HashKey splittablePrefixes) {
         assert (childs.size() == 0);
         assert (nodes.size() > storageLimitPerLayer); //TODO: Rev. spec! Can it also split before?
 
@@ -88,7 +89,7 @@ public class Bucket {
 
         //Add all nodes
         boolean addedAll = true;
-        for(RemoteNode n : nodes){
+        for(INode n : nodes){
             addedAll = addNodeMaybe(n, splittablePrefixes) && addedAll;
             //This can not be asserted!
             //In rare cases all nodes fall into the split that is not splittable
@@ -99,7 +100,8 @@ public class Bucket {
         final boolean addedAllf = addedAll; //Needs to be effectively final
         Bucket theOneThatDidTheSplit = this;
         nodes.forEach(node -> {
-            Bucket responsibleBucket = getResponsibleBucket(node.getNodeId());
+            Bucket responsibleBucket = null;
+            responsibleBucket = getResponsibleBucket(node.getNodeId());
             assert(responsibleBucket.nodes.contains(node) || !addedAllf);
             assert(responsibleBucket != theOneThatDidTheSplit);
         });
@@ -111,22 +113,22 @@ public class Bucket {
         return addedAll; //Returns whether or not all nodes have been kept
     }
 
-    public synchronized List<RemoteNode> getNodesFromResponsibleBucket(HashKey key){
+    public synchronized List<INode> getNodesFromResponsibleBucket(HashKey key){
         return getResponsibleBucket(key).getAllNodes();
     }
 
-    public synchronized List<RemoteNode> getAllNodes() {
-        LinkedList<RemoteNode> out = new LinkedList<>();
+    public synchronized List<INode> getAllNodes() {
+        LinkedList<INode> out = new LinkedList<>();
         addNodesToList(out);
         return out;
     }
 
-    private synchronized void addNodesToList(LinkedList<RemoteNode> list){
+    private synchronized void addNodesToList(LinkedList<INode> list){
         list.addAll(nodes);
         childs.forEach((key, value) -> value.addNodesToList(list));
     }
 
-    public synchronized void removeNode(RemoteNode node){
+    public synchronized void removeNode(INode node) {
         getResponsibleBucket(node.getNodeId()).nodes.remove(node);
     }
 

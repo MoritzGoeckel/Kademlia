@@ -1,13 +1,15 @@
-public class RemoteNodesOrKeyValuePair {
-    private RemoteNode[] remoteNodes;
+import java.io.Serializable;
+
+public class RemoteNodesOrKeyValuePair implements Serializable {
+    private INode[] remoteNodes;
     private KeyValuePair pair;
 
-    public RemoteNodesOrKeyValuePair(RemoteNode[] remoteNodes){
+    public RemoteNodesOrKeyValuePair(INode[] remoteNodes){
         this.remoteNodes = remoteNodes;
     }
     public RemoteNodesOrKeyValuePair(KeyValuePair pair) { this.pair = pair; }
 
-    public RemoteNode[] getRemoteNodes() {
+    public INode[] getRemoteNodes() {
         return remoteNodes;
     }
 

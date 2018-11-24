@@ -1,4 +1,6 @@
-public class KeyValuePair {
+import java.io.Serializable;
+
+public class KeyValuePair  implements Serializable {
     private final HashKey key;
     private final String value;
 

@@ -1,13 +1,14 @@
 import java.math.BigInteger;
-import java.net.URL;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Node implements INode, IUserNode {
+public class Node implements INode, IUserNode, IRemoteNode {
     private HashKey nodeID;
     private Bucket buckets;
-
-    private LocalNode me;
 
     private HashMap<HashKey, String> values;
     //Todo: Values need to expire
@@ -18,6 +19,11 @@ public class Node implements INode, IUserNode {
 
     private Thread pingThread;
 
+    private int port;
+    private String address;
+
+    private INode meForOthers;
+
     private static NodeStatistics statistics = new NodeStatistics();
     public static NodeStatistics getStatistics(){
         return statistics;
@@ -27,20 +33,55 @@ public class Node implements INode, IUserNode {
         statistics = new NodeStatistics();
     }
 
-    public Node(RemoteNode knownNode, int port, URL address, int storageLimit){
-        this(port, address, storageLimit);
+    public Node(INode knownNode, int port, String address, int storageLimit, boolean expose){
+        this(port, address, storageLimit, expose);
 
         recordNode(knownNode);
         performNodeLookup(this.nodeID, 50);
     }
 
-    public Node(int port, URL address, int storageLimit){
+    public Node(int port, String address, int storageLimit, boolean expose){
+        this.port = port;
+        this.address = address;
         this.nodeID = HashKey.fromRandom();
-        this.me = new LocalNode(this, port, address);
         this.values = new HashMap<>();
         this.buckets = new Bucket(storageLimit);
 
+        if(expose) {
+            try {
+                //Create registry if necessary
+                Registry registry;
+                try {
+                    registry = LocateRegistry.getRegistry(this.getPort());
+                    registry.list();
+                } catch (RemoteException e){
+                    registry = LocateRegistry.createRegistry(this.getPort());
+                }
+
+                //Expose the LocalNode
+                IRemoteNode myStub = (IRemoteNode) UnicastRemoteObject.exportObject(this, this.getPort());
+                registry.rebind("kademliaNode", myStub);
+                meForOthers = new RemoteNode(address, port, nodeID);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+                throw new RuntimeException("Exposing exception");
+            }
+        }
+        else {
+            meForOthers = this;
+        }
+
         //startPingThread(); //Todo: Remove?
+    }
+
+    @Override
+    public int getPort(){
+        return port;
+    }
+
+    @Override
+    public String getAddress() {
+        return address;
     }
 
     public void startPingThread(){
@@ -65,30 +106,26 @@ public class Node implements INode, IUserNode {
     public void performPing(){
         checkShutdown();
 
-        List<RemoteNode> nodes = buckets.getAllNodes();
+        List<INode> nodes = buckets.getAllNodes();
         nodes.forEach(n -> {
-            if (!n.ping(me))
+            if (!n.ping(meForOthers))
                 buckets.removeNode(n);
         });
     }
 
-    public HashKey getID(){
-        return nodeID;
-    }
-
-    private static Comparator<RemoteNode> getDistanceComparator(HashKey target){
+    private static Comparator<INode> getDistanceComparator(HashKey target){
         return (a,b) -> (int)(a.getNodeId().getDistance(target).compareTo(b.getNodeId().getDistance(target)));
     }
 
 
-    private void recordNode(RemoteNode other){
-        if(other != me)
+    private void recordNode(INode other){
+        if(other != this)
             buckets.addNodeMaybe(other, this.nodeID);
     }
 
     @Override
-    public boolean ping(RemoteNode sender) {
-        if(sender != me)
+    public boolean ping(INode sender) {
+        if(sender != meForOthers)
             statistics.recordEvent("ping");
 
         if(!shutdown)
@@ -98,10 +135,10 @@ public class Node implements INode, IUserNode {
     }
 
     @Override
-    public void store(KeyValuePair pair, RemoteNode sender) {
+    public void store(KeyValuePair pair, INode sender) {
         checkShutdown();
 
-        if(sender != me)
+        if(sender != meForOthers)
             statistics.recordEvent("store");
 
         recordNode(sender);
@@ -112,10 +149,10 @@ public class Node implements INode, IUserNode {
     }
 
     @Override
-    public RemoteNode[] findNodes(HashKey targetID, int k, RemoteNode sender) {
+    public INode[] findNodes(HashKey targetID, int k, INode sender) {
         checkShutdown();
 
-        if(sender != me)
+        if(sender != meForOthers)
             statistics.recordEvent("findNodes");
 
         recordNode(sender);
@@ -125,10 +162,11 @@ public class Node implements INode, IUserNode {
         //it would be hard however to expand the search for k instances
         //and as the number of all nodes in the buckets is small
         //this would not make much a difference
-        RemoteNode[] output = buckets.getAllNodes().stream()
+        INode[] output = buckets.getAllNodes().stream()
             .sorted(getDistanceComparator(targetID))
             .limit(k)
-            .toArray(RemoteNode[]::new);
+            //.map(n -> new RemoteNode(n.getAddress(), n.getPort(), n.getNodeId())) // We dont need to convert it, as only remotes should be in there anyways
+            .toArray(INode[]::new);
 
         assert output.length <= 1 || (output[0].getNodeId().getDistance(targetID).compareTo(output[output.length - 1].getNodeId().getDistance(targetID)) < 0);
 
@@ -136,10 +174,10 @@ public class Node implements INode, IUserNode {
     }
 
     @Override
-    public RemoteNodesOrKeyValuePair findValue(HashKey targetValueID, int k, RemoteNode sender) {
+    public RemoteNodesOrKeyValuePair findValue(HashKey targetValueID, int k, INode sender) {
         checkShutdown();
 
-        if(sender != me)
+        if(sender != meForOthers)
             statistics.recordEvent("findValue");
 
         recordNode(sender);
@@ -148,7 +186,12 @@ public class Node implements INode, IUserNode {
         if(values.containsKey(targetValueID))
             return new RemoteNodesOrKeyValuePair(new KeyValuePair(targetValueID, values.get(targetValueID)));
         else
-            return new RemoteNodesOrKeyValuePair(findNodes(targetValueID, k, me));
+            return new RemoteNodesOrKeyValuePair(findNodes(targetValueID, k, meForOthers));
+    }
+
+    @Override
+    public HashKey getNodeId() {
+        return nodeID;
     }
 
     @Override
@@ -157,8 +200,8 @@ public class Node implements INode, IUserNode {
 
         KeyValuePair pair = new KeyValuePair(HashKey.fromString(key), value);
 
-        for(RemoteNode n : performNodeLookup(pair.getKey(), k))
-            n.store(pair, me);
+        for(INode n : performNodeLookup(pair.getKey(), k))
+            n.store(pair, meForOthers);
     }
 
     @Override
@@ -168,22 +211,22 @@ public class Node implements INode, IUserNode {
         HashKey target = HashKey.fromString(key);
 
         //This one does not have it, so lets do the lookup dance
-        Set<RemoteNode> visitedNodes = new HashSet<>();
-        TreeSet<RemoteNode> queuedNodes = new TreeSet<>(getDistanceComparator(target));
+        Set<INode> visitedNodes = new HashSet<>();
+        TreeSet<INode> queuedNodes = new TreeSet<>(getDistanceComparator(target));
 
-        queuedNodes.add(me);
+        queuedNodes.add(this);
 
         int MAX_ITERATIONS = Integer.MAX_VALUE;
         for (int iteration = 0; iteration < MAX_ITERATIONS && !queuedNodes.isEmpty(); iteration++){
 
             assert queuedNodes.size() <= 1 || (queuedNodes.first().getNodeId().getDistance(target).compareTo(queuedNodes.last().getNodeId().getDistance(target)) < 0);
 
-            RemoteNode currentNode = queuedNodes.pollFirst();
+            INode currentNode = queuedNodes.pollFirst();
             visitedNodes.add(currentNode);
 
-            RemoteNodesOrKeyValuePair response = currentNode.findValue(target, k, me);
+            RemoteNodesOrKeyValuePair response = currentNode.findValue(target, k, meForOthers);
             if(response.getRemoteNodes() != null) {
-                for (RemoteNode n : response.getRemoteNodes()) {
+                for (INode n : response.getRemoteNodes()) {
                     if (!visitedNodes.contains(n))
                         queuedNodes.add(n);
                     recordNode(n);
@@ -197,14 +240,14 @@ public class Node implements INode, IUserNode {
         return null;
     }
 
-    private SortedSet<RemoteNode> performNodeLookup(HashKey target, int k){
+    private SortedSet<INode> performNodeLookup(HashKey target, int k){
         checkShutdown();
 
-        Set<RemoteNode> visitedNodes = new HashSet<>();
-        TreeSet<RemoteNode> queuedNodes = new TreeSet<>(getDistanceComparator(target));
-        TreeSet<RemoteNode> closestNodes = new TreeSet<>(getDistanceComparator(target));
+        Set<INode> visitedNodes = new HashSet<>();
+        TreeSet<INode> queuedNodes = new TreeSet<>(getDistanceComparator(target));
+        TreeSet<INode> closestNodes = new TreeSet<>(getDistanceComparator(target));
 
-        queuedNodes.addAll(Arrays.asList(this.findNodes(target, 999999, me)));
+        queuedNodes.addAll(Arrays.asList(this.findNodes(target, 999999, meForOthers)));
         closestNodes.addAll(queuedNodes);
 
         boolean gettingCloser = true;
@@ -215,11 +258,11 @@ public class Node implements INode, IUserNode {
 
             BigInteger distanceBeforeIteration = closestNodes.first().getNodeId().getDistance(target);
 
-            RemoteNode currentNode = queuedNodes.pollFirst();
+            INode currentNode = queuedNodes.pollFirst();
             visitedNodes.add(currentNode);
 
             //Todo: Perform this in parallel
-            for(RemoteNode n : currentNode.findNodes(target, k, me)) {
+            for(INode n : currentNode.findNodes(target, k, meForOthers)) {
                 if (!visitedNodes.contains(n))
                     queuedNodes.add(n);
                 closestNodes.add(n);
@@ -233,7 +276,8 @@ public class Node implements INode, IUserNode {
         assert closestNodes.size() <= 1 || (closestNodes.first().getNodeId().getDistance(target).compareTo(closestNodes.last().getNodeId().getDistance(target)) < 0);
 
         //Lets throw oneself also into the mix :)
-        closestNodes.add(me);
+        closestNodes.add(this);
+
         return closestNodes.stream()
                 .limit(k) //Return only the k closest elements
                 .collect(Collectors.toCollection(() -> new TreeSet<>(getDistanceComparator(target))));
@@ -251,5 +295,11 @@ public class Node implements INode, IUserNode {
 
     public boolean isShutdown() {
         return shutdown;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof INode
+                && getNodeId().equals(((INode)obj).getNodeId());
     }
 }
