@@ -71,6 +71,11 @@ public class RemoteNode implements INode, Remote, Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        return obj == this || (obj instanceof INode && ((INode) obj).getNodeId().equals(this.getNodeId()));
+    }
+
+    @Override
     public HashKey getNodeId() {
         return id;
     }

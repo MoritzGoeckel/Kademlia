@@ -22,7 +22,7 @@ public class Node implements INode, IUserNode, IRemoteNode {
     private int port;
     private String address;
 
-    private INode meForOthers;
+    private INode localNode;
 
     private static NodeStatistics statistics = new NodeStatistics();
     public static NodeStatistics getStatistics(){
@@ -58,17 +58,19 @@ public class Node implements INode, IUserNode, IRemoteNode {
                     registry = LocateRegistry.createRegistry(this.getPort());
                 }
 
-                //Expose the LocalNode
-                IRemoteNode myStub = (IRemoteNode) UnicastRemoteObject.exportObject(this, this.getPort());
-                registry.rebind("kademliaNode", myStub);
-                meForOthers = new RemoteNode(address, port, nodeID);
+                //Expose this
+                IRemoteNode exposedStub = (IRemoteNode) UnicastRemoteObject.exportObject(this, this.getPort());
+                registry.rebind("kademliaNode", exposedStub);
+
+                //Create wrapper to use as sender
+                localNode = new RemoteNode(address, port, nodeID);
             } catch (RemoteException e) {
                 e.printStackTrace();
                 throw new RuntimeException("Exposing exception");
             }
         }
         else {
-            meForOthers = this;
+            localNode = this;
         }
 
         //startPingThread(); //Todo: Remove?
@@ -108,7 +110,7 @@ public class Node implements INode, IUserNode, IRemoteNode {
 
         List<INode> nodes = buckets.getAllNodes();
         nodes.forEach(n -> {
-            if (!n.ping(meForOthers))
+            if (!n.ping(localNode))
                 buckets.removeNode(n);
         });
     }
@@ -119,13 +121,13 @@ public class Node implements INode, IUserNode, IRemoteNode {
 
 
     private void recordNode(INode other){
-        if(other != this)
+        if(!other.equals(this))
             buckets.addNodeMaybe(other, this.nodeID);
     }
 
     @Override
     public boolean ping(INode sender) {
-        if(sender != meForOthers)
+        if(!localNode.equals(sender))
             statistics.recordEvent("ping");
 
         if(!shutdown)
@@ -138,7 +140,7 @@ public class Node implements INode, IUserNode, IRemoteNode {
     public void store(KeyValuePair pair, INode sender) {
         checkShutdown();
 
-        if(sender != meForOthers)
+        if(!localNode.equals(sender))
             statistics.recordEvent("store");
 
         recordNode(sender);
@@ -152,7 +154,7 @@ public class Node implements INode, IUserNode, IRemoteNode {
     public INode[] findNodes(HashKey targetID, int k, INode sender) {
         checkShutdown();
 
-        if(sender != meForOthers)
+        if(!localNode.equals(sender))
             statistics.recordEvent("findNodes");
 
         recordNode(sender);
@@ -177,7 +179,7 @@ public class Node implements INode, IUserNode, IRemoteNode {
     public RemoteNodesOrKeyValuePair findValue(HashKey targetValueID, int k, INode sender) {
         checkShutdown();
 
-        if(sender != meForOthers)
+        if(!localNode.equals(sender))
             statistics.recordEvent("findValue");
 
         recordNode(sender);
@@ -186,7 +188,7 @@ public class Node implements INode, IUserNode, IRemoteNode {
         if(values.containsKey(targetValueID))
             return new RemoteNodesOrKeyValuePair(new KeyValuePair(targetValueID, values.get(targetValueID)));
         else
-            return new RemoteNodesOrKeyValuePair(findNodes(targetValueID, k, meForOthers));
+            return new RemoteNodesOrKeyValuePair(findNodes(targetValueID, k, localNode));
     }
 
     @Override
@@ -201,7 +203,7 @@ public class Node implements INode, IUserNode, IRemoteNode {
         KeyValuePair pair = new KeyValuePair(HashKey.fromString(key), value);
 
         for(INode n : performNodeLookup(pair.getKey(), k))
-            n.store(pair, meForOthers);
+            n.store(pair, localNode);
     }
 
     @Override
@@ -224,7 +226,7 @@ public class Node implements INode, IUserNode, IRemoteNode {
             INode currentNode = queuedNodes.pollFirst();
             visitedNodes.add(currentNode);
 
-            RemoteNodesOrKeyValuePair response = currentNode.findValue(target, k, meForOthers);
+            RemoteNodesOrKeyValuePair response = currentNode.findValue(target, k, localNode);
             if(response.getRemoteNodes() != null) {
                 for (INode n : response.getRemoteNodes()) {
                     if (!visitedNodes.contains(n))
@@ -247,7 +249,7 @@ public class Node implements INode, IUserNode, IRemoteNode {
         TreeSet<INode> queuedNodes = new TreeSet<>(getDistanceComparator(target));
         TreeSet<INode> closestNodes = new TreeSet<>(getDistanceComparator(target));
 
-        queuedNodes.addAll(Arrays.asList(this.findNodes(target, 999999, meForOthers)));
+        queuedNodes.addAll(Arrays.asList(this.findNodes(target, 999999, localNode)));
         closestNodes.addAll(queuedNodes);
 
         boolean gettingCloser = true;
@@ -262,7 +264,7 @@ public class Node implements INode, IUserNode, IRemoteNode {
             visitedNodes.add(currentNode);
 
             //Todo: Perform this in parallel
-            for(INode n : currentNode.findNodes(target, k, meForOthers)) {
+            for(INode n : currentNode.findNodes(target, k, localNode)) {
                 if (!visitedNodes.contains(n))
                     queuedNodes.add(n);
                 closestNodes.add(n);
@@ -299,7 +301,7 @@ public class Node implements INode, IUserNode, IRemoteNode {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof INode
-                && getNodeId().equals(((INode)obj).getNodeId());
+        return obj == this || (obj instanceof INode
+                && getNodeId().equals(((INode)obj).getNodeId()));
     }
 }

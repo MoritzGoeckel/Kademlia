@@ -9,9 +9,9 @@ public class PerformanceTests {
     private static Random R = new Random();
 
     private static int PORT = -1;
-    private static String ADDRESS = "http://localhost";
+    private static String ADDRESS = "localhost";
 
-    //@Test
+    @Test
     public void getNSetStatistics(){
         LinkedList<Node> nodes = new LinkedList<>();
 
@@ -42,4 +42,6 @@ public class PerformanceTests {
         Node.getStatistics().print(100);
         System.out.println("Failed lookups: " + fails);
     }
+
+    //Todo: Get not found value test (performance?)
 }

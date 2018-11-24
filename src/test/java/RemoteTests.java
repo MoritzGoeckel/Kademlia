@@ -20,7 +20,6 @@ public class RemoteTests {
 
     @Test
     public void twoNodesRemoteTest() {
-
         Node firstNode = new Node(3000, ADDRESS, 10, true);
         Node secondNode = new Node(new RemoteNode("localhost", 3000, firstNode.getNodeId()), 3001, ADDRESS, 10, true);
 
@@ -37,4 +36,22 @@ public class RemoteTests {
                 firstNode.getValue("Hello", 1),
                 is("world"));
     }
+
+    @Test
+    public void utilNodesTest() {
+        HashKey k = HashKey.fromRandom();
+        RemoteNode r = new RemoteNode("localhost", 3000, k);
+        assert(r.getAddress().equals("localhost"));
+        assert(r.getPort() == 3000);
+        assert(r.getNodeId().equals(k));
+    }
+
+    @Test
+    public void manyNodesTest() {
+        //assert (false);
+        //TODO: Many nodes remote test
+    }
+
+    //TODO: Shutdown tests
+    //TODO: Ping test
 }
