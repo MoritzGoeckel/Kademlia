@@ -86,8 +86,11 @@ public class LocalTests {
         };
 
         Consumer<Integer> removeNodes = num -> {
-            for(int i = 0; i < num; i++)
-                nodes.remove(R.nextInt(nodes.size() - 1));
+            for(int i = 0; i < num; i++) {
+                int index = R.nextInt(nodes.size() - 1);
+                nodes.get(index).shutdown();
+                nodes.remove(index);
+            }
         };
 
         Supplier<Node> randomNode = () -> nodes.get(R.nextInt(nodes.size() - 1));
@@ -97,11 +100,11 @@ public class LocalTests {
 
         for(int i = 0; i < 100; i++) {
             Node from = randomNode.get();
-            Node to = randomNode.get();
 
             from.setValue("Hello" + i, "world", 10);
 
             removeNodes.accept(5);
+            Node to = randomNode.get();
 
             Assert.assertThat("Should be able to retrieve the set value ("+i+")",
                     to.getValue("Hello" + i, 30),
@@ -125,8 +128,11 @@ public class LocalTests {
         };
 
         Consumer<Integer> removeNodes = num -> {
-            for(int i = 0; i < num; i++)
-                nodes.remove(R.nextInt(nodes.size() - 1));
+            for(int i = 0; i < num; i++) {
+                int index = R.nextInt(nodes.size() - 1);
+                nodes.get(index).shutdown();
+                nodes.remove(index);
+            }
         };
 
         Supplier<Node> randomNode = () -> nodes.get(R.nextInt(nodes.size() - 1));

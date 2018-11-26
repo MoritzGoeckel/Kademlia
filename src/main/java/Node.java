@@ -127,18 +127,20 @@ public class Node implements INode, IUserNode, IRemoteNode {
 
     @Override
     public boolean ping(INode sender) {
+        if(isShutdown())
+            return false;
+
         if(!localNode.equals(sender))
             statistics.recordEvent("ping");
 
-        if(!shutdown)
-            recordNode(sender);
-
-        return !shutdown;
+        recordNode(sender);
+        return true;
     }
 
     @Override
     public boolean store(KeyValuePair pair, INode sender) {
-        checkShutdown();
+        if(isShutdown())
+            return false;
 
         if(!localNode.equals(sender))
             statistics.recordEvent("store");
@@ -154,7 +156,8 @@ public class Node implements INode, IUserNode, IRemoteNode {
 
     @Override
     public INode[] findNodes(HashKey targetID, int k, INode sender) {
-        checkShutdown();
+        if(isShutdown())
+            return null;
 
         if(!localNode.equals(sender))
             statistics.recordEvent("findNodes");
@@ -179,7 +182,8 @@ public class Node implements INode, IUserNode, IRemoteNode {
 
     @Override
     public RemoteNodesOrKeyValuePair findValue(HashKey targetValueID, int k, INode sender) {
-        checkShutdown();
+        if(isShutdown())
+            return new RemoteNodesOrKeyValuePair(new INode[]{});
 
         if(!localNode.equals(sender))
             statistics.recordEvent("findValue");
@@ -301,7 +305,6 @@ public class Node implements INode, IUserNode, IRemoteNode {
     }
 
     public void shutdown(){
-        checkShutdown();
         shutdown = true;
     }
 
