@@ -5,8 +5,8 @@ This is an implementation of the distributed hashtable Kademlia
 ## Getting started
 
 ``` java
-Node firstNode = new Node(PORT, ADDRESS, 5);
-Node secondNode = new Node(new LocalNode(firstNode, PORT, ADDRESS), PORT, ADDRESS, 5);
+com.moritzgoeckel.kademlia.Node firstNode = new com.moritzgoeckel.kademlia.Node(PORT, ADDRESS, 5);
+com.moritzgoeckel.kademlia.Node secondNode = new com.moritzgoeckel.kademlia.Node(new LocalNode(firstNode, PORT, ADDRESS), PORT, ADDRESS, 5);
 
 firstNode.performPing();
 secondNode.performPing();

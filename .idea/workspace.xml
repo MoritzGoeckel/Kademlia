@@ -3,10 +3,24 @@
   <component name="ChangeListManager">
     <list default="true" id="473b4b70-521e-4977-b557-ffe38822da4d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/LocalTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/LocalTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Node.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/LocalTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/LocalTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Bucket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Bucket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HashKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/HashKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/INode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/INode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/IRemoteNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/IRemoteNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/IUserNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/IKademliaNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/KeyValuePair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/KeyValuePair.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NodeStatistics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/NodeStatistics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RemoteNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RemoteNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RemoteNodesOrKeyValuePair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RemoteNodesOrKeyValuePair.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/BucketTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/BucketTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/LocalTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/LocalTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/MiscTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/MiscTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PerformanceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/RemoteTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/RemoteTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Node.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/PerformanceTests.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -23,14 +37,17 @@
     <SUITE FILE_PATH="coverage/Kademlia$PerformanceTests_getNSetStatistics.ic" NAME="PerformanceTests.getNSetStatistics Coverage Results" MODIFIED="1543075252331" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Kademlia$FirstTests_keyValuePairTests.ic" NAME="FirstTests.keyValuePairTests Coverage Results" MODIFIED="1541613644321" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Kademlia$RemoteTests.ic" NAME="RemoteTests Coverage Results" MODIFIED="1543075072145" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Kademlia$All.ic" NAME="All Coverage Results" MODIFIED="1543236574567" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Kademlia$All.ic" NAME="All Coverage Results" MODIFIED="1543260759300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Kademlia$FirstTests_hashKeyTest.ic" NAME="FirstTests.hashKeyTest Coverage Results" MODIFIED="1541243340625" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Kademlia$FirstTests.ic" NAME="FirstTests Coverage Results" MODIFIED="1541613342546" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Kademlia$LocalTests_oneNodeTest.ic" NAME="LocalTests.oneNodeTest Coverage Results" MODIFIED="1543260985080" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.moritzgoeckel.kademlia.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/Kademlia$All_in_Kademlia.ic" NAME="All in Kademlia Coverage Results" MODIFIED="1541323407725" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Kademlia$RemoteTests_twoNodesRemoteTest.ic" NAME="RemoteTests.twoNodesRemoteTest Coverage Results" MODIFIED="1543074208959" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="CoverageViewManager">
-    <option name="myElementSize" value="175" />
+    <option name="myElementSize" value="201" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -50,37 +67,39 @@
     <session id="280357652">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="11" />
+          <entry key="project.closed" value="12" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.18" value="1" />
-          <entry key="project.open.time.19" value="3" />
+          <entry key="project.open.time.19" value="4" />
           <entry key="project.open.time.22" value="2" />
           <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.25" value="1" />
           <entry key="project.open.time.29" value="1" />
           <entry key="project.open.time.4" value="2" />
-          <entry key="project.opened" value="12" />
+          <entry key="project.opened" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="18" />
           <entry key="iml" value="1" />
-          <entry key="java" value="54" />
+          <entry key="java" value="80" />
+          <entry key="md" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="18" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="54" />
+          <entry key="JAVA" value="80" />
+          <entry key="Markdown" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dummy" value="55" />
+          <entry key="dummy" value="119" />
           <entry key="iml" value="4" />
-          <entry key="java" value="21096" />
+          <entry key="java" value="25848" />
           <entry key="txt" value="109" />
           <entry key="xml" value="8" />
         </counts>
@@ -88,8 +107,8 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="IDEA_MODULE" value="4" />
-          <entry key="JAVA" value="21096" />
-          <entry key="PLAIN_TEXT" value="164" />
+          <entry key="JAVA" value="25848" />
+          <entry key="PLAIN_TEXT" value="228" />
           <entry key="XML" value="8" />
         </counts>
       </usages-collector>
@@ -102,36 +121,23 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/RemoteNode.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RemoteNode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="447">
-              <caret line="44" column="12" lean-forward="true" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="25" />
+            <state relative-caret-position="417">
+              <caret line="97" column="26" lean-forward="true" selection-start-line="97" selection-start-column="26" selection-end-line="97" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#3203#3204#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Node.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/HashKey.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="224" selection-start-line="224" selection-end-line="224" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#9748#9749#0" expanded="true" />
-                <element signature="e#9779#9780#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/PerformanceTests.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="30" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
+            <state relative-caret-position="603">
+              <caret line="68" column="13" lean-forward="true" selection-start-line="68" selection-start-column="13" selection-end-line="68" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -140,10 +146,32 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/LocalTests.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Node.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="106" column="39" selection-start-line="106" selection-start-column="39" selection-end-line="106" selection-end-column="39" />
+            <state relative-caret-position="435">
+              <caret line="123" column="27" lean-forward="true" selection-start-line="123" selection-start-column="27" selection-end-line="123" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1120#1121#0" expanded="true" />
+                <element signature="e#1181#1182#0" expanded="true" />
+                <element signature="e#2774#2775#0" expanded="true" />
+                <element signature="e#2801#2802#0" expanded="true" />
+                <element signature="e#2849#2850#0" expanded="true" />
+                <element signature="e#2879#2880#0" expanded="true" />
+                <element signature="e#7066#7067#0" expanded="true" />
+                <element signature="e#7095#7096#0" expanded="true" />
+                <element signature="e#12473#12474#0" expanded="true" />
+                <element signature="e#12504#12505#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="265">
+              <caret line="24" column="97" selection-start-line="24" selection-start-column="97" selection-end-line="24" selection-end-column="97" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -152,19 +180,64 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/INode.java">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/MiscTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+            <state relative-caret-position="478">
+              <caret line="76" column="5" lean-forward="true" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/IRemoteNode.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/INode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="8" column="74" selection-start-line="8" selection-start-column="74" selection-end-line="8" selection-end-column="74" />
+            <state relative-caret-position="285">
+              <caret line="19" column="18" lean-forward="true" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/LocalTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="283">
+              <caret line="26" column="48" lean-forward="true" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Bucket.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1080">
+              <caret line="72" column="13" lean-forward="true" selection-start-line="72" selection-start-column="13" selection-end-line="72" selection-end-column="13" />
+              <folding>
+                <element signature="e#1173#1174#0" expanded="true" />
+                <element signature="e#1202#1203#0" expanded="true" />
+                <element signature="e#4963#4964#0" expanded="true" />
+                <element signature="e#5036#5037#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/RemoteTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="18" column="112" selection-start-line="18" selection-start-column="112" selection-end-line="18" selection-end-column="112" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/BucketTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -228,13 +301,30 @@
         <option value="$PROJECT_DIR$/src/test/java/BucketTests.java" />
         <option value="$PROJECT_DIR$/src/test/java/Tests.java" />
         <option value="$PROJECT_DIR$/src/test/java/MiscTests.java" />
-        <option value="$PROJECT_DIR$/src/test/java/RemoteTests.java" />
         <option value="$PROJECT_DIR$/src/main/java/INode.java" />
         <option value="$PROJECT_DIR$/src/main/java/IRemoteNode.java" />
         <option value="$PROJECT_DIR$/src/main/java/RemoteNode.java" />
-        <option value="$PROJECT_DIR$/src/test/java/PerformanceTests.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Node.java" />
         <option value="$PROJECT_DIR$/src/test/java/LocalTests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Node.java" />
+        <option value="$PROJECT_DIR$/src/test/java/PerformanceTests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/IUserNode.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/RemoteTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/OutsidePackageTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RemoteNodesOrKeyValuePair.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/INode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RemoteNode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/NodeStatistics.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/KeyValuePair.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/IRemoteNode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/IKademliaNode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/HashKey.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Bucket.java" />
+        <option value="$PROJECT_DIR$/src/test/java/RemoteTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/BucketTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/MiscTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/LocalTests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Node.java" />
       </list>
     </option>
   </component>
@@ -256,8 +346,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -287,6 +375,14 @@
               <item name="Kademlia" type="b2602c69:ProjectViewProjectNode" />
               <item name="Kademlia" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="kademlia" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Kademlia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Kademlia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -296,10 +392,20 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Kademlia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Kademlia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="kademlia" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -315,6 +421,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.moritzgoeckel.kademlia" />
       <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -336,7 +443,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.LocalTests.churnPutGetTest">
+  <component name="RunManager" selected="JUnit.All">
     <configuration name="All" type="JUnit" factoryName="JUnit">
       <module name="Kademlia" />
       <option name="MAIN_CLASS_NAME" value="" />
@@ -348,20 +455,35 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LocalTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LocalTests.initialChurnTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Kademlia" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="LocalTests" />
-      <option name="METHOD_NAME" value="oneNodeTest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.moritzgoeckel.kademlia.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.moritzgoeckel.kademlia" />
+      <option name="MAIN_CLASS_NAME" value="com.moritzgoeckel.kademlia.LocalTests" />
+      <option name="METHOD_NAME" value="initialChurnTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
+      <dir value="$PROJECT_DIR$/src/test" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LocalTests.churnPutGetTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LocalTests.oneNodeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Kademlia" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="LocalTests" />
-      <option name="METHOD_NAME" value="churnPutGetTest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.moritzgoeckel.kademlia.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.moritzgoeckel.kademlia" />
+      <option name="MAIN_CLASS_NAME" value="com.moritzgoeckel.kademlia.LocalTests" />
+      <option name="METHOD_NAME" value="oneNodeTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -369,8 +491,8 @@
     </configuration>
     <configuration name="PerformanceTests.getNSetStatistics" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Kademlia" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="PerformanceTests" />
+      <option name="PACKAGE_NAME" value="com.moritzgoeckel.kademlia" />
+      <option name="MAIN_CLASS_NAME" value="com.moritzgoeckel.kademlia.PerformanceTests" />
       <option name="METHOD_NAME" value="getNSetStatistics" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -385,11 +507,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RemoteTests.utilNodesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RemoteTests.twoNodesRemoteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Kademlia" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="RemoteTests" />
-      <option name="METHOD_NAME" value="utilNodesTest" />
+      <option name="METHOD_NAME" value="twoNodesRemoteTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -397,19 +519,19 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.All" />
-      <item itemvalue="JUnit.LocalTests" />
-      <item itemvalue="JUnit.RemoteTests" />
-      <item itemvalue="JUnit.RemoteTests.utilNodesTest" />
       <item itemvalue="JUnit.PerformanceTests.getNSetStatistics" />
-      <item itemvalue="JUnit.LocalTests.churnPutGetTest" />
+      <item itemvalue="JUnit.RemoteTests.twoNodesRemoteTest" />
+      <item itemvalue="JUnit.RemoteTests" />
+      <item itemvalue="JUnit.LocalTests.initialChurnTest" />
+      <item itemvalue="JUnit.LocalTests.oneNodeTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LocalTests.churnPutGetTest" />
-        <item itemvalue="JUnit.LocalTests" />
-        <item itemvalue="JUnit.PerformanceTests.getNSetStatistics" />
-        <item itemvalue="JUnit.RemoteTests.utilNodesTest" />
+        <item itemvalue="JUnit.LocalTests.oneNodeTest" />
+        <item itemvalue="JUnit.LocalTests.initialChurnTest" />
         <item itemvalue="JUnit.RemoteTests" />
+        <item itemvalue="JUnit.RemoteTests.twoNodesRemoteTest" />
+        <item itemvalue="JUnit.PerformanceTests.getNSetStatistics" />
       </list>
     </recent_temporary>
   </component>
@@ -431,7 +553,8 @@
       <workItem from="1543085740506" duration="538000" />
       <workItem from="1543165646124" duration="13000" />
       <workItem from="1543235255161" duration="1404000" />
-      <workItem from="1543236848173" duration="485000" />
+      <workItem from="1543236848173" duration="816000" />
+      <workItem from="1543255804486" duration="5286000" />
     </task>
     <task id="LOCAL-00001" summary="Added hashing, tests for hashing, basic interface and classes">
       <created>1541193559039</created>
@@ -444,39 +567,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="RemoteTests_utilNodesTest - 2018.11.24 at 17h 00m 22s.xml">
-      <configuration name="RemoteTests.utilNodesTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.24 at 17h 00m 56s.xml">
-      <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All - 2018.11.24 at 17h 05m 35s.xml">
-      <configuration name="All" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All - 2018.11.24 at 17h 05m 57s.xml">
-      <configuration name="All" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All - 2018.11.24 at 20h 01m 47s.xml">
-      <configuration name="All" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All - 2018.11.26 at 13h 39m 43s.xml">
-      <configuration name="All" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All - 2018.11.26 at 13h 45m 37s.xml">
-      <configuration name="All" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.26 at 13h 46m 25s.xml">
-      <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="All - 2018.11.26 at 13h 49m 43s.xml">
       <configuration name="All" configurationId="JUnit" />
     </history-entry>
     <history-entry file="LocalTests - 2018.11.26 at 14h 01m 10s.xml">
       <configuration name="LocalTests" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="LocalTests_churnPutGetTest - 2018.11.26 at 14h 02m 20s.xml">
+      <configuration name="LocalTests.churnPutGetTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All - 2018.11.26 at 14h 03m 45s.xml">
+      <configuration name="All" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.26 at 14h 06m 41s.xml">
+      <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="RemoteTests - 2018.11.26 at 20h 31m 45s.xml">
+      <configuration name="RemoteTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All - 2018.11.26 at 20h 31m 57s.xml">
+      <configuration name="All" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LocalTests_initialChurnTest - 2018.11.26 at 20h 32m 35s.xml">
+      <configuration name="LocalTests.initialChurnTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All - 2018.11.26 at 20h 32m 45s.xml">
+      <configuration name="All" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LocalTests_oneNodeTest - 2018.11.26 at 20h 36m 26s.xml">
+      <configuration name="LocalTests.oneNodeTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86183000" />
+    <option name="totallyTimeSpent" value="91800000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -491,14 +614,14 @@
     <frame x="49" y="25" width="1871" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49839228" visible="true" weight="0.20767124" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49839228" visible="true" weight="0.209863" />
       <window_info id="Structure" order="1" sideWeight="0.5016077" side_tool="true" weight="0.24986301" />
       <window_info id="Designer" order="2" />
       <window_info id="Learn" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32972974" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.28216216" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.28216216" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.25621623" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -513,7 +636,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info anchor="right" id="Maven Projects" order="4" />
-      <window_info anchor="right" id="Coverage" order="5" side_tool="true" visible="true" weight="0.23561645" />
+      <window_info anchor="right" id="Coverage" order="5" side_tool="true" visible="true" weight="0.29369864" />
       <window_info anchor="right" id="Database" order="6" side_tool="true" weight="0.329863" />
     </layout>
   </component>
@@ -650,99 +773,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/LocalNode.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/HashKey.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/IUserNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="38" selection-start-line="6" selection-start-column="38" selection-end-line="6" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RemoteNodesOrKeyValuePair.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="32" lean-forward="true" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="32" />
-          <folding>
-            <element signature="e#173#174#0" expanded="true" />
-            <element signature="e#219#220#0" expanded="true" />
-            <element signature="e#341#342#0" expanded="true" />
-            <element signature="e#375#376#0" expanded="true" />
-            <element signature="e#412#413#0" expanded="true" />
-            <element signature="e#439#440#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/KeyValuePair.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="30" lean-forward="true" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
-          <folding>
-            <element signature="e#231#232#0" expanded="true" />
-            <element signature="e#257#258#0" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
-            <element signature="e#317#318#0" expanded="true" />
-            <element signature="e#363#364#0" expanded="true" />
-            <element signature="e#406#407#0" expanded="true" />
-            <element signature="e#449#450#0" expanded="true" />
-            <element signature="e#493#494#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/NodeStatistics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/RemoteTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="41" column="41" selection-start-line="41" selection-start-column="41" selection-end-line="41" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/MiscTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="28" column="58" selection-start-line="28" selection-start-column="58" selection-end-line="28" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/BucketTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="10" column="43" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Bucket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="41" selection-start-line="41" selection-end-line="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jrt:///usr/lib/jvm/java-1.11.0-openjdk-amd64!/java.rmi/java/rmi/NotBoundException.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -750,61 +780,166 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/INode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/IRemoteNode.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/RemoteTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="8" column="74" selection-start-line="8" selection-start-column="74" selection-end-line="8" selection-end-column="74" />
+        <state relative-caret-position="495">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/PerformanceTests.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RemoteNodesOrKeyValuePair.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="30" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
+        <state relative-caret-position="90">
+          <caret line="6" column="32" lean-forward="true" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/NodeStatistics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RemoteNode.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/KeyValuePair.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="44" column="12" lean-forward="true" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="25" />
+        <state relative-caret-position="60">
+          <caret line="4" column="33" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/IRemoteNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Node.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/IKademliaNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="224" selection-start-line="224" selection-end-line="224" />
+        <state relative-caret-position="60">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/HashKey.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="603">
+          <caret line="68" column="13" lean-forward="true" selection-start-line="68" selection-start-column="13" selection-end-line="68" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#9748#9749#0" expanded="true" />
-            <element signature="e#9779#9780#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/LocalTests.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Bucket.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="106" column="39" selection-start-line="106" selection-start-column="39" selection-end-line="106" selection-end-column="39" />
+        <state relative-caret-position="1080">
+          <caret line="72" column="13" lean-forward="true" selection-start-line="72" selection-start-column="13" selection-end-line="72" selection-end-column="13" />
+          <folding>
+            <element signature="e#1173#1174#0" expanded="true" />
+            <element signature="e#1202#1203#0" expanded="true" />
+            <element signature="e#4963#4964#0" expanded="true" />
+            <element signature="e#5036#5037#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/RemoteTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="18" column="112" selection-start-line="18" selection-start-column="112" selection-end-line="18" selection-end-column="112" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/BucketTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="24" column="97" selection-start-line="24" selection-start-column="97" selection-end-line="24" selection-end-column="97" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RemoteNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="97" column="26" lean-forward="true" selection-start-line="97" selection-start-column="26" selection-end-line="97" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3203#3204#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/MiscTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="478">
+          <caret line="76" column="5" lean-forward="true" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/LocalTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="26" column="48" lean-forward="true" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/INode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="18" lean-forward="true" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Node.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="123" column="27" lean-forward="true" selection-start-line="123" selection-start-column="27" selection-end-line="123" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1120#1121#0" expanded="true" />
+            <element signature="e#1181#1182#0" expanded="true" />
+            <element signature="e#2774#2775#0" expanded="true" />
+            <element signature="e#2801#2802#0" expanded="true" />
+            <element signature="e#2849#2850#0" expanded="true" />
+            <element signature="e#2879#2880#0" expanded="true" />
+            <element signature="e#7066#7067#0" expanded="true" />
+            <element signature="e#7095#7096#0" expanded="true" />
+            <element signature="e#12473#12474#0" expanded="true" />
+            <element signature="e#12504#12505#0" expanded="true" />
           </folding>
         </state>
       </provider>
