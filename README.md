@@ -1,24 +1,21 @@
 # Kademlia
 
-This is an implementation of the distributed hashtable Kademlia
+This is an implementation of the distributed hash table Kademlia
 
 ## Getting started
 
 ``` java
-com.moritzgoeckel.kademlia.Node firstNode = new com.moritzgoeckel.kademlia.Node(PORT, ADDRESS, 5);
-com.moritzgoeckel.kademlia.Node secondNode = new com.moritzgoeckel.kademlia.Node(new LocalNode(firstNode, PORT, ADDRESS), PORT, ADDRESS, 5);
+Node firstNode = new Node(3000, ADDRESS, 10);
+Node secondNode = new Node(new RemoteNode("localhost", 3000, firstNode.getNodeId()), 3001, ADDRESS, 10);
 
-firstNode.performPing();
-secondNode.performPing();
-
-secondNode.setValue("Hello", "world", 1);
-
-Assert.assertThat("Should be able to retrieve the set value",
-        firstNode.getValue("Hello", 1),
-        is("world"));
+firstNode.setValue("Hello", "world", 1);
 
 Assert.assertThat("Should be able to retrieve the set value",
         secondNode.getValue("Hello", 1),
+        is("world"));
+
+Assert.assertThat("Should be able to retrieve the set value",
+        firstNode.getValue("Hello", 1),
         is("world"));
 ```
 
@@ -30,4 +27,9 @@ void setValue(String key, String value, int k);
 
 /** Returns the value for a key */
 String getValue(String key, int k);
+
+/** Shuts the node down */
+void shutdown();
+
+boolean isShutdown();
 ```
