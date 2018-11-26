@@ -136,7 +136,7 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
     }
 
     /** Performs a maintenance ping and removes unavailable nodes from the buckets */
-    void performPing(){
+    public void performPing(){
         checkShutdown();
 
         List<INode> nodes = buckets.getAllNodes();

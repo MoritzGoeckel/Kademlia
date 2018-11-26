@@ -47,4 +47,5 @@ public class PerformanceTests {
     }
 
     //Todo: Get not found value test (performance?)
+    //TODO: Get statistics about the amount of stored nodes per bucket tree
 }
