@@ -32,19 +32,17 @@ public class RemoteNode implements INode, Remote, Serializable {
             establishConnection();
             return remote.ping(sender);
         } catch (RemoteException | NotBoundException e) {
-            e.printStackTrace();
-            throw new RuntimeException("REMOTE EXCEPTION!");
+            return false; //Node is not reachable
         }
     }
 
     @Override
-    public void store(KeyValuePair pair, INode sender) {
+    public boolean store(KeyValuePair pair, INode sender) {
         try {
             establishConnection();
-            remote.store(pair, sender);
+            return remote.store(pair, sender);
         } catch (RemoteException | NotBoundException e) {
-            e.printStackTrace();
-            throw new RuntimeException("REMOTE EXCEPTION!");
+            return false;
         }
     }
 
@@ -54,8 +52,7 @@ public class RemoteNode implements INode, Remote, Serializable {
             establishConnection();
             return remote.findNodes(targetID, k, sender);
         } catch (RemoteException | NotBoundException e) {
-            e.printStackTrace();
-            throw new RuntimeException("REMOTE EXCEPTION!");
+            return null;
         }
     }
 
@@ -65,8 +62,8 @@ public class RemoteNode implements INode, Remote, Serializable {
             establishConnection();
             return remote.findValue(targetValueID, k, sender);
         } catch (RemoteException | NotBoundException e) {
-            e.printStackTrace();
-            throw new RuntimeException("REMOTE EXCEPTION!");
+            //Return empty result
+            return new RemoteNodesOrKeyValuePair(new INode[]{});
         }
     }
 

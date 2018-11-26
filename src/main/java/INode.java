@@ -3,7 +3,7 @@ public interface INode {
     boolean ping(INode sender);
 
     /** Instructs the node to store the KeyValuePair */
-    void store(KeyValuePair pair, INode sender);
+    boolean store(KeyValuePair pair, INode sender);
 
     /** Returns the k closest known nodes to the nodeId */
     INode[] findNodes(HashKey targetID, int k, INode sender);

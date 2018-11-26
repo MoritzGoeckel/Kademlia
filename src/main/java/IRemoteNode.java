@@ -6,7 +6,7 @@ public interface IRemoteNode extends Remote {
     boolean ping(INode sender) throws RemoteException;
 
     /** Instructs the node to store the KeyValuePair */
-    void store(KeyValuePair pair, INode sender) throws RemoteException;
+    boolean store(KeyValuePair pair, INode sender) throws RemoteException;
 
     /** Returns the k closest known nodes to the nodeId */
     INode[] findNodes(HashKey targetID, int k, INode sender) throws RemoteException;

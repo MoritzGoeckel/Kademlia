@@ -73,7 +73,7 @@ public class Node implements INode, IUserNode, IRemoteNode {
             localNode = this;
         }
 
-        //startPingThread(); //Todo: Remove?
+        //startPingThread(); //Todo: Remove? TODO: Threading
     }
 
     @Override
@@ -137,7 +137,7 @@ public class Node implements INode, IUserNode, IRemoteNode {
     }
 
     @Override
-    public void store(KeyValuePair pair, INode sender) {
+    public boolean store(KeyValuePair pair, INode sender) {
         checkShutdown();
 
         if(!localNode.equals(sender))
@@ -148,6 +148,8 @@ public class Node implements INode, IUserNode, IRemoteNode {
         //Node does not know if he is the closest,
         //he just stores it when instructed to
         values.put(pair.getKey(), pair.getValue());
+
+        return true;
     }
 
     @Override
@@ -202,8 +204,16 @@ public class Node implements INode, IUserNode, IRemoteNode {
 
         KeyValuePair pair = new KeyValuePair(HashKey.fromString(key), value);
 
-        for(INode n : performNodeLookup(pair.getKey(), k))
-            n.store(pair, localNode);
+        Set<INode> closestNodes = performNodeLookup(pair.getKey(), k);
+
+        int successfulyStored = 0;
+        for(INode n : closestNodes) {
+            if(n.store(pair, localNode))
+                successfulyStored++;
+
+            if(successfulyStored >= k)
+                break;
+        }
     }
 
     @Override
@@ -264,14 +274,16 @@ public class Node implements INode, IUserNode, IRemoteNode {
             visitedNodes.add(currentNode);
 
             //Todo: Perform this in parallel
-            for(INode n : currentNode.findNodes(target, k, localNode)) {
-                if (!visitedNodes.contains(n))
-                    queuedNodes.add(n);
-                closestNodes.add(n);
-                recordNode(n);
+            INode[] nodes = currentNode.findNodes(target, k, localNode);
+            if(nodes != null) {
+                for (INode n : nodes) {
+                    if (!visitedNodes.contains(n))
+                        queuedNodes.add(n);
+                    closestNodes.add(n);
+                    recordNode(n);
+                }
+                gettingCloser = closestNodes.first().getNodeId().getDistance(target).compareTo(distanceBeforeIteration) < 0;
             }
-
-            gettingCloser = closestNodes.first().getNodeId().getDistance(target).compareTo(distanceBeforeIteration) < 0;
         }
 
         //Assertion
@@ -280,9 +292,7 @@ public class Node implements INode, IUserNode, IRemoteNode {
         //Lets throw oneself also into the mix :)
         closestNodes.add(this);
 
-        return closestNodes.stream()
-                .limit(k) //Return only the k closest elements
-                .collect(Collectors.toCollection(() -> new TreeSet<>(getDistanceComparator(target))));
+        return closestNodes;
     }
 
     private void checkShutdown(){

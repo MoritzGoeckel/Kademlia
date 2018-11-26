@@ -46,12 +46,7 @@ public class RemoteTests {
         assert(r.getNodeId().equals(k));
     }
 
-    @Test
-    public void manyNodesTest() {
-        //assert (false);
-        //TODO: Many nodes remote test
-    }
-
+    //TODO: Many nodes remote test
     //TODO: Shutdown tests
     //TODO: Ping test
 }
