@@ -1,25 +1,34 @@
 package com.moritzgoeckel.kademlia;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+
 import java.math.BigInteger;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /** Implementation of a Kademlia node */
 public class Node implements INode, IKademliaNode, IRemoteNode {
 
     private static int TIME_BETWEEN_PINGS = 6 * 60 * 1000; //Five minutes
+    private static ExecutorService threadExecutor = Executors.newCachedThreadPool();
 
     private HashKey nodeID;
     private Bucket buckets;
-    private HashMap<HashKey, String> values; //Todo: Values need to expire
     private boolean shutdown = false;
-    private Thread pingThread;
+    private Future pingFuture;
     private int port;
     private String address;
     private INode localNode;
+
+    private Cache<HashKey, String> values;
 
     private static NodeStatistics statistics = new NodeStatistics();
     static NodeStatistics getStatistics(){
@@ -27,6 +36,21 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
     }
     static void resetStatistics(){
         statistics = new NodeStatistics();
+    }
+
+    @Override
+    public int getPort(){
+        return port;
+    }
+
+    @Override
+    public String getAddress() {
+        return address;
+    }
+
+    @Override
+    public HashKey getNodeId() {
+        return nodeID;
     }
 
     /** Constructor for nodes joining a network */
@@ -62,66 +86,53 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
         this.port = port;
         this.address = address;
         this.nodeID = HashKey.fromRandom();
-        this.values = new HashMap<>();
         this.buckets = new Bucket(storageLimit);
 
+        //Using a hash map that allows for expiring entries (by the help of guava)
+        this.values = CacheBuilder.newBuilder()
+                .maximumSize(1000 * 1000)
+                .expireAfterWrite(24, TimeUnit.HOURS)
+                .build();
+
         if(exposeRMI) {
-            try {
-                //Create registry if necessary
-                Registry registry;
-                try {
-                    registry = LocateRegistry.getRegistry(this.getPort());
-                    registry.list();
-                } catch (RemoteException e){
-                    registry = LocateRegistry.createRegistry(this.getPort());
-                }
-
-                //Expose this
-                IRemoteNode exposedStub = (IRemoteNode) UnicastRemoteObject.exportObject(this, this.getPort());
-                registry.rebind("kademliaNode", exposedStub);
-
-                //Create wrapper to use as sender
-                localNode = new RemoteNode(address, port, nodeID);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-                throw new RuntimeException("Exposing exception");
-            }
+            exposeRMI();
+            localNode = new RemoteNode(address, port, nodeID); //Create wrapper to use as sender
         }
         else {
-            localNode = this;
+            localNode = this; //Use a direct reference as sender
         }
 
-        if(useThreading)
-            startPingThread();
+        if(useThreading){
+            pingFuture = threadExecutor.submit(() -> {
+                while (!shutdown) {
+                    this.performPing();
+                    try {
+                        Thread.sleep(TIME_BETWEEN_PINGS);
+                    } catch (InterruptedException e) { }
+                }
+            });
+        }
     }
 
-    @Override
-    public int getPort(){
-        return port;
-    }
-
-    @Override
-    public String getAddress() {
-        return address;
-    }
-
-    /** Starts the thread that performs the maintenance pings from time to time */
-    private void startPingThread(){
-        if(pingThread != null)
-            throw new RuntimeException("Ping thread already running");
-
-        pingThread = new Thread(() -> {
-            while (!shutdown) {
-                this.performPing();
-
-                try {
-                    Thread.sleep(TIME_BETWEEN_PINGS);
-                } catch (InterruptedException e) { }
+    /** Exposes this node to the network via RMI. If no RMI registry exists one gets created */
+    private void exposeRMI(){
+        try {
+            //Create registry if necessary
+            Registry registry;
+            try {
+                registry = LocateRegistry.getRegistry(this.getPort());
+                registry.list();
+            } catch (RemoteException e){
+                registry = LocateRegistry.createRegistry(this.getPort());
             }
-        });
-        pingThread.setDaemon(true);
-        pingThread.start();
-        //TODO: Thread pool
+
+            //Expose this node
+            IRemoteNode exposedStub = (IRemoteNode) UnicastRemoteObject.exportObject(this, this.getPort());
+            registry.rebind("kademliaNode", exposedStub);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Exposing exception");
+        }
     }
 
     /** Performs a maintenance ping and removes unavailable nodes from the buckets */
@@ -133,6 +144,22 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
             if (!n.ping(localNode))
                 buckets.removeNode(n);
         });
+    }
+
+    private void checkShutdown(){
+        if(shutdown)
+            throw new RuntimeException("Already shut down");
+    }
+
+    /** Shuts down the node */
+    public void shutdown(){
+        shutdown = true;
+        if(pingFuture != null && !pingFuture.isCancelled() && !pingFuture.isDone())
+            pingFuture.cancel(true);
+    }
+
+    public boolean isShutdown() {
+        return shutdown;
     }
 
     /** Provides a shorthand for sorting HashKeys by distance to target HashKey */
@@ -190,6 +217,7 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
     /**
      * The findNodes method that is exposed to other nodes on the network.
      * Returns the k closest nodes to the target HashKey in the buckets of the receiving node
+     * TODO: Caching?
      * */
     @Override
     public INode[] findNodes(HashKey targetID, int k, INode sender) {
@@ -200,7 +228,6 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
             statistics.recordEvent("findNodes");
 
         recordNode(sender);
-        //TODO: Cache values / Nodes
 
         //Could also utilize the buckets for a faster find,
         //it would be hard however to expand the search for k instances
@@ -209,7 +236,7 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
         INode[] output = buckets.getAllNodes().stream()
             .sorted(getDistanceComparator(targetID))
             .limit(k)
-            //.map(n -> new com.moritzgoeckel.kademlia.RemoteNode(n.getAddress(), n.getPort(), n.getNodeId())) // We dont need to convert it, as only remotes should be in there anyways
+            //.map(n -> new RemoteNode(n.getAddress(), n.getPort(), n.getNodeId())) // We dont need to convert it, as only remotes should be in there anyways
             .toArray(INode[]::new);
 
         assert output.length <= 1 || (output[0].getNodeId().getDistance(targetID).compareTo(output[output.length - 1].getNodeId().getDistance(targetID)) < 0);
@@ -221,6 +248,7 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
      * The findValue method that is exposed to other nodes on the network.
      * Returns either the requested value if present at the node
      * Or returns the k closest nodes to the target HashKey in the buckets of the receiving node
+     * TODO: Caching?
      * */
     @Override
     public RemoteNodesOrKeyValuePair findValue(HashKey targetValueID, int k, INode sender) {
@@ -231,17 +259,12 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
             statistics.recordEvent("findValue");
 
         recordNode(sender);
-        //TODO: Cache values / Nodes
 
-        if(values.containsKey(targetValueID))
-            return new RemoteNodesOrKeyValuePair(new KeyValuePair(targetValueID, values.get(targetValueID)));
+        String value = values.getIfPresent(targetValueID);
+        if(value != null)
+            return new RemoteNodesOrKeyValuePair(new KeyValuePair(targetValueID, value));
         else
             return new RemoteNodesOrKeyValuePair(findNodes(targetValueID, k, localNode));
-    }
-
-    @Override
-    public HashKey getNodeId() {
-        return nodeID;
     }
 
     /**
@@ -256,12 +279,12 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
 
         Set<INode> closestNodes = performNodeLookup(pair.getKey(), k);
 
-        int successfulyStored = 0;
+        int successfullyStored = 0;
         for(INode n : closestNodes) {
             if(n.store(pair, localNode))
-                successfulyStored++;
+                successfullyStored++;
 
-            if(successfulyStored >= k)
+            if(successfullyStored >= k)
                 break;
         }
     }
@@ -312,6 +335,7 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
     /**
      * Performs a lookup for the closest nodes to a given HashKey on the network
      * The higher k, the higher the network traffic
+     * TODO: Perform in parallel
      * */
     private SortedSet<INode> performNodeLookup(HashKey target, int k){
         checkShutdown();
@@ -334,7 +358,6 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
             INode currentNode = queuedNodes.pollFirst();
             visitedNodes.add(currentNode);
 
-            //Todo: Perform this in parallel
             INode[] nodes = currentNode.findNodes(target, k, localNode);
             if(nodes != null) {
                 for (INode n : nodes) {
@@ -354,22 +377,6 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
         closestNodes.add(this);
 
         return closestNodes;
-    }
-
-    private void checkShutdown(){
-        if(shutdown)
-            throw new RuntimeException("Already shut down");
-    }
-
-    /** Shuts down the node */
-    public void shutdown(){
-        shutdown = true;
-        if(pingThread != null && pingThread.isAlive() && !pingThread.isInterrupted())
-            pingThread.interrupt();
-    }
-
-    public boolean isShutdown() {
-        return shutdown;
     }
 
     @Override
