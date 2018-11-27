@@ -69,10 +69,8 @@ public class MiscTests {
 
     @Test
     public void utilNodesTest() {
-        HashKey k = HashKey.fromRandom();
-        RemoteNode r = new RemoteNode("localhost", 3000, k);
+        RemoteNode r = new RemoteNode("localhost", 3000);
         assert(r.getAddress().equals("localhost"));
         assert(r.getPort() == 3000);
-        assert(r.getNodeId().equals(k));
     }
 }

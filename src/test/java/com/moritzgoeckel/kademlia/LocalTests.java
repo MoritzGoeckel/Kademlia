@@ -34,8 +34,8 @@ public class LocalTests {
     @Test
     public void twoNodesTest(){
         for(int i = 0; i < 300; i++) {
-            Node firstNode = new Node(PORT, ADDRESS, 5, false, false);
-            Node secondNode = new Node(firstNode, PORT, ADDRESS, 5, false, false);
+            Node firstNode = new Node(PORT++, ADDRESS, 5, false, false);
+            Node secondNode = new Node(firstNode, PORT++, ADDRESS, 5, false, false);
 
             firstNode.performPing();
             secondNode.performPing();
@@ -56,11 +56,11 @@ public class LocalTests {
     public void manyNodesTest(){
         LinkedList<Node> nodes = new LinkedList<>();
 
-        Node firstNode = new Node(PORT, ADDRESS, 10, false, false);
+        Node firstNode = new Node(PORT++, ADDRESS, 10, false, false);
         nodes.add(firstNode);
 
         for(int i = 0; i < 100; i++)
-            nodes.add(new Node(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS, 10, false, false));
+            nodes.add(new Node(nodes.get(R.nextInt(nodes.size())), PORT++, ADDRESS, 10, false, false));
 
         Supplier<Node> randomNode = () -> nodes.get(R.nextInt(nodes.size() - 1));
         nodes.forEach(Node::performPing);
@@ -80,12 +80,12 @@ public class LocalTests {
     public void churnPutGetTest(){
         LinkedList<Node> nodes = new LinkedList<>();
 
-        Node firstNode = new Node(PORT, ADDRESS, 10, false, false);
+        Node firstNode = new Node(PORT++, ADDRESS, 10, false, false);
         nodes.add(firstNode);
 
         Consumer<Integer> addNodes = num -> {
             for(int i = 0; i < num; i++)
-                nodes.add(new Node(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS, 10, false, false));
+                nodes.add(new Node(nodes.get(R.nextInt(nodes.size())), PORT++, ADDRESS, 10, false, false));
         };
 
         Consumer<Integer> removeNodes = num -> {
@@ -122,12 +122,12 @@ public class LocalTests {
     public void initialChurnTest(){
         LinkedList<Node> nodes = new LinkedList<>();
 
-        Node firstNode = new Node(PORT, ADDRESS, 10, false, false);
+        Node firstNode = new Node(PORT++, ADDRESS, 10, false, false);
         nodes.add(firstNode);
 
         Consumer<Integer> addNodes = num -> {
             for(int i = 0; i < num; i++)
-                nodes.add(new Node(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS, 10, false, false));
+                nodes.add(new Node(nodes.get(R.nextInt(nodes.size())), PORT++, ADDRESS, 10, false, false));
         };
 
         Consumer<Integer> removeNodes = num -> {

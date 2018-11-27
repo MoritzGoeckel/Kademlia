@@ -10,20 +10,20 @@ import java.util.Random;
 
 /** HashKey implemented with a BitSet
  *  to be used as node ID and as key for the values stored in Kademlia  */
-public class HashKey implements Serializable {
+class HashKey implements Serializable {
 
-    public static final int LENGTH = 160;
+    static final int LENGTH = 160;
     private static Random random = new Random();
 
     private BitSet bits;
 
     /** Creates a HashKey from a String */
-    public static HashKey fromString(String s){
+    static HashKey fromString(String s){
         return new HashKey(Hashing.sha1().hashString(s, Charsets.UTF_8).asBytes());
     }
 
     /** Creates a random HashKey */
-    public static HashKey fromRandom(){
+    static HashKey fromRandom(){
         return fromString(String.valueOf(random.nextInt()));
     }
 
@@ -44,7 +44,7 @@ public class HashKey implements Serializable {
     }
 
     /** Determines the distance between two a HashKeys using XOR */
-    public BigInteger getDistance(HashKey other){
+    BigInteger getDistance(HashKey other){
         //assert (other.bits.length() == this.bits.length()); //This does not hold with Bitset.
         // Todo: Maybe change underlying data structure from bitset to bit array
 
@@ -55,14 +55,14 @@ public class HashKey implements Serializable {
     }
 
     /** Determines whether or not the HashKey starts with a certain prefix */
-    public boolean matchesPrefix(BitSet prefix){
+    boolean matchesPrefix(BitSet prefix){
         assert (prefix.length() <= this.bits.length());
 
         return prefix.equals(this.bits.get(0, prefix.length()));
     }
 
     /** Returns the bit on a given index in the HashKey */
-    public boolean getBit(int index){
+    boolean getBit(int index){
         return this.bits.get(index);
     }
 

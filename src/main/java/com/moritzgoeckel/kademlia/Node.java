@@ -85,7 +85,7 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
     Node(int port, String address, int storageLimit, boolean exposeRMI, boolean useThreading){
         this.port = port;
         this.address = address;
-        this.nodeID = HashKey.fromRandom();
+        this.nodeID = HashKey.fromString(address +"/"+ port);
         this.buckets = new Bucket(storageLimit);
 
         //Using a hash map that allows for expiring entries (by the help of guava)
@@ -96,7 +96,7 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
 
         if(exposeRMI) {
             exposeRMI();
-            localNode = new RemoteNode(address, port, nodeID); //Create wrapper to use as sender
+            localNode = new RemoteNode(address, port); //Create wrapper to use as sender
         }
         else {
             localNode = this; //Use a direct reference as sender

@@ -18,9 +18,10 @@ public class BucketTests {
 
     private Iterator<INode> getRandomUniqueNodes(int num) {
         //Creating unique random RemoteNodes
+        int port = 0;
         HashSet<INode> nodes = new HashSet<>();
         while (nodes.size() < num)
-            nodes.add(new Node(0, "http://localhost", 10, false, false));
+            nodes.add(new Node(port++, "http://localhost", 10, false, false));
 
         return nodes.iterator();
     }
@@ -135,7 +136,7 @@ public class BucketTests {
     }
 
     @Test
-    public void bucketRemoveNodeTest() throws MalformedURLException {
+    public void bucketRemoveNodeTest() {
         Iterator<INode> nodeSupplier = getRandomUniqueNodes(1200);
 
         Bucket b = new Bucket(5);

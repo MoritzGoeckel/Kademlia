@@ -21,10 +21,10 @@ public class RemoteNode implements INode, Remote, Serializable {
     private final int port;
     private HashKey id;
 
-    public RemoteNode(String address, int port, HashKey id){
+    public RemoteNode(String address, int port){
         this.address = address;
         this.port = port;
-        this.id = id;
+        this.id = HashKey.fromString(address +"/"+ port);
     }
 
     /** Opens an actual connection to the remote node with the given url and port */
