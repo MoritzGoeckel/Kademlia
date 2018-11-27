@@ -17,9 +17,6 @@ public class RemoteNode implements INode, Remote, Serializable {
     /** The RMI connection to the remote node if already established */
     private IRemoteNode remote = null;
 
-    //TODO: Close connection or use UDP all together.
-    // (UDP is used in the original Kademlia but RMI does not support UDP)
-
     private final String address;
     private final int port;
     private HashKey id;
