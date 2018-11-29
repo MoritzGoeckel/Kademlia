@@ -15,10 +15,11 @@ class NodeStatistics {
         stats.put(name, stats.get(name) + 1);
     }
 
-    void print(int divider){
+    void print(int iterations, int nodes){
         System.out.println("---------Stats---------");
+        System.out.println("Operation" + "\t" + "ops/iteration" + "\t" + "ops/iteration/node");
         for(Map.Entry<String, Integer> e : stats.entrySet())
-            System.out.println(e.getKey() + "\t" + (e.getValue() / (double)divider));
+            System.out.println(e.getKey() + "\t" + (e.getValue() / (double)iterations) + "\t" + (e.getValue() / (double)iterations / nodes));
         System.out.println("-----------------------");
     }
 }

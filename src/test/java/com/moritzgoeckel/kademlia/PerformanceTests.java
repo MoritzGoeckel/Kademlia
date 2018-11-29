@@ -11,18 +11,17 @@ public class PerformanceTests {
 
     private static Random R = new Random();
 
-    private static int PORT = -1;
-    private static String ADDRESS = "localhost";
-
     @Test
     public void getNSetStatistics(){
         LinkedList<Node> nodes = new LinkedList<>();
 
-        Node firstNode = new Node(PORT, ADDRESS, 5, false, false);
+        int port = 10;
+
+        Node firstNode = new Node(port++, "localhost", 5, false, false);
         nodes.add(firstNode);
 
         for(int i = 0; i < 1000; i++)
-            nodes.add(new Node(nodes.get(R.nextInt(nodes.size())), PORT, ADDRESS, 5, false, false));
+            nodes.add(new Node(nodes.get(R.nextInt(nodes.size())), port++, "localhost", 5, false, false));
 
         Supplier<Node> randomNode = () -> nodes.get(R.nextInt(nodes.size() - 1));
         nodes.forEach(Node::performPing);
@@ -30,10 +29,10 @@ public class PerformanceTests {
         Node.resetStatistics();
 
         for(int i = 0; i < 200; i++)
-            randomNode.get().setValue("Hello" + i, "world", 10);
+            randomNode.get().setValue("Hello" + i, "world", 5);
 
         System.out.println("Store");
-        Node.getStatistics().print(200);
+        Node.getStatistics().print(200, 1000);
         Node.resetStatistics();
 
         int fails = 0;
@@ -42,7 +41,7 @@ public class PerformanceTests {
                 fails++;
 
         System.out.println("Lookup");
-        Node.getStatistics().print(200);
+        Node.getStatistics().print(200, 1000);
         System.out.println("Failed lookups: " + fails);
     }
 
