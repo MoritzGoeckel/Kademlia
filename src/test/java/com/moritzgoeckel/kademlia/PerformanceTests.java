@@ -19,9 +19,9 @@ public class PerformanceTests {
         int port = 10;
 
         final int NODESCOUNT = 10_000;
-        final int MESSAGECOUNT = 1000;
+        final int MESSAGECOUNT = 3000;
 
-        final int STORAGE = 20;
+        final int STORAGE = 25;
         final String path = "/home/moritz/sync/KademliaPlotting/";
 
         assert new File(path).exists();
@@ -61,7 +61,7 @@ public class PerformanceTests {
                 System.out.println("Getting value: " + i + "/" + MESSAGECOUNT);
 
             Node.resetStatistics();
-            if (randomNode.get().getValue("" + i, 50) == null)
+            if (randomNode.get().getValue("" + i, 5) == null)
                 fails++;
             else
                 lookupWriter.write(Node.getStatistics().getSum() + "\r\n");
