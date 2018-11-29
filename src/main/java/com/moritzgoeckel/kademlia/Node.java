@@ -38,6 +38,10 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
         statistics = new NodeStatistics();
     }
 
+    int getStateStatistics(){
+        return buckets.getAllNodes().size();
+    }
+
     @Override
     public int getPort(){
         return port;
