@@ -351,8 +351,8 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
         queuedNodes.addAll(Arrays.asList(this.findNodes(target, 999999, localNode)));
         closestNodes.addAll(queuedNodes);
 
-        boolean gettingCloser = true;
-        while (gettingCloser && !queuedNodes.isEmpty()){
+        int gettingCloser = 5; //The lookup is over as soon it did not find a closer node three times
+        while (gettingCloser > 0 && !queuedNodes.isEmpty()){
 
             //Assertion
             assert queuedNodes.size() <= 1 || (queuedNodes.first().getNodeId().getDistance(target).compareTo(queuedNodes.last().getNodeId().getDistance(target)) < 0);
@@ -370,7 +370,15 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
                     closestNodes.add(n);
                     recordNode(n);
                 }
-                gettingCloser = closestNodes.first().getNodeId().getDistance(target).compareTo(distanceBeforeIteration) < 0;
+
+                if (closestNodes.first().getNodeId().getDistance(target).compareTo(distanceBeforeIteration) < 0){
+                    //Found a closer one, set counter to 3
+                    gettingCloser = 5;
+                }
+                else{
+                    //Did not find a closer one, reduce counter
+                    gettingCloser -= 1;
+                }
             }
         }
 
