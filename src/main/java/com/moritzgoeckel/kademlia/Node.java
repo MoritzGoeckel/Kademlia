@@ -77,7 +77,7 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
         this(port, address, storageLimit, exposeRMI, useThreading);
 
         recordNode(knownNode);
-        performNodeLookup(this.nodeID, 50);
+        performNodeLookup(this.nodeID, storageLimit * 160 * 2);
     }
 
     /**
@@ -176,7 +176,7 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
      * This is not guaranteed, as the bucket might be full
      * */
     private void recordNode(INode other){
-        if(!other.equals(this))
+        if(!other.equals(this) && !other.equals(localNode))
             buckets.addNodeMaybe(other, this.nodeID);
     }
 

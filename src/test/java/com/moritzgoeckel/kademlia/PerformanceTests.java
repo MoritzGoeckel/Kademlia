@@ -6,7 +6,6 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.function.Supplier;
@@ -51,7 +50,7 @@ public class PerformanceTests {
             System.out.println("Setting value: " + i + "/" + MESSAGECOUNT);
 
             Node.resetStatistics();
-            randomNode.get().setValue("Hello" + i, "world", 10);
+            randomNode.get().setValue("" + i, "world", 10);
             setWriter.write(Node.getStatistics().getSum() + "\r\n");
         }
 
@@ -62,7 +61,7 @@ public class PerformanceTests {
                 System.out.println("Getting value: " + i + "/" + MESSAGECOUNT);
 
             Node.resetStatistics();
-            if (randomNode.get().getValue("Hello" + i, 50) == null)
+            if (randomNode.get().getValue("" + i, 50) == null)
                 fails++;
             else
                 lookupWriter.write(Node.getStatistics().getSum() + "\r\n");

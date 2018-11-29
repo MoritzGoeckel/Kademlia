@@ -17,7 +17,7 @@ class NodeStatistics {
         stats.put(name, stats.get(name) + 1);
     }
 
-    void printSummery(int iterations, int nodes){
+    /*void printSummery(int iterations, int nodes){
         System.out.println("---------Stats---------");
         System.out.println("Operation" + "\t" + "ops/iteration" + "\t" + "ops/iteration/node");
         for(Map.Entry<String, Integer> e : stats.entrySet())
@@ -34,7 +34,7 @@ class NodeStatistics {
     void printValues(){
         for(String key : stats.keySet())
             System.out.print(stats.getOrDefault(key, 0) + "\t");
-    }
+    }*/
 
     int getSum(){
         int sum = 0;
