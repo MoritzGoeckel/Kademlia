@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="473b4b70-521e-4977-b557-ffe38822da4d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/NodeStatistics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/NodeStatistics.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/moritzgoeckel/kademlia/RemoteNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/moritzgoeckel/kademlia/RemoteNode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/moritzgoeckel/kademlia/PerformanceTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/moritzgoeckel/kademlia/PerformanceTests.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -89,7 +88,7 @@
         <counts>
           <entry key="dummy" value="119" />
           <entry key="iml" value="4" />
-          <entry key="java" value="27180" />
+          <entry key="java" value="27388" />
           <entry key="md" value="58" />
           <entry key="txt" value="109" />
           <entry key="xml" value="9" />
@@ -98,7 +97,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="IDEA_MODULE" value="4" />
-          <entry key="JAVA" value="27180" />
+          <entry key="JAVA" value="27388" />
           <entry key="Markdown" value="58" />
           <entry key="PLAIN_TEXT" value="228" />
           <entry key="XML" value="9" />
@@ -200,8 +199,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="31" column="61" selection-start-line="31" selection-start-column="61" selection-end-line="31" selection-end-column="61" />
+            <state relative-caret-position="312">
+              <caret line="42" column="36" lean-forward="true" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -553,7 +552,7 @@
       <workItem from="1543265796936" duration="865000" />
       <workItem from="1543333476772" duration="985000" />
       <workItem from="1543352056027" duration="569000" />
-      <workItem from="1543492884768" duration="2192000" />
+      <workItem from="1543492884768" duration="3651000" />
     </task>
     <task id="LOCAL-00001" summary="Added hashing, tests for hashing, basic interface and classes">
       <created>1541193559039</created>
@@ -566,39 +565,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 14h 48m 48s.xml">
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 16h 08m 33s.xml">
       <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 14h 48m 57s.xml">
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 16h 09m 00s.xml">
       <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 14h 49m 06s.xml">
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 16h 11m 28s.xml">
       <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 14h 49m 28s.xml">
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 16h 13m 14s.xml">
       <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 14h 49m 40s.xml">
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 16h 14m 20s.xml">
       <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 14h 49m 46s.xml">
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 16h 14m 42s.xml">
       <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 14h 51m 03s.xml">
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 16h 17m 43s.xml">
       <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 14h 51m 40s.xml">
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 16h 19m 09s.xml">
       <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 14h 51m 47s.xml">
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 16h 19m 36s.xml">
       <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 14h 52m 00s.xml">
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 16h 19m 51s.xml">
       <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="100907000" />
+    <option name="totallyTimeSpent" value="102366000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -626,7 +625,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32864866" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.18446602" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.18378378" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.27783784" />
@@ -927,8 +926,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="31" column="61" selection-start-line="31" selection-start-column="61" selection-end-line="31" selection-end-column="61" />
+        <state relative-caret-position="312">
+          <caret line="42" column="36" lean-forward="true" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
         </state>
       </provider>
     </entry>

@@ -17,31 +17,44 @@ public class PerformanceTests {
 
         int port = 10;
 
+        final int NODESCOUNT = 10_000;
+        final int MESSAGECOUNT = 500;
+
         Node firstNode = new Node(port++, "localhost", 5, false, false);
         nodes.add(firstNode);
 
-        for(int i = 0; i < 1000; i++)
+        for(int i = 0; i < NODESCOUNT; i++) {
+            if(i % 1000 == 0)
+                System.out.println("Adding nodes: " + i + "/" + NODESCOUNT);
+
             nodes.add(new Node(nodes.get(R.nextInt(nodes.size())), port++, "localhost", 5, false, false));
+        }
 
         Supplier<Node> randomNode = () -> nodes.get(R.nextInt(nodes.size() - 1));
-        nodes.forEach(Node::performPing);
+        //nodes.forEach(Node::performPing); //Maybe with ping?
 
         Node.resetStatistics();
 
-        for(int i = 0; i < 200; i++)
+        for(int i = 0; i < MESSAGECOUNT; i++) {
+            System.out.println("Setting value: " + i + "/" + MESSAGECOUNT);
             randomNode.get().setValue("Hello" + i, "world", 5);
+        }
 
         System.out.println("Store");
-        Node.getStatistics().print(200, 1000);
+        Node.getStatistics().print(MESSAGECOUNT, NODESCOUNT);
         Node.resetStatistics();
 
         int fails = 0;
-        for(int i = 0; i < 200; i++)
-            if(randomNode.get().getValue("Hello" + i, 50) == null)
+        for(int i = 0; i < MESSAGECOUNT; i++) {
+            if(i % 10 == 0)
+                System.out.println("Getting value: " + i + "/" + MESSAGECOUNT);
+
+            if (randomNode.get().getValue("Hello" + i, 50) == null)
                 fails++;
+        }
 
         System.out.println("Lookup");
-        Node.getStatistics().print(200, 1000);
+        Node.getStatistics().print(MESSAGECOUNT, NODESCOUNT);
         System.out.println("Failed lookups: " + fails);
     }
 
