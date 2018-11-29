@@ -1,5 +1,6 @@
 package com.moritzgoeckel.kademlia;
 
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,11 +36,11 @@ class NodeStatistics {
             System.out.print(stats.getOrDefault(key, 0) + "\t");
     }
 
-    void printSum(){
+    int getSum(){
         int sum = 0;
         for(String key : stats.keySet())
             sum = stats.getOrDefault(key, 0) + sum;
 
-        System.out.println(sum);
+        return sum;
     }
 }

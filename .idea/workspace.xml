@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="473b4b70-521e-4977-b557-ffe38822da4d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/analysis/plot_hist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/NodeStatistics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/NodeStatistics.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/moritzgoeckel/kademlia/NodeStatistics.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/moritzgoeckel/kademlia/NodeStatistics.class" afterDir="false" />
@@ -75,6 +75,7 @@
           <entry key="iml" value="1" />
           <entry key="java" value="93" />
           <entry key="md" value="2" />
+          <entry key="py" value="1" />
           <entry key="xml" value="1" />
         </counts>
       </usages-collector>
@@ -84,6 +85,7 @@
           <entry key="IDEA_MODULE" value="1" />
           <entry key="JAVA" value="93" />
           <entry key="Markdown" value="2" />
+          <entry key="PLAIN_TEXT" value="1" />
           <entry key="XML" value="1" />
         </counts>
       </usages-collector>
@@ -91,7 +93,7 @@
         <counts>
           <entry key="dummy" value="119" />
           <entry key="iml" value="4" />
-          <entry key="java" value="28075" />
+          <entry key="java" value="28464" />
           <entry key="md" value="58" />
           <entry key="txt" value="109" />
           <entry key="xml" value="9" />
@@ -100,7 +102,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="IDEA_MODULE" value="4" />
-          <entry key="JAVA" value="28075" />
+          <entry key="JAVA" value="28464" />
           <entry key="Markdown" value="58" />
           <entry key="PLAIN_TEXT" value="228" />
           <entry key="XML" value="9" />
@@ -130,25 +132,12 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Node.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="345">
-              <caret line="40" column="29" lean-forward="true" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
+              <caret line="40" column="29" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1176#1177#0" expanded="true" />
                 <element signature="e#1225#1226#0" expanded="true" />
                 <element signature="e#1306#1307#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/HashKey.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="870">
-              <caret line="70" column="39" selection-start-line="70" selection-start-column="39" selection-end-line="70" selection-end-column="39" />
-              <folding>
-                <element signature="e#573#574#0" expanded="true" />
-                <element signature="e#663#664#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -194,19 +183,7 @@
         <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/BucketTests.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
-              <caret line="30" column="66" lean-forward="true" selection-start-line="30" selection-start-column="66" selection-end-line="30" selection-end-column="66" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="62" selection-start-line="62" selection-end-line="62" />
+              <caret line="30" column="66" selection-start-line="30" selection-start-column="66" selection-end-line="30" selection-end-column="66" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -215,10 +192,27 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/analysis/plot_hist.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/NodeStatistics.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="35" column="5" lean-forward="true" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+            <state relative-caret-position="493">
+              <caret line="38" column="17" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -302,8 +296,8 @@
         <option value="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/LocalTests.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/HashKey.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RemoteNode.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/NodeStatistics.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Node.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/NodeStatistics.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java" />
       </list>
     </option>
@@ -407,7 +401,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/analysis" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -568,7 +562,7 @@
       <workItem from="1543265796936" duration="865000" />
       <workItem from="1543333476772" duration="985000" />
       <workItem from="1543352056027" duration="569000" />
-      <workItem from="1543492884768" duration="10139000" />
+      <workItem from="1543492884768" duration="12440000" />
     </task>
     <task id="LOCAL-00001" summary="Added hashing, tests for hashing, basic interface and classes">
       <created>1541193559039</created>
@@ -581,39 +575,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="PerformanceTests - 2018.11.29 at 18h 09m 42s.xml">
-      <configuration name="PerformanceTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PerformanceTests - 2018.11.29 at 18h 11m 44s.xml">
-      <configuration name="PerformanceTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PerformanceTests - 2018.11.29 at 18h 12m 41s.xml">
-      <configuration name="PerformanceTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PerformanceTests - 2018.11.29 at 18h 16m 18s.xml">
-      <configuration name="PerformanceTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PerformanceTests - 2018.11.29 at 18h 16m 28s.xml">
-      <configuration name="PerformanceTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PerformanceTests - 2018.11.29 at 18h 43m 35s.xml">
-      <configuration name="PerformanceTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PerformanceTests - 2018.11.29 at 18h 44m 08s.xml">
-      <configuration name="PerformanceTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PerformanceTests - 2018.11.29 at 19h 29m 21s.xml">
-      <configuration name="PerformanceTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 19h 32m 03s.xml">
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 19h 42m 36s.xml">
       <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 19h 42m 36s.xml">
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 20h 04m 19s.xml">
+      <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 20h 07m 41s.xml">
+      <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 20h 08m 12s.xml">
+      <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 20h 08m 38s.xml">
+      <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 20h 10m 22s.xml">
+      <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 20h 10m 36s.xml">
+      <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 20h 11m 55s.xml">
+      <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 20h 20m 27s.xml">
+      <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PerformanceTests_getNSetStatistics - 2018.11.29 at 20h 22m 23s.xml">
       <configuration name="PerformanceTests.getNSetStatistics" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="108854000" />
+    <option name="totallyTimeSpent" value="111155000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -626,7 +620,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="49" y="25" width="1871" height="1055" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49839228" visible="true" weight="0.21863014" />
       <window_info id="Structure" order="1" sideWeight="0.5016077" side_tool="true" weight="0.24986301" />
@@ -635,13 +628,13 @@
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32972974" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.36756757" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.36756757" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.25621623" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32864866" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.18378378" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.18378378" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.27783784" />
@@ -909,7 +902,7 @@
     <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/BucketTests.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
-          <caret line="30" column="66" lean-forward="true" selection-start-line="30" selection-start-column="66" selection-end-line="30" selection-end-column="66" />
+          <caret line="30" column="66" selection-start-line="30" selection-start-column="66" selection-end-line="30" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -923,17 +916,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/NodeStatistics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="35" column="5" lean-forward="true" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Node.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
-          <caret line="40" column="29" lean-forward="true" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
+          <caret line="40" column="29" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1176#1177#0" expanded="true" />
@@ -943,15 +929,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/NodeStatistics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="38" column="17" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="62" selection-start-line="62" selection-end-line="62" />
+        <state relative-caret-position="72">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/analysis/plot_hist.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
   <component name="masterDetails">
