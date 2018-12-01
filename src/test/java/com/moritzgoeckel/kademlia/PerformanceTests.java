@@ -1,6 +1,5 @@
 package com.moritzgoeckel.kademlia;
 
-import com.google.common.io.Files;
 import org.junit.Test;
 
 import java.io.File;
@@ -15,10 +14,43 @@ public class PerformanceTests {
     private static Random R = new Random();
 
     @Test
-    public void getNSetStatistics() throws IOException {
+    public void getStatisticsWith100k() throws IOException {
+        getNetworkStatistics(100_000);
+    }
+
+    @Test
+    public void getStatisticsWith10k() throws IOException {
+        getNetworkStatistics(10_000);
+    }
+
+    @Test
+    public void getStatisticsWith5k() throws IOException {
+        getNetworkStatistics(5000);
+    }
+
+    @Test
+    public void getStatisticsWith1k() throws IOException {
+        getNetworkStatistics(1000);
+    }
+
+    @Test
+    public void getStatisticsWith500() throws IOException {
+        getNetworkStatistics(500);
+    }
+
+    @Test
+    public void getStatisticsWith100() throws IOException {
+        getNetworkStatistics(100);
+    }
+
+    @Test
+    public void getStatisticsWith10() throws IOException {
+        getNetworkStatistics(10);
+    }
+
+    private void getNetworkStatistics(final int NODESCOUNT) throws IOException {
         int port = 10;
 
-        final int NODESCOUNT = 10_000;
         final int MESSAGECOUNT = 3000;
 
         final int STORAGE = 25;
@@ -26,9 +58,9 @@ public class PerformanceTests {
 
         assert new File(path).exists();
 
-        FileWriter stateWriter = new FileWriter(path + "/state.txt");
-        FileWriter lookupWriter = new FileWriter(path + "/lookup.txt");
-        FileWriter setWriter = new FileWriter(path + "/set.txt");
+        FileWriter stateWriter = new FileWriter(path + "/state_"+NODESCOUNT+".txt");
+        FileWriter lookupWriter = new FileWriter(path + "/lookup_"+NODESCOUNT+".txt");
+        FileWriter setWriter = new FileWriter(path + "/set_"+NODESCOUNT+".txt");
 
         LinkedList<Node> nodes = new LinkedList<>();
 
