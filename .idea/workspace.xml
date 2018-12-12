@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="473b4b70-521e-4977-b557-ffe38822da4d" name="Default Changelist" comment="" />
+    <list default="true" id="473b4b70-521e-4977-b557-ffe38822da4d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -48,20 +50,20 @@
     <session id="280357652">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="23" />
+          <entry key="project.closed" value="24" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.17" value="1" />
           <entry key="project.open.time.18" value="1" />
           <entry key="project.open.time.19" value="6" />
-          <entry key="project.open.time.20" value="3" />
+          <entry key="project.open.time.20" value="4" />
           <entry key="project.open.time.21" value="1" />
-          <entry key="project.open.time.22" value="2" />
+          <entry key="project.open.time.22" value="3" />
           <entry key="project.open.time.23" value="1" />
           <entry key="project.open.time.24" value="2" />
           <entry key="project.open.time.25" value="1" />
           <entry key="project.open.time.29" value="1" />
           <entry key="project.open.time.4" value="3" />
-          <entry key="project.opened" value="23" />
+          <entry key="project.opened" value="25" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -126,7 +128,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Node.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
-              <caret line="367" column="31" lean-forward="true" selection-start-line="367" selection-start-column="31" selection-end-line="367" selection-end-column="31" />
+              <caret line="367" column="31" selection-start-line="367" selection-start-column="31" selection-end-line="367" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1108#1109#0" expanded="true" />
@@ -143,8 +145,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="114" column="26" lean-forward="true" selection-start-line="114" selection-start-column="26" selection-end-line="114" selection-end-column="26" />
+            <state relative-caret-position="1605">
+              <caret line="114" column="26" selection-start-line="114" selection-start-column="26" selection-end-line="114" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -155,7 +157,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/tex/doc.tex">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2115">
+            <state relative-caret-position="135">
               <caret line="9" column="29" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
             </state>
           </provider>
@@ -298,7 +300,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -370,6 +371,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -544,6 +546,8 @@
       <workItem from="1543766310387" duration="1156000" />
       <workItem from="1544019723849" duration="1436000" />
       <workItem from="1544603360125" duration="941000" />
+      <workItem from="1544607050462" duration="83000" />
+      <workItem from="1544609517654" duration="233000" />
     </task>
     <task id="LOCAL-00001" summary="Added hashing, tests for hashing, basic interface and classes">
       <created>1541193559039</created>
@@ -588,7 +592,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120789000" />
+    <option name="totallyTimeSpent" value="120872000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -602,7 +606,7 @@
   <component name="ToolWindowManager">
     <frame x="0" y="-2" width="1920" height="1082" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49839228" visible="true" weight="0.23745997" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49839228" visible="true" weight="0.24279615" />
       <window_info id="Structure" order="1" sideWeight="0.5016077" side_tool="true" weight="0.24986301" />
       <window_info id="Designer" order="2" />
       <window_info id="Learn" order="3" />
@@ -894,6 +898,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1605">
+          <caret line="114" column="26" selection-start-line="114" selection-start-column="26" selection-end-line="114" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tex/doc.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="29" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/IKademliaNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -908,27 +929,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tex/doc.tex">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2115">
-          <caret line="9" column="29" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/PerformanceTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="114" column="26" lean-forward="true" selection-start-line="114" selection-start-column="26" selection-end-line="114" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Node.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
-          <caret line="367" column="31" lean-forward="true" selection-start-line="367" selection-start-column="31" selection-end-line="367" selection-end-column="31" />
+          <caret line="367" column="31" selection-start-line="367" selection-start-column="31" selection-end-line="367" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1108#1109#0" expanded="true" />
