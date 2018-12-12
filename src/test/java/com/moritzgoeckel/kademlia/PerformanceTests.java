@@ -12,6 +12,7 @@ import java.util.function.Supplier;
 public class PerformanceTests {
 
     private static Random R = new Random();
+    private final static String PATH = "/home/moritz/sync/KademliaPlotting/changed/";
 
     @Test
     public void getStatisticsWith100k() throws IOException {
@@ -54,13 +55,12 @@ public class PerformanceTests {
         final int MESSAGECOUNT = 3000;
 
         final int STORAGE = 25;
-        final String path = "/home/moritz/sync/KademliaPlotting/";
 
-        assert new File(path).exists();
+        assert new File(PATH).exists();
 
-        FileWriter stateWriter = new FileWriter(path + "/state_"+NODESCOUNT+".txt");
-        FileWriter lookupWriter = new FileWriter(path + "/lookup_"+NODESCOUNT+".txt");
-        FileWriter setWriter = new FileWriter(path + "/set_"+NODESCOUNT+".txt");
+        FileWriter stateWriter = new FileWriter(PATH + "/state_"+NODESCOUNT+".txt");
+        FileWriter lookupWriter = new FileWriter(PATH + "/lookup_"+NODESCOUNT+".txt");
+        FileWriter setWriter = new FileWriter(PATH + "/set_"+NODESCOUNT+".txt");
 
         LinkedList<Node> nodes = new LinkedList<>();
 
@@ -115,5 +115,5 @@ public class PerformanceTests {
         setWriter.close();
     }
 
-    //Todo: Get not found value test (performance?)
+    //Todo: Get not found value test
 }
