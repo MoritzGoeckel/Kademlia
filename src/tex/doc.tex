@@ -163,9 +163,9 @@ Because Kademlia needs to communicate with multiple nodes within the lookup proc
 
 To avoid hot spots in Kademlia, caching is used in the original specification. This was not implemented in this version, as this feature was found to be not vital to Kademlia. As stated before, low complexity was prioritized over "bells and whistles".
 
-In the specification of Kademlia the procedure of storing a value in the network is described as performing a node\_lookup and then storing the value in the closest k nodes. Thereby in the node\_lookup repeatedly the closest yet seen node will be asked for closer nodes and the procedure stops as soon as no closer node has been found. This results sometimes that the values are actually stored quite far away from the closest node, because a closer node could have been found by just asking a node that is slightly further away and holds a reference to a even closer node. 
+In the specification of Kademlia the procedure of storing a value in the network is described as performing a node\_lookup and then storing the value in the closest k nodes. Thereby in the node\_lookup repeatedly the closest yet seen node will be asked for closer nodes and the procedure stops as soon as no closer node has been found. This results sometimes the fact that values are stored quite far away from their closest node, because a closer node could have been found by just asking a node that is slightly further away and holds a reference to that even closer node. 
 
-To increase the chance that the values are actually stored as close as possible to the identifier, in this implementation Kademlia will repeat the lookup until it does not find a closer node n times in a row. "n" is thereby a configurable parameter. This way the mean number of hops of the setValue operation increased slightly, but on the other hand the mean number of hops of the getValue operation decreased and less getValue operations failed. This increases the robustness of the getValue operation especially in large networks.
+To increase the chance that the values are actually stored as close as possible to the identifier, this implementation of Kademlia repeats the lookup until it does not find a closer node n times in a row; n is a configurable parameter. This way the mean number of hops of the setValue operation increases, but on the other hand the mean number of hops of the getValue operation decreased significantly. This increases the efficiency of the getValue operation especially in large networks.
 
 \newpage
 \section{Results}
@@ -204,14 +204,30 @@ To test the performance of the network a network of n nodes has been created. Af
     \caption{State}
 \end{wrapfigure}
 
-The X-axis represents the number of nodes in the network, note that the scale is logarithmic. The figures also contain information about the standard deviation and the min/max of the variables. As one can see, the complexity for the operations, as well as for the state of the network rise logarithmicaly to the number of nodes in the network. 
+The X-axis represents the number of nodes in the network, note that the scale is logarithmic. The figures also contain information about the standard deviation and the min/max of the variables. As one can see, the complexity for the operations, as well as for the state of the network rise logarithmically to the number of nodes in the network. 
+
+\clearpage
+
+To evaluate the changed stopping condition of the node lookup that was described earlier performance tests were conducted with both the changed and the original stopping condition. Just to recap briefly: The original stopping condition for the node lookup stops the lookup as soon as no closer node is found. The changed stopping condition stops the lookup as soon as n times no closer node is found. The parameter n was set to 5 in this test. 
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l*{6}{c}r}
+Version           & Get mean & Get SD & Set mean & Set SD & State mean & State SD \\
+\hline
+Original          & 9        & 16     & 12       & 1      & 138        & 55       \\
+Changed           & 4        & 5      & 17       & 2      & 223        & 61       \\
+\end{tabular}
+\end{table}
+
+The changed stopping condition resulted in more hops/set and more state/note but yielded a significantly lower mean of hops/get. It also reduced the standard deviation of the hops/get drastically. Using a higher n will therefore lead to slower set operations and more state per node but also make the get operations much faster. In this implementation a fast get operation was the highest priority and therefore the changed stopping condition is used.
 
 \newpage
 \section{Conclusion}
 
 % my experience / goals
 
-The goal of the work was to learn about distributed hash tables by implementing one. Implementing a technology is a splendid way to learn it, as one needs to be aware of the "big picture" but also decide every detail. And in the end the learned material is documented unambiguously in code, as a nice side effect. Another advantage of this way of learning is, that it can be evaluated using very technical tools like benchmarks and unit tests. This approach can be fully be recommended.
+The goal of the work was to learn about distributed hash tables by implementing one. Implementing a technology is a splendid way to learn it, as one needs to be aware of the "big picture" but also decide every detail of the implementation. And in the end the learned material is documented unambiguously in code, as a nice side effect. Another advantage of this way of learning is, that it can be evaluated using very technical tools like benchmarks and unit tests. This approach can be fully be recommended.
 
 % something about dhts in general
 
