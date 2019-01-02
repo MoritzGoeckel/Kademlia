@@ -19,7 +19,7 @@ public class LocalTests {
     @Test
     public void oneNodeTest(){
         final int K = 1;
-        IKademliaNode firstNode = new Node(PORT, ADDRESS, 5, false, false);
+        KademliaAPI firstNode = new Node(PORT, ADDRESS, 5, false, false);
         Assert.assertThat("Should still have the same addres",
                 ((Node) firstNode).getAddress(),
                 is(ADDRESS));

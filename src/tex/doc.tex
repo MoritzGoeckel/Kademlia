@@ -93,7 +93,7 @@ To decide on which DHT is going to be implemented in this work, the relevant lit
 
 The first candidate that got ruled out was Tapestry, as it is seen as similar to Pastry but a lot more complex\cite{Rowstron2001}. This work focuses on the general principle of DHT and there is a set deadline, therefore Tapestry was not going to be implemented.
 
-Kademlia, Chord, Pastry and Tapestry have the same time complexity\cite{Tiendrebeogo2012}. Therefore in terms of performance there is no easy way to determine the best DHT. The only DHT that differs in terms of time complexity is CAN, as it performs very well under churn but offers inferior time complexity in lookups\cite{Lua05asurvey}. Because CAN handles leaving and joining nodes that well, it is an interesting concept for certain situations. In this work lookup times were prioritized and therefore a Plaxton-based scheme like Chord, Pastry, Tapestry or Kademlia was favored over CAN. Tapestry, Kademlia and Chord all achieve similar performance under churn, as long as their parameters are sufficiently tuned\cite{Li04comparingthe}
+Kademlia, Chord, Pastry and Tapestry have the same time complexity\cite{Tiendrebeogo2012}. Therefore in terms of performance there is no easy way to determine the best DHT. The only DHT that differs in terms of time complexity is CAN, as it performs very well under churn but offers inferior time complexity in lookups\cite{Lua05asurvey}. Because CAN handles leaving and joining nodes that well, it is an interesting concept for certain situations. In this work lookup times were prioritized and therefore a Plaxton-based scheme like Chord, Pastry, Tapestry or Kademlia was favored over CAN. Tapestry, Kademlia and Chord all achieve similar performance under churn, as long as their parameters are sufficiently tuned\cite{Li04comparingthe}.
 
 Pastry performs quite poorly under churn\cite{Lua05asurvey}. On the other hand Pastry is able to incorporate information about the network, such as ping time, into its procedures\cite{naqvi_2017}. This is a very desirable feature in practice but is very hard to test in an academic setting. Therefore Pastry was also ruled out.
 
@@ -113,7 +113,7 @@ Kademlia supports four actions on its nodes: Ping, store, find\_value and find\_
 
 Kademlia also defines one procedure named node\_lookup that is used internally and is not part of the interface. To perform a node\_lookup for a given identification, Kademlia uses the address of a previously known node closest to its target identification and sends a find\_node request to that node. If the node returns a node closer to the target identification, Kademlia repeats the process with that closer node. If there is no closer node found, Kademlia terminates the procedure and returns that closest node to the identification.
 
-Whenever a node joins a network it will record at least one previously known node from the network and then perform a node lookup for its own randomly chosen identification. This way the node informs the close nodes and fills it buckets. After some time it will also perform a ping to all the nodes in its k-buckets to inform them about its existence.\cite{Maymounkov2002}
+Whenever a node joins a network it will have to know at least one other node, which it initially records into its k-buckets. As described in \cite{Maymounkov2002}, the node first performs a lookup for its own randomly chooses identification. This way the node gathers information about the close nodes and fills its k-buckets. After some time it will perform a ping to all the nodes in its k-buckets to inform them about its own existence.
 
 \newpage
 \section{Implementation}
@@ -126,7 +126,7 @@ For the implementation of the distributed hash table Java was chosen as the prog
 
 Just like stated in the beginning of this work, distributed hash tables offer a very minimal user interface. This implementation of Kademlia offers three methods to the user: setValue, getValue and shutdown. The getValue and setValue methods are used to perform the basic hash table operations, shutdown is used to tear the node down. The k-values are Kademlia specific settings. The higher the k value, the more network traffic is generated and the more likely the operation will reach the optimal node.
 
-Under the hood, the setValue function utilizes the node\_lookup to find the closest nodes to the hash of the key and then performs the store operation on the k closest nodes. The getValue uses the findValue function to iteratively get closer to a node that actually stored the key and returns that value when found.
+Under the hood the setValue function utilizes the node\_lookup to find the closest nodes to the hash of the key and then performs the store operation on the k closest nodes. The getValue function uses the findValue function to iteratively get closer to a node that actually stores the key and returns that value when found.
 
 Here the user interface of a node:
 
@@ -158,6 +158,10 @@ If not it returns the k closest known nodes to the id */
 RemoteNodesOrKeyValuePair findValue(HashKey targetID, int k, INode sender);
 \end{minted}
 
+% ######################################
+% TODO: ARCHITEKTUR mit Lokal/Netzwerk Betriebsmodus. Diagram
+% ######################################
+
 \subsection{Differences}
 
 To implement Kademlia the specifications were followed as closely as possible. Anyhow there are still some differences between the specification and the implementation:
@@ -168,7 +172,7 @@ Because Kademlia needs to communicate with multiple nodes within the lookup proc
 
 To avoid hot spots in Kademlia, caching is used in the original specification. This was not implemented in this version, as this feature was found to be not vital to Kademlia. As stated before, low complexity was prioritized over "bells and whistles".
 
-In the specification of Kademlia the procedure of storing a value in the network is described as performing a node\_lookup and then storing the value in the closest k nodes. Thereby in the node\_lookup repeatedly the closest yet seen node will be asked for closer nodes and the procedure stops as soon as no closer node has been found. This results sometimes the fact that values are stored quite far away from their closest node because a closer node could have been found by just asking a node that is slightly further away and holds a reference to that even closer node. 
+In the specification of Kademlia the procedure of storing a value in the network is described as performing a node\_lookup and then storing the value in the closest k nodes. Thereby in the node\_lookup repeatedly the closest yet seen node will be asked for closer nodes and the procedure stops as soon as no closer node has been found. This results sometimes in the fact that values are stored quite far away from their closest node because a closer node could have been found by just asking a node that is slightly further away and holds a reference to that even closer node. 
 
 To increase the chance that the values are actually stored as close as possible to the identifier, this implementation of Kademlia repeats the lookup until it does not find a closer node n times in a row; n is a configurable parameter. This way the mean number of hops of the setValue operation increases, but on the other hand the mean number of hops of the getValue operation decreased significantly. %This increases the efficiency of the getValue operation especially in large networks.
 
@@ -179,13 +183,16 @@ This implementation of Kademlia was tested in two operation modes: With communic
 
 \subsection{Churn tests}
 
-Two churn tests were conducted. In the first experiment nodes were added to and removed from the network repeatedly. After that initial churn thousands of values have been set at randomly chosen nodes and then looked up by other randomly chosen nodes to test the integrity of the network. It turns out that the network is stable and survived the initial churn.
+Two churn tests were conducted. In the first experiment nodes were added to and removed from the network repeatedly. In 100 repetitions each time a random amount of nodes, up to half of all nodes in the network, where removed. Then new nodes have been added to the network until it reached the initial number of nodes again.  After that initial churn one hundred values have been set at randomly chosen nodes and then looked up by other randomly chosen nodes to test the integrity of the network. It turns out that the network is stable and survived the initial churn.
 
 In the second experiment a network has beed created and then repeatedly values have been set on n nodes, n - 1 nodes have been removed and the value was looked up. Even though lookup time increased in comparison to when the nodes are not removed, the network was able to always find the value. These two tests show that the network works quite well under churn.
 
 \subsection{Performance tests}
 
-To test the performance of the implementation a network of n nodes has been created. After the creation of the network, repeatedly values have been set at a randomly chosen node and looked up at another randomly chosen node. The number of hops for both setValue ("Store") and getValue ("Lookup") have been recorded as well as the number of known nodes for each node in the network ("State") at the end of the experiment.
+To test the performance of the implementation a network of n nodes has been created. After the creation of the network, repeatedly values have been set at a randomly chosen node and looked up at another randomly chosen node. In this test 3000 values have been set and looked up. The number of hops for both setValue ("Store") and getValue ("Lookup") have been recorded as well as the number of known nodes for each node in the network ("State") at the end of the experiment.
+
+% TODO: Min/Max, Median, STD Chart (Bars, Gnuplot?)
+% TODO: Vergleichswert aus der Literatur
 
 \begin{figure}[ht]
   \centering
@@ -221,9 +228,13 @@ Version           & Get mean & Get SD & Set mean & Set SD & State mean & State S
 Original          & 9        & 16     & 12       & 1      & 138        & 55       \\
 Changed           & 4        & 5      & 17       & 2      & 223        & 61       \\
 \end{tabular}
+  \begin{tablenotes}
+    \small
+    \item Experiment with 5000 nodes
+  \end{tablenotes}
 \end{table}
 
-The changed stopping condition resulted in more hops/set and more state/node but yielded a significantly lower mean of hops/get. It also reduced the standard deviation of the hops/get drastically. Using a higher n will therefore lead to slower set operations and more state per node but also make the get operations much faster. In this implementation a fast get operation was the highest priority and therefore the changed stopping condition is used.
+The changed stopping condition resulted in more hops/set and more state/node but yielded a significantly lower mean of hops/get. It also reduced the standard deviation of the hops/get drastically. In this experiment a higher n lead to slower set operations and more state per node but also made the get operations much faster. In this implementation a fast get operation was the highest priority and therefore the changed stopping condition is used.
 
 \newpage
 \section{Conclusion}

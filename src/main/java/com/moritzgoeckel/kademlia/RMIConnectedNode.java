@@ -12,16 +12,16 @@ import java.rmi.registry.Registry;
  * and deals with invoking that functions remotely
  * This class also deals with error handling in regards of RMI exceptions
  * */
-public class RemoteNode implements INode, Remote, Serializable {
+public class RMIConnectedNode implements INode, Remote, Serializable {
 
     /** The RMI connection to the remote node if already established */
-    private IRemoteNode remote = null;
+    private RMIExposedNode remote = null;
 
     private final String address;
     private final int port;
     private HashKey id;
 
-    public RemoteNode(String address, int port){
+    public RMIConnectedNode(String address, int port){
         this.address = address;
         this.port = port;
         this.id = HashKey.fromString(address +"/"+ port);
@@ -31,7 +31,7 @@ public class RemoteNode implements INode, Remote, Serializable {
     private void establishConnection() throws RemoteException, NotBoundException {
         if(remote == null){
             Registry registry = LocateRegistry.getRegistry(String.valueOf(address), port);
-            remote = (IRemoteNode) registry.lookup("kademliaNode");
+            remote = (RMIExposedNode) registry.lookup("kademliaNode");
         }
     }
 

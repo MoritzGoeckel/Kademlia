@@ -4,8 +4,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /** Interface for RMI. Do not use this interface, it throws RemoteException
- * Use RemoteNode class instead */
-interface IRemoteNode extends Remote {
+ * Use RMIConnectedNode class instead */
+interface RMIExposedNode extends Remote {
 
     /** Returns true if the node is still reachable */
     boolean ping(INode sender) throws RemoteException;

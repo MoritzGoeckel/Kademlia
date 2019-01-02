@@ -15,7 +15,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /** Implementation of a Kademlia node */
-public class Node implements INode, IKademliaNode, IRemoteNode {
+public class Node implements INode, KademliaAPI, RMIExposedNode {
 
     private static int TIME_BETWEEN_PINGS = 6 * 60 * 1000; //Five minutes
     private static ExecutorService threadExecutor = Executors.newCachedThreadPool();
@@ -100,7 +100,7 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
 
         if(exposeRMI) {
             exposeRMI();
-            localNode = new RemoteNode(address, port); //Create wrapper to use as sender
+            localNode = new RMIConnectedNode(address, port); //Create wrapper to use as sender
         }
         else {
             localNode = this; //Use a direct reference as sender
@@ -131,7 +131,7 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
             }
 
             //Expose this node
-            IRemoteNode exposedStub = (IRemoteNode) UnicastRemoteObject.exportObject(this, this.getPort());
+            RMIExposedNode exposedStub = (RMIExposedNode) UnicastRemoteObject.exportObject(this, this.getPort());
             registry.rebind("kademliaNode", exposedStub);
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -240,7 +240,7 @@ public class Node implements INode, IKademliaNode, IRemoteNode {
         INode[] output = buckets.getAllNodes().stream()
             .sorted(getDistanceComparator(targetID))
             .limit(k)
-            //.map(n -> new RemoteNode(n.getAddress(), n.getPort(), n.getNodeId())) // We dont need to convert it, as only remotes should be in there anyways
+            //.map(n -> new RMIConnectedNode(n.getAddress(), n.getPort(), n.getNodeId())) // We dont need to convert it, as only remotes should be in there anyways
             .toArray(INode[]::new);
 
         assert output.length <= 1 || (output[0].getNodeId().getDistance(targetID).compareTo(output[output.length - 1].getNodeId().getDistance(targetID)) < 0);

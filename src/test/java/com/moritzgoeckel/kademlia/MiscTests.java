@@ -1,6 +1,5 @@
 package com.moritzgoeckel.kademlia;
 
-import com.moritzgoeckel.kademlia.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -69,7 +68,7 @@ public class MiscTests {
 
     @Test
     public void utilNodesTest() {
-        RemoteNode r = new RemoteNode("localhost", 3000);
+        RMIConnectedNode r = new RMIConnectedNode("localhost", 3000);
         assert(r.getAddress().equals("localhost"));
         assert(r.getPort() == 3000);
     }
