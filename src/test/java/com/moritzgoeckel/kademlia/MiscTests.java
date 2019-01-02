@@ -68,7 +68,7 @@ public class MiscTests {
 
     @Test
     public void utilNodesTest() {
-        RMIConnectedNode r = new RMIConnectedNode("localhost", 3000);
+        RMINodeConnection r = new RMINodeConnection("localhost", 3000);
         assert(r.getAddress().equals("localhost"));
         assert(r.getPort() == 3000);
     }
