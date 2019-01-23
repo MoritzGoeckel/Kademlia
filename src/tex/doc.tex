@@ -158,9 +158,36 @@ If not it returns the k closest known nodes to the id */
 RemoteNodesOrKeyValuePair findValue(HashKey targetID, int k, INode sender);
 \end{minted}
 
-% ######################################
-% TODO: ARCHITEKTUR mit Lokal/Netzwerk Betriebsmodus. Diagram
-% ######################################
+\subsection{Architecture}
+
+To test the software with a high number of nodes, two operating modes had to be supported by the software architecture: Local mode, where all communication is done within one process for testing and network mode, where communication is done via RMI. To enable the software to have these two operating modes, the communication logic had to be strictly separated from the core logic of kademlia.
+
+The Kademlia implementation is mostly located within the Node class. The Node class uses as a representation of other nodes the INode interface. This interface is implemented by the Node class, as well as the RMINodeConnection class. Therefore within the Node class it is never obvious whether it deals with direct references to other "Node"-objects within the process, or with "RMINodeConnection"-objects which communicate over the network.
+
+\begin{wrapfigure}{l}{0.7\textwidth}
+    \begin{center}
+    \includegraphics[width=0.7\textwidth]{images/Node.png}
+    \end{center}
+    \caption{Class hierarchy}   
+\end{wrapfigure}
+
+The RMINodeConnection class handles all the network communication and the possible exceptions/errors that come with it. The only difference within the node class between the two operating modes is that the class exposes itself via RMI providing the RMIExposedNode interface to the network when in network mode. Also the class uses its RMIExposedNode reference as its sender reference object for method calls on remote nodes. In local mode, the node uses the direct "this" reference as the sender for the method calls on remote nodes and does not expose itself via RMI. There is no other difference between the operating modes, as all the procedures always only refer to the general INode interface.
+
+This is only operating mode specific code fragment in the Node class. It sets the reference that is used as the "sender" argument in the method calls on remote nodes and exposes the local node to the network if necessary:
+
+\begin{minted}{java}
+if(exposeRMI) {
+    exposeRMI();
+    //Use RMINodeConnection as sender (local address and port)
+    localNode = new RMINodeConnection(address, port); 
+}
+else {
+    //Use a direct reference as sender
+    localNode = this;
+}
+\end{minted}
+
+RMIExposedNode is the actual RMI that gets exposed and that is used within the RMINodeConnection class as the stub. The RMIExposedNode objects are wrapped in the RMINodeConnection class to make it compatible with the INode interface by handling network exceptions. The KademliaAPI interface is a simplified interface for the local user to control her node.
 
 \subsection{Differences}
 
@@ -174,7 +201,7 @@ To avoid hot spots in Kademlia, caching is used in the original specification. T
 
 In the specification of Kademlia the procedure of storing a value in the network is described as performing a node\_lookup and then storing the value in the closest k nodes. Thereby in the node\_lookup repeatedly the closest yet seen node will be asked for closer nodes and the procedure stops as soon as no closer node has been found. This results sometimes in the fact that values are stored quite far away from their closest node because a closer node could have been found by just asking a node that is slightly further away and holds a reference to that even closer node. 
 
-To increase the chance that the values are actually stored as close as possible to the identifier, this implementation of Kademlia repeats the lookup until it does not find a closer node n times in a row; n is a configurable parameter. This way the mean number of hops of the setValue operation increases, but on the other hand the mean number of hops of the getValue operation decreased significantly. %This increases the efficiency of the getValue operation especially in large networks.
+To increase the chance that the values are actually stored as close as possible to the identifier, this implementation of Kademlia repeats the lookup until it does not find a closer node n times in a row; n is a configurable parameter. This way the mean number of hops of the setValue operation increases, but on the other hand the mean number of hops of the getValue operation decreased significantly.
 
 \newpage
 \section{Results}
@@ -191,28 +218,25 @@ In the second experiment a network has beed created and then repeatedly values h
 
 To test the performance of the implementation a network of n nodes has been created. After the creation of the network, repeatedly values have been set at a randomly chosen node and looked up at another randomly chosen node. In this test 3000 values have been set and looked up. The number of hops for both setValue ("Store") and getValue ("Lookup") have been recorded as well as the number of known nodes for each node in the network ("State") at the end of the experiment.
 
-% TODO: Min/Max, Median, STD Chart (Bars, Gnuplot?)
 % TODO: Vergleichswert aus der Literatur
 
 \begin{figure}[ht]
-  \centering
-  \begin{minipage}[b]{0.49\textwidth}
-    \includegraphics[width=\textwidth]{images/lookup_figure.png}
-    \caption{Lookup}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.49\textwidth}
-    \includegraphics[width=\textwidth]{images/set_figure.png}
     \caption{Store}
-  \end{minipage}
+    \centering
+    \includegraphics[width=0.80\textwidth]{images/set_figure.png}
 \end{figure}
 
-\begin{wrapfigure}{l}{0.49\textwidth}
-    \begin{center}
-        \includegraphics[width=0.49\textwidth]{images/state_figure.png}
-    \end{center}
+\begin{figure}[ht]
+    \caption{Lookup}
+    \centering
+    \includegraphics[width=0.80\textwidth]{images/lookup_figure.png}
+\end{figure}
+
+\begin{figure}[ht]
     \caption{State}
-\end{wrapfigure}
+    \centering
+    \includegraphics[width=0.80\textwidth]{images/state_figure.png}
+\end{figure}
 
 The X-axis represents the number of nodes in the network; note that the scale is logarithmic. The figures also contain information about the standard deviation and the min/max of the variables. As one can see, the complexity for the operations, as well as for the state of the network rise logarithmically to the number of nodes in the network. 
 
