@@ -218,8 +218,6 @@ In the second experiment a network has beed created and then repeatedly values h
 
 To test the performance of the implementation a network of n nodes has been created. After the creation of the network, repeatedly values have been set at a randomly chosen node and looked up at another randomly chosen node. In this test 3000 values have been set and looked up. The number of hops for both setValue ("Store") and getValue ("Lookup") have been recorded as well as the number of known nodes for each node in the network ("State") at the end of the experiment.
 
-% TODO: Vergleichswert aus der Literatur
-
 \begin{figure}[ht]
     \caption{Store}
     \centering
@@ -238,7 +236,7 @@ To test the performance of the implementation a network of n nodes has been crea
     \includegraphics[width=0.70\textwidth]{images/state_figure.png}
 \end{figure}
 
-The X-axis represents the number of nodes in the network; note that the scale is logarithmic. The figures also contain information about the standard deviation and the min/max of the variables. As one can see, the complexity for the operations, as well as for the state of the network rise logarithmically to the number of nodes in the network. These results are similar to the benchmarking results of another publication\cite{Kovacevic2008}.
+The X-axis represents the number of nodes in the network; note that the scale is logarithmic. The figures also contain information about the standard deviation and the min/max of the variables. As one can see, the mean complexity for the operations, as well as for the state of the network rise logarithmically to the number of nodes in the network. The maximum value of lookups is large because Kademlia does not guarantee the success of a lookup operation within a certain amount of hops. The more values are looked up, the higher the chance becomes of getting a high maximum. Especially when a value can not be found, the search becomes very deep. This also results in large maximum values. These results are similar to the benchmarking results of another publication\cite{Kovacevic2008}.
 
 \clearpage
 
