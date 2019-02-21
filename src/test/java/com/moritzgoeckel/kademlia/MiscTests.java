@@ -68,7 +68,7 @@ public class MiscTests {
 
     @Test
     public void utilNodesTest() {
-        RMINodeConnection r = new RMINodeConnection("localhost", 3000);
+        RMINodeProxy r = new RMINodeProxy("localhost", 3000);
         assert(r.getAddress().equals("localhost"));
         assert(r.getPort() == 3000);
     }

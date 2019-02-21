@@ -100,7 +100,7 @@ public class Node implements INode, KademliaAPI, RMIExposedNode {
 
         if(exposeRMI) {
             exposeRMI();
-            localNode = new RMINodeConnection(address, port); //Create wrapper to use as sender
+            localNode = new RMINodeProxy(address, port); //Create wrapper to use as sender
         }
         else {
             localNode = this; //Use a direct reference as sender
@@ -240,7 +240,7 @@ public class Node implements INode, KademliaAPI, RMIExposedNode {
         INode[] output = buckets.getAllNodes().stream()
             .sorted(getDistanceComparator(targetID))
             .limit(k)
-            //.map(n -> new RMINodeConnection(n.getAddress(), n.getPort(), n.getNodeId())) // We dont need to convert it, as only remotes should be in there anyways
+            //.map(n -> new RMINodeProxy(n.getAddress(), n.getPort(), n.getNodeId())) // We dont need to convert it, as only remotes should be in there anyways
             .toArray(INode[]::new);
 
         assert output.length <= 1 || (output[0].getNodeId().getDistance(targetID).compareTo(output[output.length - 1].getNodeId().getDistance(targetID)) < 0);

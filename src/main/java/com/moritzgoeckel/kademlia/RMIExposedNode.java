@@ -4,7 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /** Interface for RMI. Do not use this interface, it throws RemoteException
- * Use RMINodeConnection class instead */
+ * Use RMINodeProxy class instead */
 interface RMIExposedNode extends Remote {
 
     /** Returns true if the node is still reachable */

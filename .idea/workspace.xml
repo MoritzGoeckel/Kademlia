@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="473b4b70-521e-4977-b557-ffe38822da4d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RMIExposedNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RMIExposedNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RMINodeConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RMINodeProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/RemoteTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/RemoteTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/MiscTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/MiscTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tex/doc.tex" beforeDir="false" afterPath="$PROJECT_DIR$/src/tex/doc.tex" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -50,8 +55,9 @@
     <session id="280357652">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="32" />
+          <entry key="project.closed" value="33" />
           <entry key="project.open.time.10" value="2" />
+          <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.17" value="2" />
           <entry key="project.open.time.18" value="2" />
           <entry key="project.open.time.19" value="6" />
@@ -65,7 +71,7 @@
           <entry key="project.open.time.31" value="1" />
           <entry key="project.open.time.32" value="1" />
           <entry key="project.open.time.4" value="3" />
-          <entry key="project.opened" value="32" />
+          <entry key="project.opened" value="33" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -97,7 +103,7 @@
         <counts>
           <entry key="dummy" value="218" />
           <entry key="iml" value="4" />
-          <entry key="java" value="29198" />
+          <entry key="java" value="29203" />
           <entry key="md" value="58" />
           <entry key="txt" value="109" />
           <entry key="xml" value="9" />
@@ -106,7 +112,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="IDEA_MODULE" value="4" />
-          <entry key="JAVA" value="29198" />
+          <entry key="JAVA" value="29203" />
           <entry key="Markdown" value="58" />
           <entry key="PLAIN_TEXT" value="327" />
           <entry key="XML" value="9" />
@@ -120,11 +126,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Node.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="69">
-              <caret line="106" column="9" selection-start-line="106" selection-start-column="9" selection-end-line="106" selection-end-column="9" />
+            <state relative-caret-position="1320">
+              <caret line="102" column="21" selection-start-line="102" selection-start-column="12" selection-end-line="102" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -141,20 +147,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RMIExposedNode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
+            <state relative-caret-position="270">
+              <caret line="19" column="18" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RMINodeConnection.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RMINodeProxy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="210">
+              <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -281,6 +287,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RemoteNode.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/MiscTests.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RMINodeConnection.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RMINodeProxy.java" />
       </list>
     </option>
   </component>
@@ -318,8 +325,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -566,6 +573,7 @@
       <workItem from="1546417265774" duration="1564000" />
       <workItem from="1546420076980" duration="1962000" />
       <workItem from="1546880735197" duration="433000" />
+      <workItem from="1550495567382" duration="103000" />
     </task>
     <task id="LOCAL-00001" summary="Added hashing, tests for hashing, basic interface and classes">
       <created>1541193559039</created>
@@ -610,7 +618,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="126677000" />
+    <option name="totallyTimeSpent" value="126780000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -624,7 +632,7 @@
   <component name="ToolWindowManager">
     <frame x="49" y="25" width="1871" height="1055" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49839228" visible="true" weight="0.24273972" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49839228" visible="true" weight="0.24547945" />
       <window_info id="Structure" order="1" sideWeight="0.5016077" side_tool="true" weight="0.24986301" />
       <window_info id="Designer" order="2" />
       <window_info id="Learn" order="3" />
@@ -637,7 +645,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32864866" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.13297297" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.13268608" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.27783784" />
@@ -978,37 +986,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Node.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="106" column="9" selection-start-line="106" selection-start-column="9" selection-end-line="106" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/moritzgoeckel/kademlia/MiscTests.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="960">
           <caret line="70" column="8" selection-start-line="70" selection-start-column="8" selection-end-line="70" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RMIExposedNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RMINodeConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1037,6 +1018,33 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="15" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RMINodeProxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/Node.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1320">
+          <caret line="102" column="21" selection-start-line="102" selection-start-column="12" selection-end-line="102" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/moritzgoeckel/kademlia/RMIExposedNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="19" column="18" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
         </state>
       </provider>
     </entry>

@@ -1,5 +1,5 @@
 import com.moritzgoeckel.kademlia.Node;
-import com.moritzgoeckel.kademlia.RMINodeConnection;
+import com.moritzgoeckel.kademlia.RMINodeProxy;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ public class RemoteTests {
     @Test
     public void twoNodesRemoteTest() {
         Node firstNode = new Node(3000, ADDRESS, 10);
-        Node secondNode = new Node(new RMINodeConnection("localhost", 3000), 3001, ADDRESS, 10);
+        Node secondNode = new Node(new RMINodeProxy("localhost", 3000), 3001, ADDRESS, 10);
 
         firstNode.setValue("Hello", "world", 1);
 
@@ -46,7 +46,7 @@ public class RemoteTests {
         Consumer<Integer> addNodes = num -> {
             for(int i = 0; i < num; i++) {
                 Node otherNode = nodes.get(R.nextInt(nodes.size()));
-                nodes.add(new Node(new RMINodeConnection(otherNode.getAddress(), otherNode.getPort()), port.getAndIncrement(), ADDRESS, 10));
+                nodes.add(new Node(new RMINodeProxy(otherNode.getAddress(), otherNode.getPort()), port.getAndIncrement(), ADDRESS, 10));
             }
         };
 
