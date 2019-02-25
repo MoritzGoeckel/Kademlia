@@ -166,15 +166,15 @@ The Kademlia implementation is mostly located within the Node class. The Node cl
 
 \begin{wrapfigure}{l}{0.7\textwidth}
     \begin{center}
-    \includegraphics[width=0.7\textwidth]{images/Node.png}
+    \includegraphics[width=0.7\textwidth]{images/architecture_2.png}
     \end{center}
     \caption{Class hierarchy}   
 \end{wrapfigure}
 
-The RMINodeProxy class handles all the network communication and the possible exceptions/errors that come with it. The only difference within the node class between the two operating modes is that the class exposes itself via RMI providing the RMIExposedNode interface to the network when in network mode. Also the class uses its RMIExposedNode reference as its sender reference object for method calls on remote nodes. In local mode, the node uses the direct "this" reference as the sender for the method calls on remote nodes and does not expose itself via RMI. There is no other difference between the operating modes, as all the procedures always only refer to the general INode interface.
+The RMINodeProxy class handles all the network communication and the possible exceptions/errors that come with it. The only difference within the node class between the two operating modes is that the class exposes itself via RMI providing the RMINode interface to the network when in network mode. Also the class uses its RMINodeProxy reference as its sender reference object for method calls on remote nodes. In local mode, the node uses the direct "this" reference as the sender for the method calls on remote nodes and does not expose itself via RMI. There is no other difference between the operating modes, as all the procedures always only refer to the general INode interface.
 
 This is only operating mode specific code fragment in the Node class. It sets the reference that is used as the "sender" argument in the method calls on remote nodes and exposes the local node to the network if necessary:
-
+\newpage
 \begin{minted}{java}
 if(exposeRMI) {
     exposeRMI();
@@ -187,7 +187,7 @@ else {
 }
 \end{minted}
 
-RMIExposedNode is the actual RMI that gets exposed and that is used within the RMINodeProxy class as the stub. The RMIExposedNode objects are wrapped in the RMINodeProxy class to make it compatible with the INode interface by handling network exceptions. The KademliaAPI interface is a simplified interface for the local user to control her node.
+RMINode is the actual RMI-Interface that gets exposed and that is used within the RMINodeProxy class as the stub. The RMINode objects are wrapped in the RMINodeProxy class to make it compatible with the INode interface by handling network exceptions. The KademliaAPI interface is a simplified interface for the local user to control her node.
 
 \subsection{Differences}
 
