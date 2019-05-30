@@ -33,3 +33,7 @@ void shutdown();
 
 boolean isShutdown();
 ```
+
+## Report
+
+Download the report and documentation here: [KademliaReport.pdf](https://github.com/MoritzGoeckel/Kademlia/raw/master/KademliaReport.pdf)
